@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Navbar from "./components/Navbar";
+import MyNavbar from "./components/Navbar";
 function App() {
   return (
-    <div className="h-screen w-screen bg-slate-700">
-      <Navbar />
+    <div>
+      <MyNavbar />
       <ToastContainer />
       <Outlet />
     </div>
