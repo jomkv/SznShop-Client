@@ -1,7 +1,6 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "./GoogleLoginButton";
-import { LOGIN_URL } from "../../constants";
 
 function Login() {
   return (
@@ -27,9 +26,7 @@ function Login() {
               <Card.Text className="fw-bold text-body-secondary">
                 “WORLD’S FINEST”
               </Card.Text>
-              <a href={LOGIN_URL}>
-                <GoogleLoginButton />
-              </a>
+              <GoogleLoginButton />
             </Card.Body>
             <Card.Header
               style={{

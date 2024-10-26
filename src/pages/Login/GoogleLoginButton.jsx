@@ -1,10 +1,15 @@
 import "./style.css";
+import { LOGIN_URL } from "../../constants";
 
-function GoogleLoginButton(...props) {
+function GoogleLoginButton() {
+  const handleClick = () => {
+    window.location.href = LOGIN_URL;
+  };
+
   return (
     <button
       className="gsi-material-button w-100 pt-4 pb-4 pe-5 ps-5 fs-6"
-      {...props}
+      onClick={handleClick}
     >
       <div className="gsi-material-button-state"></div>
       <div className="gsi-material-button-content-wrapper">
