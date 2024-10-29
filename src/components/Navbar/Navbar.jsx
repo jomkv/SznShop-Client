@@ -1,14 +1,23 @@
-import React from "react";
-import { Navbar, Container, Col, Form, Button, Row } from "react-bootstrap";
+import {
+  Navbar as BootstrapNavbar,
+  Container,
+  Col,
+  Form,
+  Button,
+  Row,
+} from "react-bootstrap";
 import "./Navbar.css";
 
-const MyNavbar = () => {
+const Navbar = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <BootstrapNavbar bg="light" expand="lg">
       <Container>
         <Row className="w-100">
           <Col lg={4} className="d-flex align-items-center fw-bold">
-            <Navbar.Brand href="#home" className="d-flex align-items-center">
+            <BootstrapNavbar.Brand
+              href="#home"
+              className="d-flex align-items-center"
+            >
               <img
                 src="public/szn-logo-3.jpg"
                 alt="Store Logo"
@@ -17,11 +26,11 @@ const MyNavbar = () => {
                 className="d-inline-block align-top rounded-circle me-2"
               />
               <span className="brand-text">SZN</span>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            </BootstrapNavbar.Brand>
+            <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
           </Col>
           <Col lg={8} className="d-flex justify-content-end align-items-center">
-            <Navbar.Collapse
+            <BootstrapNavbar.Collapse
               id="basic-navbar-nav"
               className="d-flex justify-content-end"
             >
@@ -45,12 +54,12 @@ const MyNavbar = () => {
               <Button href="#shoppingbag" variant="link" className="me-2">
                 <i className="bi bi-bag fs-5 icon-black"></i>
               </Button>
-            </Navbar.Collapse>
+            </BootstrapNavbar.Collapse>
           </Col>
         </Row>
       </Container>
-    </Navbar>
+    </BootstrapNavbar>
   );
 };
 
-export default MyNavbar;
+export default Navbar;

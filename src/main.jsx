@@ -1,35 +1,42 @@
 // * Imports
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./pages/Home/Home.jsx";
 
 // * Pages
 import App from "./App.jsx";
 import Login from "./pages/Login/Login.jsx";
-import Register from "./pages/Register/Register.jsx";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/" element={<App />}>
-        <Route index={true} path="/" element={<Home />} />
-      </Route>
-    </>
-  )
-);
+import { Home, Product } from "./pages/User/index.js";
+import {
+  Customers,
+  Dashboard,
+  Orders,
+  Overview,
+  Products,
+  Settings,
+} from "./pages/Admin/index.js";
+import AdminApp from "./AdminApp.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="product" element={<Product />} />
+        </Route>
+        <Route path="/admin" element={<AdminApp />}>
+          <Route index element={<Dashboard />} />
+          <Route path="products" element={<Products />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="overview" element={<Overview />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </Router>
   </StrictMode>
 );

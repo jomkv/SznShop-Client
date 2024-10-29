@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Navbar from "./components/Navbar/Navbar";
+import AdminNavbar from "./components/AdminNavbar/AdminNavbar";
 
-function App() {
+function AdminApp() {
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <ToastContainer />
       <Outlet />
     </div>
   );
 }
 
-export default App;
+export default AdminApp;
