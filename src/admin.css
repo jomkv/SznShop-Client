@@ -32,13 +32,6 @@ a {
   border-right: 1px solid rgba(0, 0, 0, 0.292);
 }
 
-.sidebar-item {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
 #sidebar.collapsed {
   margin-left: -264px;
 }
@@ -84,11 +77,20 @@ a.sidebar-link {
   text-decoration: none;
   transition: all 0.35s;
   display: flex;
-  width: 75%;
+  justify-content: center;
+  width: 100%;
   font-size: 1.25rem;
 }
 
-a.sidebar-link:hover {
+.link-container {
+  width: 75%;
+}
+
+.sidebar-link:hover {
+  background-color: #e5e5e5;
+}
+
+.active {
   background-color: #e5e5e5;
 }
 
