@@ -4,15 +4,15 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-h1 {
+.sidebar h1 {
   font-weight: 800;
 }
 
-li {
+.sidebar li {
   list-style: none;
 }
 
-a {
+.sidebar a {
   text-decoration: none;
 }
 
@@ -90,7 +90,7 @@ a.sidebar-link {
   background-color: #e5e5e5;
 }
 
-.active {
+.sidebar-item.active {
   background-color: #e5e5e5;
 }
 

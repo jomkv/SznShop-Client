@@ -1,0 +1,25 @@
+@import "datatables.net-bs5";
+@import "datatables.net-responsive-bs5";
+@import "datatables.net-scroller-bs5";
+
+.nav-item .nav-link {
+  color: black;
+}
+
+.nav-item .nav-link.active {
+  background-color: #212529;
+  color: white;
+  border-color: #5c5e60;
+}
+
+.nav-item .nav-link:hover {
+  border-color: #212529;
+}
+
+.nav.nav-tabs {
+  border-color: #212529;
+}
+
+table .dataTable {
+  background-color: #e5e5e5;
+}
