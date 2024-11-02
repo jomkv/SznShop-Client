@@ -4,6 +4,8 @@ import { createRoot } from "react-dom/client";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import store from "./libs/rtk/store.js";
 
 // * Pages
 import App from "./App.jsx";
@@ -18,25 +20,30 @@ import {
   Settings,
 } from "./pages/Admin/index.js";
 import AdminApp from "./AdminApp.jsx";
+import AuthProvider from "./contexts/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="product" element={<Product />} />
-        </Route>
-        <Route path="/admin" element={<AdminApp />}>
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-          <Route path="customers" element={<Customers />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="overview" element={<Overview />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<App />}>
+              <Route index element={<Home />} />
+              <Route path="product" element={<Product />} />
+            </Route>
+            <Route path="/admin" element={<AdminApp />}>
+              <Route index element={<Dashboard />} />
+              <Route path="products" element={<Products />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="overview" element={<Overview />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </Provider>
   </StrictMode>
 );
