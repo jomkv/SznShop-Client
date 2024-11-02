@@ -10,27 +10,22 @@ const AuthContext = createContext({
 });
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const { data: me, isLoading, isError } = useGetMeQuery();
+  const { data: user, isLoading, isError } = useGetMeQuery();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (me) {
-      setUser(me);
-    }
-  }, [me]);
 
   const logout = () => {
     // Implement logout logic here, including clearing the user state
-    setUser(null);
+    // make api req to clear cookie
 
     // Reset cache
     dispatch(authApiSlice.util.invalidateTags(["User", "Auth"]));
   };
 
-  const value = { user, isLoading, isError, logout };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, isLoading, isError, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 const useAuth = () => {
