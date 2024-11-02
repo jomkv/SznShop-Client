@@ -31,10 +31,14 @@ function Products() {
         className="fw-semibold m-0 p-0"
       >
         <Tab eventKey="active" title="Active">
-          {tab === "active" && <ProductsTable showmodal={handleShowModal} />}
+          {tab === "active" && (
+            <ProductsTable showmodal={handleShowModal} filter="active" />
+          )}
         </Tab>
         <Tab eventKey="inactive" title="Inactive">
-          {tab === "inactive" && <ProductsTable showmodal={handleShowModal} />}
+          {tab === "inactive" && (
+            <ProductsTable showmodal={handleShowModal} filter="inactive" />
+          )}
         </Tab>
       </Tabs>
       <CreateProductModal onHide={handleHideModal} show={showModal} />

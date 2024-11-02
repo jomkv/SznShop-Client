@@ -3,15 +3,31 @@ import DT from "datatables.net-bs5";
 import { createPortal } from "react-dom";
 import "datatables.net-responsive-bs5";
 import "datatables.net-scroller-bs5";
-
-import mockProducts from "./mockProducts";
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useLazyGetProductsAdminQuery } from "../../../libs/rtk/api/productApiSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../../../components/Spinner/Spinner";
 
-function ProductsTable({ showmodal }) {
+function ProductsTable({ showmodal, filter }) {
   const [buttonDiv, setButtonDiv] = useState(null);
+  const [getProducts, { data: products, isLoading }] =
+    useLazyGetProductsAdminQuery(filter);
+  const navigate = useNavigate();
+
+  const fetchProductsOrRedirect = async () => {
+    try {
+      await getProducts().unwrap();
+    } catch (error) {
+      navigate("/admin");
+      toast.warn("An error has occured while fetching products.");
+    }
+  };
 
   useEffect(() => {
+    fetchProductsOrRedirect();
+
     const buttonContainer = document.createElement("div");
     buttonContainer.id = "buttonContainer";
     setButtonDiv(buttonContainer);
@@ -19,14 +35,19 @@ function ProductsTable({ showmodal }) {
 
   DataTable.use(DT);
 
-  // const [tableData, setTableData] = useState([
-  //   ["Tiger Nixon", "System Architect"],
-  //   ["Garrett Winters", "Accountant"],
-  // ]);
-
   return (
     <>
-      {buttonDiv && (
+      {isLoading && (
+        <div
+          className="w-100 d-flex justify-content-center align-items-center"
+          style={{
+            height: "70vh",
+          }}
+        >
+          <Spinner large />
+        </div>
+      )}
+      {buttonDiv && !isLoading && (
         <DataTable
           className="display table table-striped compact mt-0 pt-0"
           options={{
@@ -43,6 +64,7 @@ function ProductsTable({ showmodal }) {
               topEnd: buttonDiv,
             },
             destroy: true,
+            isLoading: isLoading,
           }}
         >
           {createPortal(
@@ -67,31 +89,34 @@ function ProductsTable({ showmodal }) {
             </tr>
           </thead>
           <tbody>
-            {mockProducts.map((product, index) => (
-              <tr key={index}>
-                <td className="text-center">
-                  <img
-                    src={product.images[0].url}
-                    alt={product.name}
-                    style={{
-                      width: "5rem",
-                      height: "5rem",
-                      objectFit: "cover",
-                    }}
-                  />
-                </td>
-                <td className="text-center">{product.name}</td>
-                <td className="text-center">₱{product.price}</td>
-                <td className="text-center">10</td>
-                <td className="text-center">
-                  <button className="btn btn-primary">View</button>
-                </td>
-                <td className="text-center">
-                  <button className="btn btn-warning">Edit</button>
-                  <button className="btn btn-danger">Delete</button>
-                </td>
-              </tr>
-            ))}
+            {!isLoading &&
+              products &&
+              products[filter] &&
+              products[filter].map((product, index) => (
+                <tr key={index}>
+                  <td className="text-center">
+                    <img
+                      src={product.images[0].url}
+                      alt={product.name}
+                      style={{
+                        width: "5rem",
+                        height: "5rem",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </td>
+                  <td className="text-center">{product.name}</td>
+                  <td className="text-center">₱{product.price}</td>
+                  <td className="text-center">10</td>
+                  <td className="text-center">
+                    <button className="btn btn-primary">View</button>
+                  </td>
+                  <td className="text-center">
+                    <button className="btn btn-warning">Edit</button>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </DataTable>
       )}

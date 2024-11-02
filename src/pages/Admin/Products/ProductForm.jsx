@@ -152,7 +152,7 @@ const ProductForm = ({ onSubmit, hideModal }) => {
 
     let payload = new FormData();
 
-    payload.append("name", data.title);
+    payload.append("name", data.name);
     payload.append("price", data.price);
     payload.append("description", data.description);
 
