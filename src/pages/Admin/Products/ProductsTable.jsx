@@ -8,7 +8,7 @@ import mockProducts from "./mockProducts";
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
-function ProductsTable() {
+function ProductsTable({ showmodal }) {
   const [buttonDiv, setButtonDiv] = useState(null);
 
   useEffect(() => {
@@ -49,6 +49,7 @@ function ProductsTable() {
             <Button
               className="d-flex align-items-center p-0 ps-2 pe-3"
               variant="dark"
+              onClick={() => showmodal()}
             >
               <i className="bi bi-plus fs-3 m-0 p-0" />
               <p className="fs-6 m-0">Create Product</p>

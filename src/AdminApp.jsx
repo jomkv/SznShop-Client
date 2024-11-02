@@ -16,7 +16,7 @@ function AdminApp() {
   useEffect(() => {
     if (isLoading) return;
 
-    if (user === null) {
+    if (!user) {
       navigate("/login");
       return;
     }
