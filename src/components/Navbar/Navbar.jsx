@@ -51,7 +51,7 @@ const Navbar = () => {
               <Button href="#FAQ" variant="link" className="me-2">
                 <i className="bi bi-question-circle fs-5 icon-black"></i>
               </Button>
-              <Button href="#shoppingbag" variant="link" className="me-2">
+              <Button href="/cart" variant="link" className="me-2">
                 <i className="bi bi-bag fs-5 icon-black"></i>
               </Button>
             </BootstrapNavbar.Collapse>
