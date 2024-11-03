@@ -18,10 +18,11 @@ const schema = z.object({
     .number({ message: "Price must be a number" })
     .min(0.01, "Price is too low")
     .max(999999.99, "Price is too high"),
+  active: z.boolean().optional(),
   images: z.any().optional(),
 });
 
-const ProductForm = ({ onSubmit, hideModal }) => {
+const ProductForm = ({ onSubmit, hideModal, defaultValues }) => {
   const [isNoImage, setIsNoImage] = useState(true);
   const [images, setImages] = useState([]);
   const [isImageChange, setIsImageChange] = useState(false);
@@ -30,9 +31,10 @@ const ProductForm = ({ onSubmit, hideModal }) => {
 
   const form = useForm({
     defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
+      name: defaultValues?.name || "",
+      description: defaultValues?.description || "",
+      price: defaultValues?.price || 0,
+      active: defaultValues?.active || false,
       images: [],
     },
     resolver: zodResolver(schema),
@@ -88,32 +90,32 @@ const ProductForm = ({ onSubmit, hideModal }) => {
     }
   };
 
-  // const getImageFile = async (url) => {
-  //   const fileName = url.split("/").slice(-1)[0].split(".")[0];
-  //   const fileExt = url.split("/").slice(-1)[0].split(".")[1];
+  const getImageFile = async (url) => {
+    const fileName = url.split("/").slice(-1)[0].split(".")[0];
+    const fileExt = url.split("/").slice(-1)[0].split(".")[1];
 
-  //   const response = await fetch(url);
-  //   const blob = await response.blob();
-  //   const file = new File([blob], fileName + fileExt, {
-  //     type: blob.type,
-  //   });
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const file = new File([blob], fileName + fileExt, {
+      type: blob.type,
+    });
 
-  //   return file;
-  // };
+    return file;
+  };
 
-  // const populateImages = async () => {
-  //   if (defaultValues?.images) {
-  //     // Set images from cloudinary to default values
-  //     const cloudImages = await Promise.all(
-  //       defaultValues.images.map((image) => getImageFile(image.url))
-  //     );
-  //     setImages(cloudImages);
-  //   }
-  // };
+  const populateImages = async () => {
+    if (defaultValues?.images) {
+      // Set images from cloudinary to default values
+      const cloudImages = await Promise.all(
+        defaultValues.images.map((image) => getImageFile(image.url))
+      );
+      setImages(cloudImages);
+    }
+  };
 
-  // useEffect(() => {
-  //   populateImages();
-  // }, []);
+  useEffect(() => {
+    populateImages();
+  }, []);
 
   const onFileSelect = (event) => {
     const files = event.target.files;
@@ -149,12 +151,13 @@ const ProductForm = ({ onSubmit, hideModal }) => {
     if (isNoImage) {
       return;
     }
-
     let payload = new FormData();
 
     payload.append("name", data.name);
     payload.append("price", data.price);
     payload.append("description", data.description);
+    payload.append("active", data.active || false);
+    payload.append("isImageChange", isImageChange.toString());
 
     for (let i = 0; i < images.length; i++) {
       payload.append("images", images[i]);
@@ -212,6 +215,12 @@ const ProductForm = ({ onSubmit, hideModal }) => {
             {errors.description?.message}
           </Form.Control.Feedback>
         </Form.Group>
+        <Form.Check
+          label="Show product in store"
+          className="fs-5 mb-3"
+          type="switch"
+          {...register("active")}
+        />
         <Form.Group className="mb-3">
           <Form.Label className="fs-5 fw-medium">Images</Form.Label>
           <div

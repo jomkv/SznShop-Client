@@ -18,12 +18,27 @@ export const productApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response) => response.products,
-      invalidatesTags: [{ type: "Product" }],
+    }),
+    getProduct: builder.query({
+      query: (productId) => ({
+        url: `/product/home/${productId}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => response.product,
     }),
     createProduct: builder.mutation({
       query: (formData) => ({
         url: "/product",
         method: "POST",
+        body: formData,
+        formData: true,
+      }),
+      invalidatesTags: [{ type: "Product" }],
+    }),
+    editProduct: builder.mutation({
+      query: (productId, formData) => ({
+        url: `/product/${productId}`,
+        method: "PUT",
         body: formData,
         formData: true,
       }),
@@ -44,6 +59,8 @@ export const {
   useLazyGetProductsAdminQuery,
   useGetProductsHomeQuery,
   useLazyGetProductsHomeQuery,
+  useGetProductQuery,
   useCreateProductMutation,
+  useEditProductMutation,
   useDeleteProductMutation,
 } = productApiSlice;

@@ -9,6 +9,8 @@ import { useLazyGetProductsAdminQuery } from "../../../libs/rtk/api/productApiSl
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../../../components/Spinner/Spinner";
+import ActionsButton from "./ActionsButton";
+import StocksButton from "./StocksButton";
 
 function ProductsTable({ showmodal, filter }) {
   const [buttonDiv, setButtonDiv] = useState(null);
@@ -65,6 +67,14 @@ function ProductsTable({ showmodal, filter }) {
             },
             destroy: true,
             isLoading: isLoading,
+            columnDefs: [
+              {
+                orderable: false,
+                searchable: false,
+                targets: [0, 3, 4],
+              },
+              {},
+            ],
           }}
         >
           {createPortal(
@@ -83,8 +93,7 @@ function ProductsTable({ showmodal, filter }) {
               <th className="text-center">Image</th>
               <th className="text-center">Name</th>
               <th className="text-center">Price</th>
-              <th className="text-center">Stocks</th>
-              <th className="text-center">View</th>
+              <th className="text-center">Manage Stocks</th>
               <th className="text-center">Actions</th>
             </tr>
           </thead>
@@ -107,13 +116,11 @@ function ProductsTable({ showmodal, filter }) {
                   </td>
                   <td className="text-center">{product.name}</td>
                   <td className="text-center">₱{product.price}</td>
-                  <td className="text-center">10</td>
                   <td className="text-center">
-                    <button className="btn btn-primary">View</button>
+                    <StocksButton />
                   </td>
                   <td className="text-center">
-                    <button className="btn btn-warning">Edit</button>
-                    <button className="btn btn-danger">Delete</button>
+                    <ActionsButton product={product} />
                   </td>
                 </tr>
               ))}
