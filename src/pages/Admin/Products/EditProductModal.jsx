@@ -2,18 +2,17 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ProductForm from "./ProductForm";
 import Spinner from "../../../components/Spinner/Spinner";
-import { useCreateProductMutation } from "../../../libs/rtk/api/productApiSlice";
+import { useEditProductMutation } from "../../../libs/rtk/api/productApiSlice";
 import { toast } from "react-toastify";
 
 function EditProductModal(props) {
-  const [createProduct, { isLoading }] = useCreateProductMutation();
+  const [editProduct, { isLoading }] = useEditProductMutation();
 
   const handleSubmit = async (formData) => {
     try {
-      // await createProduct(formData).unwrap();
+      await editProduct({ productId: props.product._id, formData }).unwrap();
       toast.success("Product updated successfully");
     } catch (error) {
-      console.log(error);
       toast.warn("An error has occurred while updating the product");
     }
   };
