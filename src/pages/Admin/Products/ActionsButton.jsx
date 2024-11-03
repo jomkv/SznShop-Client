@@ -2,11 +2,27 @@ import { Button, Dropdown, DropdownButton, Modal } from "react-bootstrap";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useState } from "react";
 import EditProductModal from "./EditProductModal";
+import { useDeleteProductMutation } from "../../../libs/rtk/api/productApiSlice";
+import Spinner from "../../../components/Spinner/Spinner";
+import { toast } from "react-toastify";
 
 function ActionsButton({ product }) {
   const [showPreview, setShowPreview] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+
+  const handleDelete = async () => {
+    try {
+      await deleteProduct(product._id).unwrap();
+      setShowDelete(false);
+      toast.success("Product deleted successfully");
+    } catch (error) {
+      setShowDelete(false);
+      toast.warn("An error has occurred while deleting the product");
+    }
+  };
 
   const PreviewModal = (props) => {
     return (
@@ -45,8 +61,15 @@ function ActionsButton({ product }) {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" className="fw-semibold">
-            Yes, delete
+          <Button
+            disabled={isLoading}
+            onClick={() => {
+              handleDelete();
+            }}
+            variant="danger"
+            className="fw-semibold"
+          >
+            {isLoading ? <Spinner /> : "Yes, delete"}
           </Button>
           <Button variant="secondary">Cancel</Button>
         </Modal.Footer>
