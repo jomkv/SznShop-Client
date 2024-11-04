@@ -7,3 +7,13 @@
   max-height: 400px; /* Adjust the height as needed */
   overflow-y: auto;
 }
+
+.data-table-wrapper {
+  position: relative;
+}
+
+.data-table-wrapper .rdt_TableHead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

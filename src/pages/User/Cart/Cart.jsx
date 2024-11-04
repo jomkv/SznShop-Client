@@ -29,32 +29,28 @@ const Cart = () => {
         "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
     },
     {
-      name: "Sample Product 3",
-      quantity: 1,
-      price: 20.0,
-      total: 20.0,
-      image: "https://via.placeholder.com/100",
+      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
+      quantity: 3,
+      price: 15.0,
+      total: 45.0,
+      image:
+        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
     },
     {
-      name: "Sample Product 4",
-      quantity: 1,
-      price: 25.0,
-      total: 25.0,
-      image: "https://via.placeholder.com/100",
+      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
+      quantity: 4,
+      price: 15.0,
+      total: 60.0,
+      image:
+        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
     },
     {
-      name: "Sample Product 5",
-      quantity: 1,
-      price: 30.0,
-      total: 30.0,
-      image: "https://via.placeholder.com/100",
-    },
-    {
-      name: "Sample Product 6",
-      quantity: 1,
-      price: 35.0,
-      total: 35.0,
-      image: "https://via.placeholder.com/100",
+      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
+      quantity: 5,
+      price: 15.0,
+      total: 75.0,
+      image:
+        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
     },
   ]);
 
@@ -137,6 +133,8 @@ const Cart = () => {
               striped
               bordered
               hover
+              fixedHeader
+              fixedHeaderScrollHeight="400px"
             />
           </div>
         </Col>
