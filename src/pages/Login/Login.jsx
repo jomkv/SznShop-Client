@@ -1,9 +1,35 @@
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleLoginButton from "./GoogleLoginButton";
 import ToastContainer from "../../components/ToastContainer/ToastContainer";
+import { useAuth } from "../../contexts/AuthContext";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Login() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const redirectIfLoggedIn = () => {
+    if (!user) return;
+
+    if (user.role === "admin") {
+      toast.info("You are already logged in");
+      navigate("/admin");
+    } else {
+      toast.info("You are already logged in");
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    redirectIfLoggedIn();
+  }, []);
+
+  useEffect(() => {
+    redirectIfLoggedIn();
+  }, [user]);
+
   return (
     <div style={{ height: "100vh", width: "100vw", backgroundColor: "black" }}>
       <div className="w-100 h-100 d-flex justify-content-evenly align-items-center ">
