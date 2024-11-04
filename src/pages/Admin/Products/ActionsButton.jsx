@@ -71,7 +71,14 @@ function ActionsButton({ product }) {
           >
             {isLoading ? <Spinner /> : "Yes, delete"}
           </Button>
-          <Button variant="secondary">Cancel</Button>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowDelete(false);
+            }}
+          >
+            Cancel
+          </Button>
         </Modal.Footer>
       </Modal>
     );
