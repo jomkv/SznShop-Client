@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "./GoogleLoginButton";
+import ToastContainer from "../../components/ToastContainer/ToastContainer";
 
 function Login() {
   return (
@@ -43,6 +44,7 @@ function Login() {
           </Card>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

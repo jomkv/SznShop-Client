@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { authApiSlice, useGetMeQuery } from "../libs/rtk/api/authApiSlice";
 import { useDispatch } from "react-redux";
 

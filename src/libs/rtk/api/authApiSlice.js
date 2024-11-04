@@ -1,7 +1,22 @@
 import apiSlice from "../apiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
+  tagTypes: ["Auth"],
   endpoints: (builder) => ({
+    login: builder.mutation({
+      query: () => ({
+        url: "/auth/login",
+        method: "GET",
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+      invalidatesTags: ["Auth"],
+    }),
     getMe: builder.query({
       query: () => ({
         url: "/auth/me",
@@ -14,4 +29,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetMeQuery, useLazyGetMeQuery } = authApiSlice;
+export const {
+  useGetMeQuery,
+  useLazyGetMeQuery,
+  useLogoutMutation,
+  useLoginMutation,
+} = authApiSlice;
