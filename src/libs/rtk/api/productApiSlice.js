@@ -51,6 +51,21 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Product" }],
     }),
+    getStocks: builder.query({
+      query: (productId) => ({
+        url: `/product/${productId}/stocks`,
+        method: "GET",
+      }),
+      transformResponse: (response) => response.stocks,
+    }),
+    editStocks: builder.mutation({
+      query: (data) => ({
+        url: `/product/${data.productId}/stocks`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: [{ type: "Product" }],
+    }),
   }),
 });
 
@@ -63,4 +78,6 @@ export const {
   useCreateProductMutation,
   useEditProductMutation,
   useDeleteProductMutation,
+  useGetProductsQuery,
+  useEditStocksMutation,
 } = productApiSlice;

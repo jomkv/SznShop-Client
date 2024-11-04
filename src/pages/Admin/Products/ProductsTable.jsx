@@ -117,7 +117,7 @@ function ProductsTable({ showmodal, filter }) {
                   <td className="text-center">{product.name}</td>
                   <td className="text-center">₱{product.price}</td>
                   <td className="text-center">
-                    <StocksButton />
+                    <StocksButton stocks={product.stocks} />
                   </td>
                   <td className="text-center">
                     <ActionsButton product={product} />
