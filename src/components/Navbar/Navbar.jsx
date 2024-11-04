@@ -1,21 +1,49 @@
 import {
   Navbar as BootstrapNavbar,
   Container,
-  Col,
   Form,
   Button,
-  Row,
+  Nav,
+  Offcanvas,
+  NavDropdown,
 } from "react-bootstrap";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <BootstrapNavbar bg="light" expand="lg">
+    <BootstrapNavbar
+      sticky="top"
+      expand="md"
+      bg="light"
+      className="mb-3 border-bottom border-black"
+      style={{ "--bs-border-opacity": ".2" }}
+    >
       <Container>
-        <Row className="w-100">
-          <Col lg={4} className="d-flex align-items-center fw-bold">
-            <BootstrapNavbar.Brand
-              href="#home"
+        <BootstrapNavbar.Brand>
+          <Link
+            className="d-fle justify-content-center align-items-center text-decoration-none text-black"
+            to="/"
+          >
+            <img
+              src="public/szn-logo-3.jpg"
+              alt="Store Logo"
+              width="30"
+              height="30"
+              className="d-inline-block align-top rounded-circle me-2"
+            />
+            <span className="brand-text">SZN</span>
+          </Link>
+        </BootstrapNavbar.Brand>
+        <BootstrapNavbar.Toggle aria-controls="homeNav" />
+        <BootstrapNavbar.Offcanvas
+          id="homeNav"
+          aria-labelledby="homeNavLabel"
+          placement="end"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title
+              id="homeNavLabel"
               className="d-flex align-items-center"
             >
               <img
@@ -26,37 +54,42 @@ const Navbar = () => {
                 className="d-inline-block align-top rounded-circle me-2"
               />
               <span className="brand-text">SZN</span>
-            </BootstrapNavbar.Brand>
-            <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-          </Col>
-          <Col lg={8} className="d-flex justify-content-end align-items-center">
-            <BootstrapNavbar.Collapse
-              id="basic-navbar-nav"
-              className="d-flex justify-content-end"
-            >
-              <Form className="d-flex me-3">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button href="#search" variant="link" className="me-2">
-                  <i className="bi bi-search fs-5 icon-black"></i>
-                </Button>
-              </Form>
-              <Button href="#profile" variant="link" className="me-2">
-                <i className="bi bi-person fs-5 icon-black"></i>
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="justify-content-end flex-grow-1 pe-3">
+              <NavDropdown
+                title={<i className="bi bi-person fs-5 icon-black" />}
+                id="profileDropdown"
+                className="me-2"
+              >
+                <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Item className="d-flex align-items-center me-3">
+                <Link to="#">
+                  <i className="bi bi-question-circle fs-5 icon-black" />
+                </Link>
+              </Nav.Item>
+              <Nav.Item className="d-flex align-items-center me-1">
+                <Link to="/cart" className="p-0 m-0">
+                  <i className="bi bi-bag fs-5 icon-black" />
+                </Link>
+              </Nav.Item>
+            </Nav>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button href="#search" variant="link">
+                <i className="bi bi-search fs-5 icon-black"></i>
               </Button>
-              <Button href="#FAQ" variant="link" className="me-2">
-                <i className="bi bi-question-circle fs-5 icon-black"></i>
-              </Button>
-              <Button href="/cart" variant="link" className="me-2">
-                <i className="bi bi-bag fs-5 icon-black"></i>
-              </Button>
-            </BootstrapNavbar.Collapse>
-          </Col>
-        </Row>
+            </Form>
+          </Offcanvas.Body>
+        </BootstrapNavbar.Offcanvas>
       </Container>
     </BootstrapNavbar>
   );
