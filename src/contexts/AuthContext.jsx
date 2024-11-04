@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import { authApiSlice, useGetMeQuery } from "../libs/rtk/api/authApiSlice";
+import { createContext, useContext, useEffect, useState } from "react";
+import { authApiSlice, useLazyGetMeQuery } from "../libs/rtk/api/authApiSlice";
 import { useDispatch } from "react-redux";
 
 const AuthContext = createContext({
@@ -10,19 +10,34 @@ const AuthContext = createContext({
 });
 
 const AuthProvider = ({ children }) => {
-  const { data: user, isLoading, isError } = useGetMeQuery();
+  const [user, setUser] = useState(null);
+  const [getMe, { isLoading, isError, isSuccess }] = useLazyGetMeQuery();
   const dispatch = useDispatch();
 
+  const fetchMe = async () => {
+    try {
+      const user = await getMe().unwrap();
+      setUser(user);
+    } catch (error) {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchMe();
+  }, []);
+
   const logout = () => {
-    // Implement logout logic here, including clearing the user state
-    // make api req to clear cookie
+    setUser(null);
 
     // Reset cache
     dispatch(authApiSlice.util.invalidateTags(["User", "Auth"]));
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, isError, logout }}>
+    <AuthContext.Provider
+      value={{ user, isLoading, isError, isSuccess, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -11,10 +11,10 @@ import { toast } from "react-toastify";
 function AdminApp() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, isSuccess, isError } = useAuth();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (!isSuccess) return;
 
     if (!user) {
       navigate("/login");
@@ -26,7 +26,14 @@ function AdminApp() {
       toast.warn("You are not authorized to access this page");
       return;
     }
-  }, [user, isLoading, navigate]);
+  }, [user, isSuccess, navigate]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+      toast.warn("Something went wrong, please try again later.");
+    }
+  }, [isError, navigate]);
 
   return (
     <>
