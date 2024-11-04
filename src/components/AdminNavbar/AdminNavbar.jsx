@@ -1,25 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useLogoutMutation } from "../../libs/rtk/api/authApiSlice";
-import { toast } from "react-toastify";
-import { Button, Modal } from "react-bootstrap";
-import Spinner from "../Spinner/Spinner";
+import { Link } from "react-router-dom";
+import LogoutModal from "../LogoutModal/LogoutModal";
 
 function AdminNavbar({ collapsed }) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState("dashboard");
-  const [logout, { isLoading }] = useLogoutMutation();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await logout().unwrap();
-      navigate("/login");
-      toast.success("Logged out");
-    } catch (error) {
-      toast.warn("Something went wrong, please try again later.");
-    }
-  };
 
   return (
     <>
@@ -152,37 +137,7 @@ function AdminNavbar({ collapsed }) {
           </Link>
         </div>
       </aside>
-      <Modal
-        centered
-        onHide={() => {
-          setShowLogoutModal(false);
-        }}
-        show={showLogoutModal}
-      >
-        <Modal.Header closeButton />
-        <Modal.Body className="fs-5">
-          Are you sure you want to logout?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            disabled={isLoading}
-            onClick={handleLogout}
-            variant="dark"
-            className="fw-semibold"
-          >
-            {isLoading ? <Spinner /> : "Yes, logout"}
-          </Button>
-          <Button
-            variant="secondary"
-            className="fw-semibold"
-            onClick={() => {
-              setShowLogoutModal(false);
-            }}
-          >
-            No
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <LogoutModal show={showLogoutModal} setShow={setShowLogoutModal} />
     </>
   );
 }
