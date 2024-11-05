@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import AdminNavbar from "./components/AdminNavbar/AdminNavbar";
 import { useAuth } from "./contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Spinner from "./components/Spinner/Spinner";
 import { toast } from "react-toastify";
+import LoadingSreen from "./components/LoadingScreen/LoadingSreen";
 
 function AdminApp() {
   const [collapsed, setCollapsed] = useState(false);
@@ -38,7 +38,7 @@ function AdminApp() {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <LoadingSreen />
       ) : (
         <div className="d-flex">
           <AdminNavbar collapsed={collapsed} />
