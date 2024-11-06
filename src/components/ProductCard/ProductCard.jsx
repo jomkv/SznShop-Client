@@ -8,10 +8,10 @@ const mockData = {
 
 const ProductCard = ({ product }) => {
   return (
-    <Card style={{ width: "22rem" }}>
+    <Card style={{ width: "20rem" }} className="flex-shrink-0 flex-lg-shrink-1">
       <Card.Img
         variant="top"
-        style={{ height: "27rem", objectFit: "cover" }}
+        style={{ height: "24rem", objectFit: "cover" }}
         src={
           product
             ? product.images[0].url
