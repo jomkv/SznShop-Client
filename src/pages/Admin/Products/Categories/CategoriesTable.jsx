@@ -20,16 +20,19 @@ function CategoriesTable() {
     {
       name: "Category Name",
       sortable: true,
+      selector: (row) => row.name,
       cell: (row) => <div className="fs-5">{row.name}</div>,
     },
     {
       name: "Product Count",
       sortable: true,
+      selector: (row) => row.productCount,
       cell: (row) => <div className="fs-5">{row.productCount}</div>,
     },
     {
       name: "Show at Home",
       sortable: true,
+      selector: (row) => row.showInMenu,
       cell: (row) => <div className="fs-5">{row.showInMenu.toString()}</div>,
     },
     {
