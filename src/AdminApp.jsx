@@ -13,7 +13,7 @@ function AdminApp() {
   const navigate = useNavigate();
   const { user, isLoading, isSuccess, isError } = useAuth();
 
-  useEffect(() => {
+  const validateUser = () => {
     if (!isSuccess) return;
 
     if (!user) {
@@ -26,7 +26,15 @@ function AdminApp() {
       toast.warn("You are not authorized to access this page");
       return;
     }
+  };
+
+  useEffect(() => {
+    validateUser();
   }, [user, isSuccess, navigate]);
+
+  useEffect(() => {
+    validateUser();
+  }, []);
 
   useEffect(() => {
     if (isError) {

@@ -3,6 +3,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import "./Products.css";
 import ProductsTable from "./ProductsTable";
 import CreateProductModal from "./CreateProductModal";
+import CategoriesTable from "./Categories/CategoriesTable";
 
 function Products() {
   const [tab, setTab] = useState("active");
@@ -30,15 +31,18 @@ function Products() {
         onSelect={(k) => setTab(k)}
         className="fw-semibold m-0 p-0"
       >
-        <Tab eventKey="active" title="Active">
+        <Tab eventKey="active" title="Listed Products">
           {tab === "active" && (
             <ProductsTable showmodal={handleShowModal} filter="active" />
           )}
         </Tab>
-        <Tab eventKey="inactive" title="Inactive">
+        <Tab eventKey="inactive" title="Unlisted Products">
           {tab === "inactive" && (
             <ProductsTable showmodal={handleShowModal} filter="inactive" />
           )}
+        </Tab>
+        <Tab eventKey="categories" title="Categories">
+          {tab === "categories" && <CategoriesTable />}
         </Tab>
       </Tabs>
       <CreateProductModal onHide={handleHideModal} show={showModal} />

@@ -9,15 +9,31 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response) => response.categories,
+      providesTags: [{ type: "Category" }],
     }),
     getCategoryProducts: builder.query({
       query: (categoryId) => ({
         url: `/category/${categoryId}`,
         method: "GET",
       }),
+      transformResponse: (response) => response.productIds,
+      providesTags: (result, error, categoryId) => [
+        { type: "Category", id: categoryId },
+      ],
+    }),
+    editCategoryProducts: builder.mutation({
+      query: ({ categoryId, productIds }) => ({
+        url: `/category/${categoryId}`,
+        method: "PUT",
+        body: { productIds },
+      }),
+      invalidatesTags: [{ type: "Category" }],
     }),
   }),
 });
 
-export const { useGetAllCategoriesQuery, useGetCategoryProductsQuery } =
-  categoryApiSlice;
+export const {
+  useGetAllCategoriesQuery,
+  useGetCategoryProductsQuery,
+  useEditCategoryProductsMutation,
+} = categoryApiSlice;
