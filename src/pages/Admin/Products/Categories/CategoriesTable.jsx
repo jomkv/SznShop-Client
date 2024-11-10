@@ -5,6 +5,7 @@ import { useGetAllCategoriesQuery } from "../../../../libs/rtk/api/categoryApiSl
 import Spinner from "../../../../components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Button } from "react-bootstrap";
 
 function CategoriesTable() {
   const [showModal, setShowModal] = useState(false);
@@ -76,12 +77,24 @@ function CategoriesTable() {
         </div>
       )}
       {isSuccess && categories && (
-        <DataTable
-          columns={columns}
-          data={categories}
-          striped
-          sortable={true}
-        />
+        <>
+          <div className="w-100 d-flex justify-content-end mt-2 mb-2">
+            <Button
+              className="d-flex align-items-center p-0 ps-2 pe-3"
+              variant="dark"
+            >
+              <i className="bi bi-plus fs-3 m-0 p-0" />
+              <p className="fs-6 m-0">Create Category</p>
+            </Button>
+          </div>
+          <DataTable
+            columns={columns}
+            data={categories}
+            striped
+            sortable={true}
+            highlightOnHover
+          />
+        </>
       )}
       {selectedId && (
         <EditCategoryProductsModal
