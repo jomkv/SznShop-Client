@@ -123,6 +123,8 @@ function EditCategoryProductsModal({ categoryId, ...props }) {
             data={products.all}
             fixedHeader={true}
             fixedHeaderScrollHeight="60vh"
+            highlightOnHover
+            striped
           />
         )}
       </Modal.Body>

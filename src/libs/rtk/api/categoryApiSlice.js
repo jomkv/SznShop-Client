@@ -29,6 +29,14 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Category" }],
     }),
+    createCategory: builder.mutation({
+      query: (formData) => ({
+        url: "/category",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: [{ type: "Category" }],
+    }),
   }),
 });
 
@@ -36,4 +44,5 @@ export const {
   useGetAllCategoriesQuery,
   useGetCategoryProductsQuery,
   useEditCategoryProductsMutation,
+  useCreateCategoryMutation,
 } = categoryApiSlice;

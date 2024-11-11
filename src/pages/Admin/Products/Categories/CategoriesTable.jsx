@@ -6,9 +6,11 @@ import Spinner from "../../../../components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
+import CreateCategoryModal from "./CreateCategoryModal";
 
 function CategoriesTable() {
   const [showModal, setShowModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const navigate = useNavigate();
 
@@ -82,6 +84,7 @@ function CategoriesTable() {
             <Button
               className="d-flex align-items-center p-0 ps-2 pe-3"
               variant="dark"
+              onClick={() => setShowCreateModal(true)}
             >
               <i className="bi bi-plus fs-3 m-0 p-0" />
               <p className="fs-6 m-0">Create Category</p>
@@ -105,6 +108,10 @@ function CategoriesTable() {
           categoryId={selectedId}
         />
       )}
+      <CreateCategoryModal
+        show={showCreateModal}
+        onHide={() => setShowCreateModal(false)}
+      />
     </>
   );
 }
