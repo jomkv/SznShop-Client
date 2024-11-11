@@ -10,7 +10,15 @@ import store from "./libs/rtk/store.js";
 // * Pages
 import App from "./App.jsx";
 import Login from "./pages/Login/Login.jsx";
-import { Cart, Home, Product } from "./pages/User/index.js";
+import {
+  Cart,
+  Home,
+  Product,
+  Address,
+  Profile,
+  UsersOrders,
+  Settings as UserSettings,
+} from "./pages/User/index.js";
 import {
   Customers,
   Dashboard,
@@ -33,6 +41,10 @@ createRoot(document.getElementById("root")).render(
               <Route index element={<Home />} />
               <Route path="product" element={<Product />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="address" element={<Address />} />
+              <Route path="usersorders" element={<UsersOrders />} />
+              <Route path="settings" element={<UserSettings />} />
             </Route>
             <Route path="/admin" element={<AdminApp />}>
               <Route index element={<Dashboard />} />

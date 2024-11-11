@@ -73,7 +73,7 @@ const Navbar = () => {
                 >
                   {user ? (
                     <>
-                      <NavDropdown.Item href="#profile">
+                      <NavDropdown.Item href="/settings">
                         Profile
                       </NavDropdown.Item>
                       <NavDropdown.Item
