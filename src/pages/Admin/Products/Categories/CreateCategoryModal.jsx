@@ -14,10 +14,12 @@ const schema = z.object({
     .string()
     .min(3, "Category Name must be atleast 3 characters long")
     .max(255, "Category Name must not exceed 255 characters"),
+  showInMenu: z.boolean(),
 });
 
 function CreateCategoryModal(props) {
-  const [createCategory, { isSubmitting }] = useCreateCategoryMutation();
+  const [createCategory, { isLoading: isSubmitting }] =
+    useCreateCategoryMutation();
   const { data: products, isLoading, isError } = useGetProductsAdminQuery();
   const [productIds, setProductIds] = useState([]);
 

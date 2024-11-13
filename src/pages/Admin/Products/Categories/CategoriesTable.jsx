@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import EditCategoryProductsModal from "./EditCategoryProductsModal";
 import { useGetAllCategoriesQuery } from "../../../../libs/rtk/api/categoryApiSlice";
 import Spinner from "../../../../components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
 import CreateCategoryModal from "./CreateCategoryModal";
+import CategoryActionsButton from "./CategoryActionsButton";
 
 function CategoriesTable() {
   const [showModal, setShowModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
   const navigate = useNavigate();
-
-  const handleShowModal = (id) => {
-    setSelectedId(id);
-    setShowModal(true);
-  };
 
   const columns = [
     {
@@ -42,12 +36,13 @@ function CategoriesTable() {
       name: "Actions",
       sortable: false,
       cell: (row) => (
-        <button
-          className="btn btn-dark fw-bold fs-5"
-          onClick={() => handleShowModal(row._id)}
-        >
-          Edit
-        </button>
+        <CategoryActionsButton
+          show={showModal}
+          onHide={() => {
+            setShowModal(false);
+          }}
+          category={row}
+        />
       ),
     },
   ];
@@ -98,15 +93,6 @@ function CategoriesTable() {
             highlightOnHover
           />
         </>
-      )}
-      {selectedId && (
-        <EditCategoryProductsModal
-          show={showModal}
-          onHide={() => {
-            setShowModal(false);
-          }}
-          categoryId={selectedId}
-        />
       )}
       <CreateCategoryModal
         show={showCreateModal}

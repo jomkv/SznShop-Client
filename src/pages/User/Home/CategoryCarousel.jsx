@@ -1,16 +1,21 @@
-import { Button, Carousel, Col, Row } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useRef } from "react";
+import "./Carousel.css";
 
 function CategoryCarousel({ categoryName, products }) {
   const carouselRef = useRef(null);
 
   const handleNext = () => {
-    carouselRef.current.next();
+    if (carouselRef.current) {
+      carouselRef.current.next();
+    }
   };
 
   const handlePrev = () => {
-    carouselRef.current.prev();
+    if (carouselRef.current) {
+      carouselRef.current.prev();
+    }
   };
 
   return (
@@ -33,6 +38,7 @@ function CategoryCarousel({ categoryName, products }) {
         indicators={false}
         controls={false}
         ref={carouselRef}
+        slide={false}
       >
         <Carousel.Item className="d-flex justify-content-between align-items-center ">
           <ProductCard />
@@ -40,7 +46,6 @@ function CategoryCarousel({ categoryName, products }) {
           <ProductCard />
         </Carousel.Item>
         <Carousel.Item className="d-flex justify-content-between align-items-center  ">
-          <ProductCard />
           <ProductCard />
           <ProductCard />
         </Carousel.Item>

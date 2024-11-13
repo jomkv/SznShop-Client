@@ -9,13 +9,14 @@ import { toast } from "react-toastify";
 import { useGetProductsAdminQuery } from "../../../../libs/rtk/api/productApiSlice";
 import Spinner from "../../../../components/Spinner/Spinner";
 
-function EditCategoryProductsModal({ categoryId, ...props }) {
+function EditCategoryProductsModal({ category, ...props }) {
   const {
     data: productIds,
     isLoading,
     isError,
+    error,
     isSuccess,
-  } = useGetCategoryProductsQuery(categoryId);
+  } = useGetCategoryProductsQuery(category._id);
 
   const {
     data: products,
@@ -32,6 +33,7 @@ function EditCategoryProductsModal({ categoryId, ...props }) {
   useEffect(() => {
     if (isError || isProductsError) {
       props.onHide();
+      console.log(error);
       toast.warn("An error has occured while fetching category products.");
     }
   }, [isError, isProductsError]);
@@ -45,7 +47,7 @@ function EditCategoryProductsModal({ categoryId, ...props }) {
   const handleSaveChanges = async () => {
     try {
       await editCategoryProducts({
-        categoryId,
+        categoryId: category._id,
         productIds: includedProductIds,
       }).unwrap();
       props.onHide();
@@ -110,7 +112,7 @@ function EditCategoryProductsModal({ categoryId, ...props }) {
 
   return (
     <Modal {...props} centered size="lg">
-      <Modal.Header closeButton>SZN ONE Products</Modal.Header>
+      <Modal.Header closeButton>{category.name} Products</Modal.Header>
       <Modal.Body className="fs-5">
         {(isLoading || isProductsLoading) && (
           <div className="h-100 w-100 d-flex justify-content-center align-items-center">
