@@ -44,6 +44,13 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Category" }],
     }),
+    toggleShowCategory: builder.mutation({
+      query: (categoryId) => ({
+        url: `/category/show/${categoryId}`,
+        method: "POST",
+      }),
+      invalidatesTags: [{ type: "Category" }],
+    }),
   }),
 });
 
@@ -53,4 +60,5 @@ export const {
   useEditCategoryProductsMutation,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
+  useToggleShowCategoryMutation,
 } = categoryApiSlice;
