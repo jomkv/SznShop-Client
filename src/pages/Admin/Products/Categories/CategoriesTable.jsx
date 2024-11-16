@@ -11,6 +11,7 @@ import CategoryActionsButton from "./CategoryActionsButton";
 function CategoriesTable() {
   const [showModal, setShowModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   const columns = [
@@ -48,7 +49,7 @@ function CategoriesTable() {
   ];
 
   const {
-    data: categories,
+    data: res,
     isError,
     isLoading,
     isSuccess,
@@ -60,6 +61,12 @@ function CategoriesTable() {
       toast.warn("An error has occured while fetching categories.");
     }
   }, [isError, navigate]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCategories(res.categories);
+    }
+  }, [res, isSuccess]);
 
   return (
     <>

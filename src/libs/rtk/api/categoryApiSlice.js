@@ -4,9 +4,9 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
   tagTypes: ["Category"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
-      query: (includeCategies) => {
+      query: (includeCategories) => {
         const url =
-          includeCategies === true
+          includeCategories === true
             ? "/category?includeProducts=true"
             : "/category";
 
@@ -15,7 +15,6 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
-      transformResponse: (response) => response.categories,
       providesTags: [{ type: "Category" }],
     }),
     getCategoryProducts: builder.query({

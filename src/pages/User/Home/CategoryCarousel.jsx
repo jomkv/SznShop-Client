@@ -1,20 +1,24 @@
-import { Button, Carousel } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useRef } from "react";
+import Slider from "react-slick";
+import useBreakpoint from "use-breakpoint";
 import "./Carousel.css";
+const BREAKPOINTS = { sm: 0, md: 768, xl: 1200 };
 
 function CategoryCarousel({ categoryName, products }) {
+  const { breakpoint } = useBreakpoint(BREAKPOINTS);
   const carouselRef = useRef(null);
 
   const handleNext = () => {
     if (carouselRef.current) {
-      carouselRef.current.next();
+      carouselRef.current.slickNext();
     }
   };
 
   const handlePrev = () => {
     if (carouselRef.current) {
-      carouselRef.current.prev();
+      carouselRef.current.slickPrev();
     }
   };
 
@@ -22,7 +26,7 @@ function CategoryCarousel({ categoryName, products }) {
     <>
       <div className="d-flex justify-content-between">
         <h2 className="mt-5 fw-bold">{categoryName}</h2>
-        <div className="d-none d-lg-flex align-items-center justify-content-center">
+        <div className="d-flex align-items-center justify-content-center">
           <Button variant="transparent" className="p-0" onClick={handlePrev}>
             <i className="bi bi-arrow-left-short fs-1" />
           </Button>
@@ -32,31 +36,30 @@ function CategoryCarousel({ categoryName, products }) {
         </div>
       </div>
 
-      <Carousel
-        className="mt-2 d-none d-lg-block"
-        interval={null}
-        indicators={false}
-        controls={false}
-        ref={carouselRef}
-        slide={false}
-      >
-        <Carousel.Item className="d-flex justify-content-between align-items-center ">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </Carousel.Item>
-        <Carousel.Item className="d-flex justify-content-between align-items-center  ">
-          <ProductCard />
-          <ProductCard />
-        </Carousel.Item>
-      </Carousel>
-      <div className="d-flex d-lg-none w-100 overflow-auto gap-5">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+      <div className="w-100">
+        <Slider
+          infinite={false}
+          speed={500}
+          slidesToShow={
+            {
+              sm: 1,
+              md: 2,
+              xl: 3,
+            }[breakpoint] || 1
+          }
+          slidesToScroll={
+            {
+              sm: 1,
+              md: 2,
+              xl: 3,
+            }[breakpoint] || 1
+          }
+          ref={carouselRef}
+        >
+          {products.map((product, index) => (
+            <ProductCard product={product} key={index} />
+          ))}
+        </Slider>
       </div>
     </>
   );
