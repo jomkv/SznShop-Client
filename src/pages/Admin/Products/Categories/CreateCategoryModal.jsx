@@ -14,7 +14,6 @@ const schema = z.object({
     .string()
     .min(3, "Category Name must be atleast 3 characters long")
     .max(255, "Category Name must not exceed 255 characters"),
-  showInMenu: z.boolean(),
 });
 
 function CreateCategoryModal(props) {
