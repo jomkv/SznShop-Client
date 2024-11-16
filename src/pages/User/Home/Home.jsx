@@ -1,34 +1,25 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 import CategoryCarousel from "./CategoryCarousel";
-import { useGetAllCategoriesQuery } from "../../../libs/rtk/api/categoryApiSlice";
+import { useGetCategoriesHomeQuery } from "../../../libs/rtk/api/categoryApiSlice";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Spinner from "../../../components/Spinner/Spinner";
 
 function Home() {
-  const [categoriesWithProducts, setCategoriesWithProducts] = useState([]);
   const {
-    data: res,
+    data: categoriesWithProducts,
     isError,
-    error,
     isLoading,
     isSuccess,
-  } = useGetAllCategoriesQuery(true);
+  } = useGetCategoriesHomeQuery(true);
 
   useEffect(() => {
     if (isError) {
-      console.log(error);
       toast.warn(
         "An error has occured while getting the products, please try again later."
       );
     }
   }, [isError]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      setCategoriesWithProducts(res.categoryWithProducts);
-    }
-  }, [isSuccess, res]);
 
   return (
     <Container className="mt-4 mb-4">

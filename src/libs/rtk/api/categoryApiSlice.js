@@ -15,6 +15,15 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      transformResponse: (response) => response.categories,
+      providesTags: [{ type: "Category" }],
+    }),
+    getCategoriesHome: builder.query({
+      query: () => ({
+        url: "/category/home",
+        method: "GET",
+      }),
+      transformResponse: (response) => response.categoryWithProducts,
       providesTags: [{ type: "Category" }],
     }),
     getCategoryProducts: builder.query({
@@ -63,6 +72,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetAllCategoriesQuery,
   useGetCategoryProductsQuery,
+  useGetCategoriesHomeQuery,
   useEditCategoryProductsMutation,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
