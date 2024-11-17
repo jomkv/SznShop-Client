@@ -2,12 +2,9 @@ import { Button } from "react-bootstrap";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useRef } from "react";
 import Slider from "react-slick";
-import useBreakpoint from "use-breakpoint";
 import "./Carousel.css";
-const BREAKPOINTS = { sm: 0, md: 768, xl: 1200 };
 
 function CategoryCarousel({ categoryName, products }) {
-  const { breakpoint } = useBreakpoint(BREAKPOINTS);
   const carouselRef = useRef(null);
 
   const handleNext = () => {
@@ -40,20 +37,33 @@ function CategoryCarousel({ categoryName, products }) {
         <Slider
           infinite={false}
           speed={500}
-          slidesToShow={
+          arrows={false}
+          dots={false}
+          slidesToShow={4}
+          slidesToScroll={4}
+          responsive={[
             {
-              sm: 1,
-              md: 2,
-              xl: 3,
-            }[breakpoint] || 1
-          }
-          slidesToScroll={
+              breakpoint: 1199,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+              },
+            },
             {
-              sm: 1,
-              md: 2,
-              xl: 3,
-            }[breakpoint] || 1
-          }
+              breakpoint: 991,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
+            },
+            {
+              breakpoint: 765,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ]}
           ref={carouselRef}
         >
           {products.map((product, index) => (
