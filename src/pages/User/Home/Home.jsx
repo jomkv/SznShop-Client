@@ -1,11 +1,10 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
-import CategoryCarousel from "./CategoryCarousel";
+import CategoryCarousel from "./ProductsCarousel";
 import { useGetCategoriesHomeQuery } from "../../../libs/rtk/api/categoryApiSlice";
 import { useGetProductsHomeQuery } from "../../../libs/rtk/api/productApiSlice";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Spinner from "../../../components/Spinner/Spinner";
-import AllProductsCarousel from "./AllProductsCarousel";
 
 function Home() {
   const {
@@ -62,14 +61,16 @@ function Home() {
           {categoriesWithProducts.map((cwp, index) => (
             <CategoryCarousel
               key={index}
-              categoryName={cwp.category.name}
+              name={cwp.category.name}
               products={cwp.products}
             />
           ))}
         </>
       )}
       {isProductLoading && <Spinner large />}
-      {isProductSuccess && <AllProductsCarousel products={products} />}
+      {isProductSuccess && (
+        <CategoryCarousel name="All Products" products={products} />
+      )}
     </Container>
   );
 }

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import "./Carousel.css";
 
-function CategoryCarousel({ categoryName, products }) {
+function CategoryCarousel({ name, products }) {
   const carouselRef = useRef(null);
 
   const handleNext = () => {
@@ -22,7 +22,7 @@ function CategoryCarousel({ categoryName, products }) {
   return (
     <>
       <div className="d-flex justify-content-between">
-        <h2 className="mt-5 fw-bold">{categoryName}</h2>
+        <h2 className="mt-5 fw-bold">{name}</h2>
         <div className="d-flex align-items-center justify-content-center">
           <Button variant="transparent" className="p-0" onClick={handlePrev}>
             <i className="bi bi-arrow-left-short fs-1" />
