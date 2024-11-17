@@ -1,9 +1,11 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 import CategoryCarousel from "./CategoryCarousel";
 import { useGetCategoriesHomeQuery } from "../../../libs/rtk/api/categoryApiSlice";
+import { useGetProductsHomeQuery } from "../../../libs/rtk/api/productApiSlice";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Spinner from "../../../components/Spinner/Spinner";
+import AllProductsCarousel from "./AllProductsCarousel";
 
 function Home() {
   const {
@@ -11,15 +13,22 @@ function Home() {
     isError,
     isLoading,
     isSuccess,
-  } = useGetCategoriesHomeQuery(true);
+  } = useGetCategoriesHomeQuery();
+
+  const {
+    data: products,
+    isError: isProductError,
+    isLoading: isProductLoading,
+    isSuccess: isProductSuccess,
+  } = useGetProductsHomeQuery();
 
   useEffect(() => {
-    if (isError) {
+    if (isError || isProductError) {
       toast.warn(
         "An error has occured while getting the products, please try again later."
       );
     }
-  }, [isError]);
+  }, [isError || isProductError]);
 
   return (
     <Container className="mt-4 mb-4">
@@ -59,6 +68,8 @@ function Home() {
           ))}
         </>
       )}
+      {isProductLoading && <Spinner large />}
+      {isProductSuccess && <AllProductsCarousel products={products} />}
     </Container>
   );
 }
