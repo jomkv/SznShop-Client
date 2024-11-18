@@ -3,8 +3,20 @@ import UsersSettingsNavbar from "../../../components/UsersSettingNavbar/UsersSet
 
 function Settings() {
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <UsersSettingsNavbar />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        height: "60vh",
+      }}
+    >
+      <div style={{ marginTop: "20px", fontSize: "30px", fontWeight: "bold" }}>
+        ACCOUNT
+      </div>
+      <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+        <UsersSettingsNavbar />
+      </div>
     </div>
   );
 }
