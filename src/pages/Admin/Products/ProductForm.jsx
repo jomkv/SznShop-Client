@@ -148,7 +148,7 @@ const ProductForm = ({ onSubmit, hideModal, defaultValues }) => {
   };
 
   const handleFormSubmit = async (data) => {
-    if (isNoImage) {
+    if (isNoImage || images.length < 2) {
       return;
     }
     let payload = new FormData();
@@ -228,7 +228,9 @@ const ProductForm = ({ onSubmit, hideModal, defaultValues }) => {
               images.length >= 4 ? "d-none" : ""
             }`}
             style={{
-              border: `2px dashed ${isNoImage ? "#dc3545" : "black"}`,
+              border: `2px dashed ${
+                isNoImage || images.length < 2 ? "#dc3545" : "black"
+              }`,
             }}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -269,6 +271,16 @@ const ProductForm = ({ onSubmit, hideModal, defaultValues }) => {
               }}
             >
               An image must be uploaded
+            </p>
+          )}
+          {!isNoImage && images.length < 2 && (
+            <p
+              className="text-danger fw-lighter mt-1"
+              style={{
+                fontSize: "0.9rem",
+              }}
+            >
+              At least 2 images must be uploaded
             </p>
           )}
 
