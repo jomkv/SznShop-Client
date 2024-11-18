@@ -1,35 +1,33 @@
+import { useState } from "react";
 import { Card } from "react-bootstrap";
 
-const mockData = {
-  name: "GOOPIMADE",
-  description: "GOOPiMADE® “X_Model-01” New-Form Pocket T-shirt",
-  price: 3460,
-};
-
 const ProductCard = ({ product }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleLeaveHover = () => {
+    setIsHovered(false);
+  };
+
   return (
     <Card className="w-100">
       <Card.Img
         variant="top"
         style={{ height: "24rem", objectFit: "cover" }}
-        src={
-          product
-            ? product.images[0].url
-            : "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fa7%2F6f%2FVest-1-1-c99de.jpg?fit=max&w=720&q=90"
-        }
+        src={isHovered ? product.images[1].url : product.images[0].url}
+        onMouseOver={handleHover}
+        onMouseLeave={handleLeaveHover}
       />
       <Card.Body className="text-center">
         <Card.Title className="mt-2 mb-1 fw-bold fs-6">
-          {product ? product.name : mockData.name}
+          {product.name}
         </Card.Title>
-        <Card.Text className="fs-6 ps-2 pe-2">
-          {product ? product.description : mockData.description}
-        </Card.Text>
+        <Card.Text className="fs-6 ps-2 pe-2">{product.description}</Card.Text>
         <Card.Text className="fs-6 fw-semibold">
-          ₱
-          {product
-            ? product.price.toLocaleString()
-            : mockData.price.toLocaleString()}
+          ₱{product.price.toLocaleString()}
         </Card.Text>
       </Card.Body>
     </Card>
