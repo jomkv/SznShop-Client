@@ -1,10 +1,15 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: "#f8f9fa", padding: "20px 0" }}>
+    <footer
+      style={{
+        backgroundColor: "#f8f9fa",
+        padding: "20px 0",
+        marginTop: "30px",
+      }}
+    >
       <Container>
         <Row>
           <Col md={4}>
@@ -18,16 +23,24 @@ function Footer() {
             <h5>Quick Links</h5>
             <ul style={{ listStyleType: "none", padding: 0 }}>
               <li>
-                <a href="/home">Home</a>
+                <a href="/home" style={{ color: "black" }}>
+                  Home
+                </a>
               </li>
               <li>
-                <a href="/profile">Profile</a>
+                <a href="/profile" style={{ color: "black" }}>
+                  Profile
+                </a>
               </li>
               <li>
-                <a href="/address">Address</a>
+                <a href="/address" style={{ color: "black" }}>
+                  Address
+                </a>
               </li>
               <li>
-                <a href="/orders">Orders</a>
+                <a href="/orders" style={{ color: "black" }}>
+                  Orders
+                </a>
               </li>
             </ul>
           </Col>
@@ -43,6 +56,7 @@ function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "black" }}
               >
                 <i
                   className="bi bi-facebook"
@@ -53,6 +67,7 @@ function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "black" }}
               >
                 <i
                   className="bi bi-twitter"
@@ -63,6 +78,7 @@ function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "black" }}
               >
                 <i
                   className="bi bi-instagram"
