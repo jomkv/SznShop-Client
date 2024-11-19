@@ -25,6 +25,10 @@ const schema = z.object({
     .number()
     .int("Stocks must be a whole number")
     .min(0, "Stocks must be a positive number"),
+  xxl: z
+    .number()
+    .int("Stocks must be a whole number")
+    .min(0, "Stocks must be a positive number"),
 });
 
 function StocksForm({ isEdit, stocks, onSubmit }) {
@@ -35,6 +39,7 @@ function StocksForm({ isEdit, stocks, onSubmit }) {
       md: stocks.md || 0,
       lg: stocks.lg || 0,
       xl: stocks.xl || 0,
+      xxl: stocks.xxl || 0,
     },
     resolver: zodResolver(schema),
   });
@@ -140,6 +145,23 @@ function StocksForm({ isEdit, stocks, onSubmit }) {
           />
           <Form.Control.Feedback type="invalid">
             {errors.xl?.message}
+          </Form.Control.Feedback>
+        </Col>
+      </Row>
+      <Row className="mb-3">
+        <Col sm={2} as="label" htmlFor="xl" className="col-form-label">
+          XXL
+        </Col>
+        <Col sm={10}>
+          <Form.Control
+            type="number"
+            id="xl"
+            isInvalid={errors.xxl?.message ? true : false}
+            {...register("xxl", { valueAsNumber: true })}
+            disabled={!isEdit}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.xxl?.message}
           </Form.Control.Feedback>
         </Col>
       </Row>
