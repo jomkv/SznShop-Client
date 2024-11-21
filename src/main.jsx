@@ -41,7 +41,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<App />}>
               <Route index element={<Home />} />
-              <Route path="product" element={<Product />} />
+              <Route path="product/:id" element={<Product />} />
               <Route path="cart" element={<Cart />} />
               <Route path="profile" element={<Profile />} />
               <Route path="address" element={<Address />} />
