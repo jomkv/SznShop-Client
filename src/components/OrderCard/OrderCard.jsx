@@ -3,9 +3,9 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 
 function OrderCard() {
   return (
-    <Card className="mb-3">
-      <Card.Header className="d-flex justify-content-between align-items-center">
-        <div className="fw-bold text-end">ORDER STATUS</div>
+    <Card className="mt-5">
+      <Card.Header className="text-end">
+        <div className="fw-bold">ORDER STATUS</div>
       </Card.Header>
       <Card.Body>
         <Row>
@@ -13,27 +13,31 @@ function OrderCard() {
             <Card.Img
               style={{ width: "100px", height: "100px" }}
               variant="top"
-              src="https://via.placeholder.com/150"
+              src="https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2F52%2F94%2FlongTshirt-1-1-90e40.jpg?fit=max&w=2160&q=90"
             />
           </Col>
           <Col md={7}>
-            <Card.Title>Product Name</Card.Title>
+            <Card.Title>PTC Basic Long Sleeve T-shirt</Card.Title>
             <Card.Text>Size: M</Card.Text>
           </Col>
-          <Col md={3} className="text-end">
-            <Card.Text>Price: $100</Card.Text>
+          <Col md={3} className="text-end fs-4">
+            <Card.Text> $100</Card.Text>
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer className="d-flex justify-content-between align-items-center">
-        <div>
-          <Button variant="dark" className="me-2">
-            Rate
-          </Button>
-          <Button variant="light">Buy Again</Button>
+      <Card.Footer>
+        <div className="text-end">
+          <Card.Text className="fw-bold">
+            Order Total: <span className="fs-4">$100</span>
+          </Card.Text>
         </div>
         <div className="text-end">
-          <Card.Text className="fw-bold">Order Total: $100</Card.Text>
+          <Button style={{ width: "150px" }} variant="dark" className="me-2">
+            Rate
+          </Button>
+          <Button variant="light" style={{ width: "150px" }}>
+            Buy Again
+          </Button>
         </div>
       </Card.Footer>
     </Card>
