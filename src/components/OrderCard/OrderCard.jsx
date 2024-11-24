@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 
 function OrderCard() {
   return (
-    <Card className="mt-5">
+    <Card className="mt-3">
       <Card.Header className="text-end">
         <div className="fw-bold">ORDER STATUS</div>
       </Card.Header>
