@@ -17,6 +17,7 @@ export const addressApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["Address"],
+      transformResponse: (response) => response.addresses,
     }),
     deleteAddress: builder.mutation({
       query: (id) => ({

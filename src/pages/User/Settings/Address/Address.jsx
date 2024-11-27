@@ -1,8 +1,27 @@
-import React from "react";
-import { Button, Card, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useGetAddressesQuery } from "../../../../libs/rtk/api/addressApiSlice";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import AddressCard from "./AddressCard";
+import CreateAddressCard from "./CreateAddressCard";
 
 function Address() {
+  const {
+    data: addresses,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useGetAddressesQuery();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+      toast.warn("An error occurred while fetching addresses");
+    }
+  }, [isError]);
+
   return (
     <Container
       style={{
@@ -14,25 +33,18 @@ function Address() {
     >
       <div className="fw-bold fs-3">ADD ADDRESS</div>
       <p>Manage your shipping addresses for a faster checkout.</p>
-      <Link to="/addnewaddress" className="text-decoration-none">
-        <Button
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "200px",
-            height: "200px",
-            padding: "10px",
-            marginTop: "20px",
-          }}
-          variant="light"
-          className="text-decoration-none"
-        >
-          <i className="bi bi-plus-lg" style={{ fontSize: "2rem" }}></i>
-          <span style={{ marginTop: "10px" }}>CREATE A NEW ADDRESS</span>
-        </Button>
-      </Link>
+      <Row xs={1} md={2} lg={3} xl={4} className="g-4 w-100">
+        {isSuccess &&
+          addresses &&
+          addresses.map((address, index) => (
+            <Col key={index}>
+              <AddressCard address={address} />
+            </Col>
+          ))}
+        <Col>
+          <CreateAddressCard />
+        </Col>
+      </Row>
     </Container>
   );
 }
