@@ -1,0 +1,24 @@
+.progress-bar-custom {
+  height: 10px;
+  background-color: #e9ecef;
+}
+
+.progress-icons {
+  margin-top: 10px;
+}
+
+.progress-icons .col {
+  position: relative;
+}
+
+.progress-icons .col i {
+  font-size: 24px;
+}
+
+.progress-icons .col div {
+  margin-top: 5px;
+  font-size: 12px;
+}
+.delivery-address .small {
+  margin-bottom: 2px;
+}

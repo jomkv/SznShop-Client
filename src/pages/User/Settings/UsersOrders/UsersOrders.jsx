@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Tab, Nav, Card, Table } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Row, Col, Tab, Nav, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import OrderCard from "../../../../components/OrderCard/OrderCard";
 
 function UsersOrders() {
   const [key, setKey] = useState("all");
 
-  const renderOrdersTable = (status) => (
+  const renderOrdersTable = () => (
     <div>
-      <OrderCard />
+      <Link to="/OrderHistory" style={{ textDecoration: "none" }}>
+        <OrderCard />
+      </Link>
     </div>
   );
 
@@ -21,28 +24,42 @@ function UsersOrders() {
             </Card.Header>
             <Card.Body>
               <Tab.Container activeKey={key} onSelect={(k) => setKey(k)}>
-                <Nav variant="pills" className="mb-3">
-                  <Nav.Item>
-                    <Nav.Link eventKey="all">All</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="toPay">To Pay</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="toShip">To Ship</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="toReceive">To Receive</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="complete">Complete</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="cancelled">Cancelled</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="returnRefund">Return/Refund</Nav.Link>
-                  </Nav.Item>
+                <Nav variant="pills" className="mb-3 text-center">
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="all">All</Nav.Link>
+                    </Nav.Item>
+                  </Col>
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="toPay">To Pay</Nav.Link>
+                    </Nav.Item>
+                  </Col>
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="toShip">To Ship</Nav.Link>
+                    </Nav.Item>
+                  </Col>
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="toReceive">To Receive</Nav.Link>
+                    </Nav.Item>
+                  </Col>
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="complete">Complete</Nav.Link>
+                    </Nav.Item>
+                  </Col>
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="cancelled">Cancelled</Nav.Link>
+                    </Nav.Item>
+                  </Col>
+                  <Col>
+                    <Nav.Item>
+                      <Nav.Link eventKey="returnRefund">Return/Refund</Nav.Link>
+                    </Nav.Item>
+                  </Col>
                 </Nav>
                 <Tab.Content>
                   <Tab.Pane eventKey="all">{renderOrdersTable("all")}</Tab.Pane>
