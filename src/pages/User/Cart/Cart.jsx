@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Container, Row, Col, FormControl, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import "./Cart.css";
+import OrderSummary from "../../../components/OrderSummary/OrderSummary";
 
 const Cart = () => {
   const [products, setProducts] = useState([
@@ -115,7 +109,7 @@ const Cart = () => {
           size="sm"
           onClick={() => handleRemoveProduct(index)}
         >
-          <i class="bi bi-trash-fill"></i>
+          <i className="bi bi-trash-fill"></i>
         </Button>
       ),
     },
@@ -139,34 +133,7 @@ const Cart = () => {
           </div>
         </Col>
         <Col md={4}>
-          <Card style={{ width: "100%" }} className="mt-4">
-            <Card.Body>
-              <Card.Header className="fw-bold text-center fs-5">
-                ORDER SUMMARY
-              </Card.Header>
-              <Card.Text>
-                <div className="d-flex justify-content-between mt-3">
-                  <span>SUBTOTAL</span>
-                  <span>${calculateTotal()}</span>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <span>SHIPPING FEE</span>
-                  <span>$10.00</span>
-                </div>
-                <div className="d-flex justify-content-between mt-5">
-                  <span className="fs-5 fw-bold">ORDER TOTAL</span>
-                  <span>
-                    ${(parseFloat(calculateTotal()) + 10.0).toFixed(2)}
-                  </span>
-                </div>
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-center">
-              <Button className="w-100" variant="dark">
-                Checkout
-              </Button>
-            </Card.Footer>
-          </Card>
+          <OrderSummary />
         </Col>
       </Row>
     </Container>
