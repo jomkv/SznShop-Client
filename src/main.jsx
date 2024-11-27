@@ -21,6 +21,8 @@ import {
   UsersOrders,
   Settings as UserSettings,
   AddNewAddress,
+  CheckOut,
+  OrderHistory,
 } from "./pages/User/index.js";
 import {
   Customers,
@@ -49,6 +51,8 @@ createRoot(document.getElementById("root")).render(
               <Route path="usersorders" element={<UsersOrders />} />
               <Route path="settings" element={<UserSettings />} />
               <Route path="addnewaddress" element={<AddNewAddress />} />
+              <Route path="checkout" element={<CheckOut />} />
+              <Route path="orderhistory" element={<OrderHistory />} />
             </Route>
             <Route path="/admin" element={<AdminApp />}>
               <Route index element={<Dashboard />} />

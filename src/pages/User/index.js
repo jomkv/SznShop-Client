@@ -3,8 +3,11 @@ import Product from "./Product/Product";
 import Cart from "./Cart/Cart";
 import Settings from "./Settings/Settings";
 import Address from "./Settings/Address/Address";
+import AddNewAddress from "./Settings/Address/AddNewAddress";
 import Profile from "./Settings/Profile/Profile";
 import UsersOrders from "./Settings/UsersOrders/UsersOrders";
+import CheckOut from "./CheckOut/CheckOut";
+import OrderHistory from "./Settings/UsersOrders/OrderHistory";
 export {
   Home,
   Product,
@@ -14,5 +17,6 @@ export {
   Profile,
   UsersOrders,
   AddNewAddress,
+  CheckOut,
+  OrderHistory,
 };
-import AddNewAddress from "./Settings/Address/AddNewAddress";
