@@ -23,6 +23,7 @@ import {
   AddNewAddress,
   CheckOut,
   OrderHistory,
+  FAQ,
 } from "./pages/User/index.js";
 import {
   Customers,
@@ -53,6 +54,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="addnewaddress" element={<AddNewAddress />} />
               <Route path="checkout" element={<CheckOut />} />
               <Route path="orderhistory" element={<OrderHistory />} />
+              <Route path="faq" element={<FAQ />} />
             </Route>
             <Route path="/admin" element={<AdminApp />}>
               <Route index element={<Dashboard />} />
