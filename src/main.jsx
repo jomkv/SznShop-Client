@@ -24,6 +24,7 @@ import {
   EditAddress,
   CheckOut,
   OrderHistory,
+  FAQ,
 } from "./pages/User/index.js";
 import {
   Customers,
@@ -55,6 +56,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="edit-address/:id" element={<EditAddress />} />
               <Route path="checkout" element={<CheckOut />} />
               <Route path="orderhistory" element={<OrderHistory />} />
+              <Route path="faq" element={<FAQ />} />
             </Route>
             <Route path="/admin" element={<AdminApp />}>
               <Route index element={<Dashboard />} />

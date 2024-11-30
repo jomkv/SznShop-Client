@@ -9,6 +9,7 @@ import UsersOrders from "./Settings/UsersOrders/UsersOrders";
 import CheckOut from "./CheckOut/CheckOut";
 import OrderHistory from "./Settings/UsersOrders/OrderHistory";
 import EditAddress from "./Settings/Address/EditAddress";
+import FAQ from "./FAQ/FAQ";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   EditAddress,
   CheckOut,
   OrderHistory,
+  FAQ,
 };

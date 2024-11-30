@@ -89,7 +89,7 @@ const Navbar = () => {
                   )}
                 </NavDropdown>
                 <Nav.Item className="d-flex align-items-center me-3">
-                  <Link to="#">
+                  <Link to="/faq">
                     <i className="bi bi-question-circle fs-5 icon-black" />
                   </Link>
                 </Nav.Item>

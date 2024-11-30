@@ -32,7 +32,7 @@ function UsersOrders() {
                   </Col>
                   <Col>
                     <Nav.Item>
-                      <Nav.Link eventKey="toPay">To Pay</Nav.Link>
+                      <Nav.Link eventKey="InReview">In Review</Nav.Link>
                     </Nav.Item>
                   </Col>
                   <Col>
@@ -63,8 +63,8 @@ function UsersOrders() {
                 </Nav>
                 <Tab.Content>
                   <Tab.Pane eventKey="all">{renderOrdersTable("all")}</Tab.Pane>
-                  <Tab.Pane eventKey="toPay">
-                    {renderOrdersTable("To Pay")}
+                  <Tab.Pane eventKey="InReview">
+                    {renderOrdersTable("In Review")}
                   </Tab.Pane>
                   <Tab.Pane eventKey="toShip">
                     {renderOrdersTable("To Ship")}
