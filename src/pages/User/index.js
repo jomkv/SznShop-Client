@@ -8,6 +8,8 @@ import Profile from "./Settings/Profile/Profile";
 import UsersOrders from "./Settings/UsersOrders/UsersOrders";
 import CheckOut from "./CheckOut/CheckOut";
 import OrderHistory from "./Settings/UsersOrders/OrderHistory";
+import EditAddress from "./Settings/Address/EditAddress";
+
 export {
   Home,
   Product,
@@ -17,6 +19,7 @@ export {
   Profile,
   UsersOrders,
   AddNewAddress,
+  EditAddress,
   CheckOut,
   OrderHistory,
 };

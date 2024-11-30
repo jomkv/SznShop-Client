@@ -7,7 +7,10 @@ export const getRegions = () => {
 };
 
 export const getProvinces = (regionName) => {
-  return provinces.filter((province) => province.region === regionName);
+  if (!regionName) return [];
+
+  const region = regions.find((r) => r.name === regionName);
+  return provinces.filter((province) => province.region === region.designation);
 };
 
 export const getMunicipalities = (provinceName) => {

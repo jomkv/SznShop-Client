@@ -9,31 +9,51 @@ import {
 } from "../../utils/geoHelpers";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   address: z.string().min(1, "Address is required"),
-  postalCode: z
-    .string()
-    .min(4, "Please enter a valid postal code")
-    .max(4, "Please enter a valid postal code"),
+  postalCode: z.coerce
+    .number({
+      required_error: "Postal Code is required",
+      invalid_type_error: "Postal Code must be a number",
+    })
+    .refine(
+      (val) => `${val}`.length === 4,
+      "Postal Code must be 4 digits long"
+    ),
   addressLabel: z
     .string()
     .min(1, "Address label is required")
     .max(50, "Address label must be less than 50 characters"),
-  phoneNumber: z.string().min(1, "Phone number is required"),
+  phoneNumber: z.coerce
+    .number({
+      required_error: "Phone Number is required",
+      invalid_type_error: "Phone Number must not contain letters",
+    })
+    .refine((val) => `${val}`.length === 10, "Phone Number must be valid"),
 });
 
 function AddressForm({ defaultValues, onSubmit, isLoading }) {
-  const [regions, setRegions] = useState(null);
-  const [provinces, setProvinces] = useState(null);
-  const [municipalities, setMunicipalities] = useState(null);
+  const [regions, setRegions] = useState(getRegions());
+  const [provinces, setProvinces] = useState(
+    defaultValues ? getProvinces(defaultValues.region) : null
+  );
+  const [municipalities, setMunicipalities] = useState(
+    defaultValues ? getMunicipalities(defaultValues.province) : null
+  );
 
-  const [region, setRegion] = useState(null);
-  const [province, setProvince] = useState(null);
-  const [municipality, setMunicipality] = useState(null);
+  const [isDefaultSet, setIsDefaultSet] = useState(false);
 
+  const [region, setRegion] = useState(defaultValues?.region || null);
+  const [province, setProvince] = useState(defaultValues?.province || null);
+  const [municipality, setMunicipality] = useState(
+    defaultValues?.municipality || null
+  );
+
+  const regionRef = useRef();
   const provinceRef = useRef();
   const municipalityRef = useRef();
 
@@ -49,14 +69,37 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
     resolver: zodResolver(schema),
   });
 
+  const navigate = useNavigate();
+
   const { register, handleSubmit, formState, reset } = form;
   const { errors } = formState;
 
   useEffect(() => {
-    setRegions(getRegions());
-  }, []);
+    if (
+      defaultValues &&
+      regions &&
+      provinces &&
+      municipalities &&
+      !isDefaultSet
+    ) {
+      const ri = regions.map((r) => r.name).indexOf(defaultValues.region) + 1;
+      const pi =
+        provinces.map((p) => p.name).indexOf(defaultValues.province) + 1;
+      const mi =
+        municipalities.map((m) => m.name).indexOf(defaultValues.municipality) +
+        1;
+
+      regionRef.current.selectedIndex = ri;
+      provinceRef.current.selectedIndex = pi;
+      municipalityRef.current.selectedIndex = mi;
+
+      setIsDefaultSet(true);
+    }
+  }, [regions, provinces, municipalities]);
 
   useEffect(() => {
+    if (defaultValues && !isDefaultSet) return;
+
     setProvince(null);
     setMunicipalities(null);
     provinceRef.current.selectedIndex = 0;
@@ -68,6 +111,8 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
   }, [region]);
 
   useEffect(() => {
+    if (defaultValues && !isDefaultSet) return;
+
     setMunicipality(null);
     municipalityRef.current.selectedIndex = 0;
 
@@ -77,9 +122,7 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
   }, [province]);
 
   const handleFormSubmit = async (data) => {
-    console.log("submit");
     if (!region || !province || !municipality) {
-      console.log(region, province, municipality);
       return;
     }
 
@@ -96,6 +139,7 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
     setRegion(null);
     setProvince(null);
     setMunicipality(null);
+    navigate("/address");
   };
 
   return (
@@ -155,11 +199,12 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
               const region = event.target.value || null;
               setRegion(region);
             }}
+            ref={regionRef}
           >
-            <option value={null}>Select</option>
+            <option value={""}>Select</option>
             {regions &&
               regions.map((region, index) => (
-                <option key={index} value={region.designation}>
+                <option key={index} value={region.name}>
                   {region.name}
                 </option>
               ))}
@@ -180,7 +225,7 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
               setProvince(province);
             }}
           >
-            <option value={null}>Select</option>
+            <option value={""}>Select</option>
             {provinces &&
               provinces.map((province, index) => (
                 <option key={index} value={province.name}>
@@ -203,7 +248,7 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
               setMunicipality(municipality);
             }}
           >
-            <option value={null}>Select</option>
+            <option value={""}>Select</option>
             {municipalities &&
               municipalities.map((municipality, index) => (
                 <option key={index} value={municipality.name}>
@@ -249,7 +294,7 @@ function AddressForm({ defaultValues, onSubmit, isLoading }) {
           type="text"
           placeholder="Home, Office, etc"
           {...register("addressLabel")}
-          isInvalid={errors.phoneNumber?.message ? true : false}
+          isInvalid={errors.addressLabel?.message ? true : false}
         />
         <Form.Control.Feedback type="invalid">
           {errors.addressLabel?.message}
