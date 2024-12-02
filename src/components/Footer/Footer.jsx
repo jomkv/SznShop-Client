@@ -15,8 +15,7 @@ function Footer() {
           <Col md={4}>
             <h5>About Us</h5>
             <p>
-              We are a company dedicated to providing the best products and
-              services to our customers.
+            SZN is more than a brand—it's a canvas for creativity. Since 2020, we've been crafting quality products that inspire and add value to everyday life. Built on honesty and passion, SZN connects with a community that values originality and self-expression. Together, let’s keep creating something extraordinary.
             </p>
           </Col>
           <Col md={4}>
@@ -47,13 +46,13 @@ function Footer() {
           <Col md={4}>
             <h5>Contact Us</h5>
             <p>
-              Email: info@example.com
+              Email: szn2020szn@gmail.com
               <br />
-              Phone: +123 456 7890
+              Phone: +639 4935 42200
             </p>
             <div>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/szn2020szn"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "black" }}
@@ -64,7 +63,7 @@ function Footer() {
                 ></i>
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/szn2020szn"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "black" }}
@@ -75,7 +74,7 @@ function Footer() {
                 ></i>
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/sznworldsfinest/"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "black" }}
