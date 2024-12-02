@@ -135,6 +135,7 @@ function CategoryActionsButton({ category }) {
           onClick={() => {
             setShowToggle(true);
           }}
+          disabled={!category.showInMenu && category.productCount < 4}
         >
           {category.showInMenu ? "Hide" : "Show"}
         </Dropdown.Item>
