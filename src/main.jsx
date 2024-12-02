@@ -36,6 +36,7 @@ import {
 } from "./pages/Admin/index.js";
 import AdminApp from "./AdminApp.jsx";
 import AuthProvider from "./contexts/AuthContext.jsx";
+import Protected from "./pages/Protected/Protected.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -47,18 +48,88 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<App />}>
               <Route index element={<Home />} />
               <Route path="product/:id" element={<Product />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="address" element={<Address />} />
-              <Route path="usersorders" element={<UsersOrders />} />
-              <Route path="settings" element={<UserSettings />} />
-              <Route path="addnewaddress" element={<AddNewAddress />} />
-              <Route path="edit-address/:id" element={<EditAddress />} />
-              <Route path="checkout" element={<CheckOut />} />
-              <Route path="orderhistory" element={<OrderHistory />} />
+              <Route
+                path="cart"
+                element={
+                  <Protected>
+                    <Cart />
+                  </Protected>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <Protected>
+                    <Profile />
+                  </Protected>
+                }
+              />
+              <Route
+                path="address"
+                element={
+                  <Protected>
+                    <Address />
+                  </Protected>
+                }
+              />
+              <Route
+                path="usersorders"
+                element={
+                  <Protected>
+                    <UsersOrders />
+                  </Protected>
+                }
+              />
+              <Route
+                path="settings"
+                element={
+                  <Protected>
+                    <UserSettings />
+                  </Protected>
+                }
+              />
+              <Route
+                path="addnewaddress"
+                element={
+                  <Protected>
+                    <AddNewAddress />
+                  </Protected>
+                }
+              />
+              <Route
+                path="edit-address/:id"
+                element={
+                  <Protected>
+                    <EditAddress />
+                  </Protected>
+                }
+              />
+              <Route
+                path="checkout"
+                element={
+                  <Protected>
+                    <CheckOut />
+                  </Protected>
+                }
+              />
+              <Route
+                path="orderhistory"
+                element={
+                  <Protected>
+                    <OrderHistory />
+                  </Protected>
+                }
+              />
               <Route path="faq" element={<FAQ />} />
             </Route>
-            <Route path="/admin" element={<AdminApp />}>
+            <Route
+              path="/admin"
+              element={
+                <Protected>
+                  <AdminApp />
+                </Protected>
+              }
+            >
               <Route index element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="customers" element={<Customers />} />
