@@ -1,72 +1,48 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, FormControl, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import "./Cart.css";
 import OrderSummary from "../../../components/OrderSummary/OrderSummary";
+import { useGetCartQuery } from "../../../libs/rtk/api/cartApiSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const Cart = () => {
-  const [products, setProducts] = useState([
-    {
-      name: "TC Basic Long Sleeve T-shirt",
-      quantity: 1,
-      price: 10.0,
-      total: 10.0,
-      image:
-        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2F52%2F94%2FlongTshirt-1-1-90e40.jpg?fit=max&w=2160&q=90",
-    },
-    {
-      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
-      quantity: 2,
-      price: 15.0,
-      total: 30.0,
-      image:
-        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
-    },
-    {
-      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
-      quantity: 3,
-      price: 15.0,
-      total: 45.0,
-      image:
-        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
-    },
-    {
-      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
-      quantity: 4,
-      price: 15.0,
-      total: 60.0,
-      image:
-        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
-    },
-    {
-      name: "HYUKOH & SUNSET ROLLERCOASTER [AAA] Short Sleeve T-shirt",
-      quantity: 5,
-      price: 15.0,
-      total: 75.0,
-      image:
-        "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2Fc2%2Fc2%2Ftshirt-3-1-9621a.jpg?fit=max&w=2160&q=90",
-    },
-  ]);
+  const { data: products, isLoading, isError, isSuccess } = useGetCartQuery();
+  const navigate = useNavigate();
+  const [total, setTotal] = useState(0);
 
-  const handleQuantityChange = (index, newQuantity) => {
-    const updatedProducts = [...products];
-    updatedProducts[index].quantity = newQuantity;
-    updatedProducts[index].total = newQuantity * updatedProducts[index].price;
-    setProducts(updatedProducts);
-  };
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+      toast.warn("An error occurred, please try again later.");
+    }
+  }, [isError]);
 
-  const calculateTotal = () => {
-    return products
-      .reduce((total, product) => total + product.total, 0)
-      .toFixed(2);
-  };
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
+
+  // const handleQuantityChange = (index, newQuantity) => {
+  //   const updatedProducts = [...products];
+  //   updatedProducts[index].quantity = newQuantity;
+  //   updatedProducts[index].total = newQuantity * updatedProducts[index].price;
+  //   setProducts(updatedProducts);
+  // };
+
+  // const calculateTotal = () => {
+  //   return products
+  //     .reduce((total, product) => total + product.total, 0)
+  //     .toFixed(2);
+  // };
 
   const columns = [
     {
       name: "IMAGE",
       cell: (row) => (
         <img
-          src={row.image}
+          src={row.productId.images[0].url}
           alt="product"
           style={{ width: "100px", height: "100px" }}
         />
@@ -74,14 +50,20 @@ const Cart = () => {
     },
     {
       name: "PRODUCT",
-      selector: (row) => row.name,
+      selector: (row) => row.productId.name,
       sortable: true,
-      cell: (row) => <div className="text-wrap">{row.name}</div>,
+      cell: (row) => (
+        <div>
+          <div className="text-wrap">{row.productId.name}</div>
+          <p className="fw-bold">{`[${row.size.toUpperCase()}]`}</p>
+        </div>
+      ),
     },
     {
       name: "PRICE",
-      selector: (row) => `$${row.price.toFixed(2)}`,
+      selector: (row) => row.productId.price,
       sortable: true,
+      cell: (row) => <p>{`₱${row.productId.price.toLocaleString()}`}</p>,
     },
     {
       name: "QUANTITY",
@@ -90,16 +72,19 @@ const Cart = () => {
           type="number"
           value={row.quantity}
           min="1"
-          onChange={(e) =>
-            handleQuantityChange(index, parseInt(e.target.value))
-          }
+          // onChange={(e) =>
+          //   // handleQuantityChange(index, parseInt(e.target.value))
+          // }
         />
       ),
     },
     {
       name: "TOTAL",
-      selector: (row) => `$${row.total.toFixed(2)}`,
+      selector: (row) => row.productId.price * row.quantity || 0,
       sortable: true,
+      cell: (row) => (
+        <p>{`₱${(row.productId.price * row.quantity).toLocaleString()}`}</p>
+      ),
     },
     {
       name: "REMOVE",
@@ -107,7 +92,7 @@ const Cart = () => {
         <Button
           variant="dark"
           size="sm"
-          onClick={() => handleRemoveProduct(index)}
+          // onClick={() => handleRemoveProduct(index)}
         >
           <i className="bi bi-trash-fill"></i>
         </Button>
@@ -121,15 +106,18 @@ const Cart = () => {
       <Row>
         <Col md={8}>
           <div className="table-container table-responsive mt-4">
-            <DataTable
-              columns={columns}
-              data={products}
-              striped
-              bordered
-              hover
-              fixedHeader
-              fixedHeaderScrollHeight="400px"
-            />
+            {isLoading && <Spinner large />}
+            {products && (
+              <DataTable
+                columns={columns}
+                data={products}
+                striped
+                bordered
+                hover
+                fixedHeader
+                fixedHeaderScrollHeight="400px"
+              />
+            )}
           </div>
         </Col>
         <Col md={4}>
