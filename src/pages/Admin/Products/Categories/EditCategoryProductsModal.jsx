@@ -8,13 +8,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useGetProductsAdminQuery } from "../../../../libs/rtk/api/productApiSlice";
 import Spinner from "../../../../components/Spinner/Spinner";
+import CategoryForm from "./CategoryForm";
 
 function EditCategoryProductsModal({ category, ...props }) {
+  const [isFormLoading, setIsFormLoading] = useState(false);
+
   const {
     data: productIds,
     isLoading,
     isError,
-    error,
     isSuccess,
   } = useGetCategoryProductsQuery(category._id);
 
@@ -22,8 +24,11 @@ function EditCategoryProductsModal({ category, ...props }) {
     data: products,
     isLoading: isProductsLoading,
     isError: isProductsError,
-    isSuccess: isProductsSuccess,
   } = useGetProductsAdminQuery();
+
+  useEffect(() => {
+    setIsFormLoading(isLoading || isProductsLoading);
+  }, [isFormLoading, isLoading, isProductsLoading]);
 
   const [editCategoryProducts, { isLoading: isEditing }] =
     useEditCategoryProductsMutation();
@@ -33,7 +38,6 @@ function EditCategoryProductsModal({ category, ...props }) {
   useEffect(() => {
     if (isError || isProductsError) {
       props.onHide();
-      console.log(error);
       toast.warn("An error has occured while fetching category products.");
     }
   }, [isError, isProductsError]);
@@ -44,11 +48,13 @@ function EditCategoryProductsModal({ category, ...props }) {
     }
   }, [productIds, isSuccess]);
 
-  const handleSaveChanges = async () => {
+  const onSubmit = async (formData) => {
+    console.log(formData);
+
     try {
       await editCategoryProducts({
+        ...formData,
         categoryId: category._id,
-        productIds: includedProductIds,
       }).unwrap();
       props.onHide();
       toast.success("Category products edited successfully.");
@@ -57,58 +63,6 @@ function EditCategoryProductsModal({ category, ...props }) {
       toast.warn("An error has occured while editing category products.");
     }
   };
-
-  const handleIncludeProduct = (productId) => {
-    setIncludedProductIds((prev) => {
-      if (prev.includes(productId)) {
-        return prev.filter((id) => id !== productId); // remove id
-      } else {
-        return [...prev, productId]; // add id
-      }
-    });
-  };
-
-  const columns = [
-    {
-      name: "Image",
-      selector: (row) => row.name,
-      sortable: false,
-      cell: (row) => (
-        <img
-          src={row.images[0].url}
-          alt="Image"
-          style={{
-            width: "5rem",
-            height: "5rem",
-            objectFit: "cover",
-          }}
-        />
-      ),
-    },
-    {
-      name: "Name",
-      selector: (row) => row.name,
-      sortable: true,
-    },
-    {
-      name: "Price",
-      selector: (row) => row.price,
-      sortable: true,
-    },
-    {
-      name: "",
-      cell: (row) => (
-        <ToggleButton
-          type="radio"
-          variant="outline-dark"
-          checked={includedProductIds.includes(row._id)}
-          onClick={() => handleIncludeProduct(row._id)}
-        >
-          Include
-        </ToggleButton>
-      ),
-    },
-  ];
 
   return (
     <Modal {...props} centered size="lg">
@@ -119,23 +73,20 @@ function EditCategoryProductsModal({ category, ...props }) {
             <Spinner large />
           </div>
         )}
-        {isSuccess && isProductsSuccess && products.all && productIds && (
-          <DataTable
-            columns={columns}
-            data={products.all}
-            fixedHeader={true}
-            fixedHeaderScrollHeight="60vh"
-            highlightOnHover
-            striped
-          />
-        )}
+        <CategoryForm
+          isLoading={isFormLoading}
+          products={products}
+          onSubmit={onSubmit}
+          defaultValues={{ ...category, productIds: includedProductIds }}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button
           variant="dark"
           className="fw-semibold"
           disabled={isLoading || isProductsLoading || isEditing}
-          onClick={handleSaveChanges}
+          type="submit"
+          form="categoryForm"
         >
           {isLoading || isProductsLoading || isEditing ? (
             <Spinner />
@@ -143,7 +94,11 @@ function EditCategoryProductsModal({ category, ...props }) {
             "Save Changes"
           )}
         </Button>
-        <Button variant="secondary" className="fw-semibold">
+        <Button
+          variant="secondary"
+          className="fw-semibold"
+          onClick={props.onHide}
+        >
           Close
         </Button>
       </Modal.Footer>

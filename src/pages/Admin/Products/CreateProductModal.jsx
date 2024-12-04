@@ -46,6 +46,7 @@ function CreateProductModal(props) {
             width: "10rem",
           }}
           form="productForm"
+          disabled={isLoading}
         >
           {isLoading ? <Spinner /> : "Submit"}
         </Button>
