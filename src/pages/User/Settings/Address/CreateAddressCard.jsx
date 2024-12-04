@@ -11,11 +11,12 @@ function CreateAddressCard() {
           justifyContent: "center",
           alignItems: "center",
           padding: "10px",
-          height: "15rem",
+          height: "100%",
+          width: "15rem",
           border: "1px solid rgba(0, 0, 0, 0.3)",
         }}
         variant="light"
-        className="text-decoration-none w-100 "
+        className="text-decoration-none w-100 s"
       >
         <i className="bi bi-plus-lg" style={{ fontSize: "2rem" }}></i>
         <span style={{ marginTop: "10px" }}>CREATE A NEW ADDRESS</span>

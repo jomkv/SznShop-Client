@@ -1,0 +1,14 @@
+.glow {
+  box-shadow: 0 0 10px 2px rgb(4, 4, 4);
+  border: 1px solid rgba(8, 8, 8, 0.908);
+}
+.address-card {
+  max-width: 300px;
+  max-height: 300px;
+  overflow: hidden;
+}
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
