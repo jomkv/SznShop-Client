@@ -20,6 +20,7 @@ export const cartApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["Cart"],
+      transformResponse: (response) => response.cartProducts,
     }),
   }),
 });

@@ -37,10 +37,10 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
       ],
     }),
     editCategoryProducts: builder.mutation({
-      query: ({ categoryId, productIds }) => ({
+      query: ({ categoryId, name, productIds }) => ({
         url: `/category/${categoryId}`,
         method: "PUT",
-        body: { productIds },
+        body: { name, productIds },
       }),
       invalidatesTags: [{ type: "Category" }],
     }),
