@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, FormControl, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import "./Cart.css";
 import OrderSummary from "../../../components/OrderSummary/OrderSummary";
@@ -7,6 +7,8 @@ import { useGetCartQuery } from "../../../libs/rtk/api/cartApiSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../../../components/Spinner/Spinner";
+import RemoveButton from "./RemoveButton";
+import QuantityControl from "./QuantityControl";
 
 const Cart = () => {
   const { data: products, isLoading, isError, isSuccess } = useGetCartQuery();
@@ -21,21 +23,16 @@ const Cart = () => {
   }, [isError]);
 
   useEffect(() => {
-    console.log(products);
-  }, [products]);
+    if (isSuccess) {
+      let sum = 0;
 
-  // const handleQuantityChange = (index, newQuantity) => {
-  //   const updatedProducts = [...products];
-  //   updatedProducts[index].quantity = newQuantity;
-  //   updatedProducts[index].total = newQuantity * updatedProducts[index].price;
-  //   setProducts(updatedProducts);
-  // };
+      products.forEach((product) => {
+        sum += product.productId.price * product.quantity;
+      });
 
-  // const calculateTotal = () => {
-  //   return products
-  //     .reduce((total, product) => total + product.total, 0)
-  //     .toFixed(2);
-  // };
+      setTotal(sum);
+    }
+  }, [products, isSuccess]);
 
   const columns = [
     {
@@ -67,15 +64,8 @@ const Cart = () => {
     },
     {
       name: "QUANTITY",
-      cell: (row, index) => (
-        <FormControl
-          type="number"
-          value={row.quantity}
-          min="1"
-          // onChange={(e) =>
-          //   // handleQuantityChange(index, parseInt(e.target.value))
-          // }
-        />
+      cell: (row) => (
+        <QuantityControl productId={row._id} quantity={row.quantity} />
       ),
     },
     {
@@ -88,15 +78,7 @@ const Cart = () => {
     },
     {
       name: "REMOVE",
-      cell: (row, index) => (
-        <Button
-          variant="dark"
-          size="sm"
-          // onClick={() => handleRemoveProduct(index)}
-        >
-          <i className="bi bi-trash-fill"></i>
-        </Button>
-      ),
+      cell: (row) => <RemoveButton id={row._id} />,
     },
   ];
 
@@ -107,7 +89,7 @@ const Cart = () => {
         <Col md={8}>
           <div className="table-container table-responsive mt-4">
             {isLoading && <Spinner large />}
-            {products && (
+            {products && isSuccess && (
               <DataTable
                 columns={columns}
                 data={products}
@@ -115,13 +97,13 @@ const Cart = () => {
                 bordered
                 hover
                 fixedHeader
-                fixedHeaderScrollHeight="400px"
+                fixedHeaderScrollHeight="150rem"
               />
             )}
           </div>
         </Col>
         <Col md={4}>
-          <OrderSummary />
+          <OrderSummary isCart total={total} />
         </Col>
       </Row>
     </Container>
