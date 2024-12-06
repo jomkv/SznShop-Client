@@ -25,6 +25,7 @@ import {
   CheckOut,
   OrderHistory,
   FAQ,
+  CategoryPage,
 } from "./pages/User/index.js";
 import {
   Customers,
@@ -120,7 +121,22 @@ createRoot(document.getElementById("root")).render(
                   </Protected>
                 }
               />
-              <Route path="faq" element={<FAQ />} />
+              <Route
+                path="faq"
+                element={
+                  <Protected>
+                    <FAQ />
+                  </Protected>
+                }
+              />
+              <Route
+                path="category/:categoryName"
+                element={
+                  <Protected>
+                    <CategoryPage />
+                  </Protected>
+                }
+              />
             </Route>
             <Route
               path="/admin"

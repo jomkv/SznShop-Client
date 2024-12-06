@@ -5,6 +5,7 @@ import { useGetProductsHomeQuery } from "../../../libs/rtk/api/productApiSlice";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Spinner from "../../../components/Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 function Home() {
   const {
@@ -61,7 +62,15 @@ function Home() {
           {categoriesWithProducts.map((cwp, index) => (
             <CategoryCarousel
               key={index}
-              name={cwp.category.name}
+              name={
+                <Link
+                  to={`/category/${cwp.category.name}`}
+                  className="text-decoration-none"
+                  style={{ color: "black" }}
+                >
+                  {cwp.category.name}
+                </Link>
+              }
               products={cwp.products}
             />
           ))}
