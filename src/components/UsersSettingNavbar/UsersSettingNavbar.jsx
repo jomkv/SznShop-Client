@@ -21,14 +21,18 @@ function UsersSettingsNavbar() {
       >
         <Card
           className={`mb-2 ${selectedTab === "profile" ? "active" : ""}`}
-          style={{ width: "300px" }}
+          style={{ width: "300px", height: "150px" }}
         >
           <Card.Body className="d-flex align-items-center">
-            <i className="bi bi-person me-3" style={{ fontSize: "2rem" }}></i>
-            <div style={{ textAlign: "center", flex: 1 }}>
+            <i
+              className="bi bi-person-circle me-3"
+              style={{ fontSize: "2.5rem" }}
+            ></i>
+            <div style={{ flex: 1 }}>
               <Card.Title className="fw-bold">PROFILE</Card.Title>
-              <Card.Text style={{ fontSize: "0.8rem" }}>
-                Manage your personal information
+              <Card.Text style={{ fontSize: "0.9rem" }}>
+                View and update your name, phone number, and other profile.
+                details
               </Card.Text>
             </div>
           </Card.Body>
@@ -43,14 +47,14 @@ function UsersSettingsNavbar() {
       >
         <Card
           className={`mb-2 ${selectedTab === "address" ? "active" : ""}`}
-          style={{ width: "300px" }}
+          style={{ width: "300px", height: "150px" }}
         >
-          <Card.Body className="d-flex align-items-center">
-            <i className="bi bi-house me-3" style={{ fontSize: "2rem" }}></i>
-            <div style={{ textAlign: "center", flex: 1 }}>
+          <Card.Body className="d-flex align-items-center mb-3">
+            <i className="bi bi-house me-3" style={{ fontSize: "2.5rem" }}></i>
+            <div style={{ flex: 1 }}>
               <Card.Title className="fw-bold">ADDRESS</Card.Title>
-              <Card.Text style={{ fontSize: "0.8rem" }}>
-                Update your address details
+              <Card.Text style={{ fontSize: "0.9rem" }}>
+                Save, edit, remove or set default address on your account.
               </Card.Text>
             </div>
           </Card.Body>
@@ -65,14 +69,18 @@ function UsersSettingsNavbar() {
       >
         <Card
           className={`mb-2 ${selectedTab === "orders" ? "active" : ""}`}
-          style={{ width: "300px" }}
+          style={{ width: "300px", height: "150px" }}
         >
           <Card.Body className="d-flex align-items-center">
-            <i className="bi bi-basket3 me-3" style={{ fontSize: "2rem" }}></i>
-            <div style={{ textAlign: "center", flex: 1 }}>
+            <i
+              className="bi bi-basket3 me-3"
+              style={{ fontSize: "2.5rem" }}
+            ></i>
+            <div style={{ flex: 1 }}>
               <Card.Title className="fw-bold">ORDERS</Card.Title>
-              <Card.Text style={{ fontSize: "0.8rem" }}>
-                View your order history
+              <Card.Text style={{ fontSize: "0.9rem" }}>
+                View current and past orders, track your current order or file
+                for a return.
               </Card.Text>
             </div>
           </Card.Body>

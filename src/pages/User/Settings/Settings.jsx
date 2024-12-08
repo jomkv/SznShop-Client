@@ -11,7 +11,10 @@ function Settings() {
         height: "60vh",
       }}
     >
-      <div style={{ marginTop: "20px", fontSize: "30px", fontWeight: "bold" }}>
+      <div
+        style={{ marginTop: "20px", fontSize: "30px", fontWeight: "bold" }}
+        className="fs-1"
+      >
         ACCOUNT
       </div>
       <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
