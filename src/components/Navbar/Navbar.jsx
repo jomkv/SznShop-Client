@@ -33,7 +33,7 @@ const Navbar = () => {
               to="/"
             >
               <img
-                src="public/szn-logo-3.jpg"
+                src="szn-logo-3.jpg"
                 alt="Store Logo"
                 width="30"
                 height="30"
