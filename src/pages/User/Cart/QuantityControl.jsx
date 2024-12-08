@@ -5,7 +5,7 @@ import {
   useDecrementQuantityMutation,
 } from "../../../libs/rtk/api/cartApiSlice";
 
-function QuantityControl({ productId, quantity }) {
+function QuantityControl({ productId, quantity, stocks }) {
   const [incrementQuantity, { isLoading: incrementLoading }] =
     useIncrementQuantityMutation();
   const [decrementQuantity, { isLoading: decrementLoading }] =
@@ -31,7 +31,7 @@ function QuantityControl({ productId, quantity }) {
     <InputGroup>
       <Button
         variant="dark"
-        disabled={decrementLoading}
+        disabled={decrementLoading | (quantity <= 1)}
         onClick={handleDecrement}
       >
         -
@@ -39,7 +39,7 @@ function QuantityControl({ productId, quantity }) {
       <FormControl readOnly className="fs-6" value={quantity} />
       <Button
         variant="dark"
-        disabled={incrementLoading}
+        disabled={incrementLoading | (quantity >= stocks)}
         onClick={handleIncrement}
       >
         +
