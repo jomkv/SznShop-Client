@@ -3,19 +3,19 @@ import OrderSummary from "../../../components/OrderSummary/OrderSummary";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import CreateAddressCard from "../Settings/Address/CreateAddressCard";
 import {
-  useGetProductsCartCheckoutQuery,
   useLazyGetProductsCartCheckoutQuery,
   useLazyGetProductBuyNowQuery,
 } from "../../../libs/rtk/api/productApiSlice";
 import { useGetAddressesQuery } from "../../../libs/rtk/api/addressApiSlice";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./CheckOut.css";
 
 function CheckOut({ isCart }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { data: addresses } = useGetAddressesQuery();
+  const { data: addresses, isError, isSuccess } = useGetAddressesQuery();
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -44,7 +44,6 @@ function CheckOut({ isCart }) {
       setProducts(data);
       setTotal(total);
     } catch (error) {
-      console.log(error);
       navigate("/");
     }
   };
@@ -56,6 +55,22 @@ function CheckOut({ isCart }) {
   useEffect(() => {
     setIsLoading(isCartLoading || isBuyNowLoading);
   }, []);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+      toast.warn("An error occurred, please try again later.");
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (addresses.length > 0) {
+        const defaultAddress = addresses.find((address) => address.isDefault);
+        setSelectedAddress(defaultAddress._id);
+      }
+    }
+  }, [isSuccess]);
 
   const handleSelectAddress = (addressId) => {
     setSelectedAddress(addressId);
