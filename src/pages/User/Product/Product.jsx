@@ -53,6 +53,15 @@ function Product() {
     setSize(null);
   };
 
+  const handleBuyNow = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
+    navigate(`/checkout/${id}?size=${size}&quantity=${quantity}`);
+  };
+
   useEffect(() => {
     if (isError) {
       navigate("/");
@@ -270,6 +279,8 @@ function Product() {
                         variant="dark"
                         className="w-100"
                         style={{ height: "50px" }}
+                        onClick={handleBuyNow}
+                        disabled={!size}
                       >
                         Buy Now
                       </Button>
