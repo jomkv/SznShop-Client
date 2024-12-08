@@ -106,10 +106,18 @@ createRoot(document.getElementById("root")).render(
                 }
               />
               <Route
-                path="checkout"
+                path="checkout/cart"
                 element={
                   <Protected>
-                    <CheckOut />
+                    <CheckOut isCart={true} />
+                  </Protected>
+                }
+              />
+              <Route
+                path="checkout/:id"
+                element={
+                  <Protected>
+                    <CheckOut isCart={false} />
                   </Protected>
                 }
               />

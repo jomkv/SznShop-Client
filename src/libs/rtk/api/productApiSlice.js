@@ -66,6 +66,21 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Product" }],
     }),
+    getProductsCartCheckout: builder.query({
+      query: () => ({
+        url: `/product/checkout/cart`,
+        method: "GET",
+      }),
+      tagTypes: ["Cart"],
+      transformResponse: (response) => response.products,
+    }),
+    getProductBuyNow: builder.query({
+      query: ({ productId, size, quantity }) => ({
+        url: `/product/checkout/${productId}?size=${size}&quantity=${quantity}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => response.products,
+    }),
   }),
 });
 
@@ -80,4 +95,8 @@ export const {
   useDeleteProductMutation,
   useGetProductsQuery,
   useEditStocksMutation,
+  useGetProductsCartCheckoutQuery,
+  useLazyGetProductsCartCheckoutQuery,
+  useGetProductBuyNowQuery,
+  useLazyGetProductBuyNowQuery,
 } = productApiSlice;

@@ -1,11 +1,61 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import OrderSummary from "../../../components/OrderSummary/OrderSummary";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import CreateAddressCard from "../Settings/Address/CreateAddressCard";
+import {
+  useGetProductsCartCheckoutQuery,
+  useLazyGetProductsCartCheckoutQuery,
+  useLazyGetProductBuyNowQuery,
+} from "../../../libs/rtk/api/productApiSlice";
+import { useGetAddressesQuery } from "../../../libs/rtk/api/addressApiSlice";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import "./CheckOut.css";
 
-function CheckOut() {
+function CheckOut({ isCart }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { data: addresses } = useGetAddressesQuery();
+  const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const { id } = useParams();
+  const size = searchParams.get("size");
+  const quantity = searchParams.get("quantity");
+
+  const [getProductsCart, { isLoading: isCartLoading }] =
+    useLazyGetProductsCartCheckoutQuery();
+  const [getProductBuyNow, { isLoading: isBuyNowLoading }] =
+    useLazyGetProductBuyNowQuery();
+
+  const fetchProducts = async () => {
+    try {
+      const data = isCart
+        ? await getProductsCart().unwrap()
+        : await getProductBuyNow({ productId: id, size, quantity }).unwrap();
+
+      let total = 0;
+
+      data.forEach((product) => {
+        total += product.product.price * product.quantity;
+      });
+
+      setProducts(data);
+      setTotal(total);
+    } catch (error) {
+      console.log(error);
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(isCartLoading || isBuyNowLoading);
+  }, []);
 
   const handleSelectAddress = (addressId) => {
     setSelectedAddress(addressId);
@@ -18,126 +68,92 @@ function CheckOut() {
           <h1>CheckOut Process</h1>
           <Row>
             <div className="fs-3">Choose a Address</div>
-            <Col>
-              <Card
-                className={`address-card ${
-                  selectedAddress === "address1" ? "glow" : ""
-                }`}
-              >
-                <Card.Body>
-                  <Form.Check
-                    type="radio"
-                    name="address"
-                    id="address1"
-                    checked={selectedAddress === "address1"}
-                    onChange={() => handleSelectAddress("address1")}
-                    label={
-                      <>
-                        <Card.Title className="fw-bold fs-3 mb-1">
-                          Home
-                        </Card.Title>
-                        <Card.Text className="text-truncate mb-1">
-                          Name
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          Address
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          City
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          Province
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          Region
-                        </Card.Text>
-                        <Card.Title className="fw-bold fs-3 mb-1">
-                          PHONE
-                        </Card.Title>
-                        <Card.Text className="text-truncate mb-1">
-                          Phone Number
-                        </Card.Text>
-                      </>
-                    }
-                  />
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                className={`address-card ${
-                  selectedAddress === "address2" ? "glow" : ""
-                }`}
-              >
-                <Card.Body>
-                  <Form.Check
-                    type="radio"
-                    name="address"
-                    id="address2"
-                    checked={selectedAddress === "address2"}
-                    onChange={() => handleSelectAddress("address2")}
-                    label={
-                      <>
-                        <Card.Title className="fw-bold fs-3 mb-1">
-                          Home
-                        </Card.Title>
-                        <Card.Text className="text-truncate mb-1">
-                          Name
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          Address
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          City
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          Province
-                        </Card.Text>
-                        <Card.Text className="text-truncate mb-1">
-                          Region
-                        </Card.Text>
-                        <Card.Title className="fw-bold fs-3 mb-1">
-                          PHONE
-                        </Card.Title>
-                        <Card.Text className="text-truncate mb-1">
-                          Phone Number
-                        </Card.Text>
-                      </>
-                    }
-                  />
-                </Card.Body>
-              </Card>
-            </Col>
+            {addresses &&
+              addresses.map((address, index) => (
+                <Col key={index}>
+                  <Card
+                    className={`address-card ${
+                      selectedAddress === "address1" ? "glow" : ""
+                    }`}
+                  >
+                    <Card.Body>
+                      <Form.Check
+                        type="radio"
+                        name="address"
+                        checked={selectedAddress === address._id}
+                        onChange={() => handleSelectAddress(address._id)}
+                        label={
+                          <>
+                            <Card.Title className="fw-bold fs-3 mb-1">
+                              {address.addressLabel}
+                            </Card.Title>
+                            <Card.Text className="text-truncate mb-1">
+                              {`${address.firstName} ${address.lastName}`}
+                            </Card.Text>
+                            <Card.Text className="text-truncate mb-1 text-wrap">
+                              {address.address}
+                            </Card.Text>
+                            <Card.Text className="text-truncate mb-1">
+                              {address.city}
+                            </Card.Text>
+                            <Card.Text className="text-truncate mb-1">
+                              {address.province}
+                            </Card.Text>
+                            <Card.Text className="text-truncate mb-1">
+                              {address.region}
+                            </Card.Text>
+                            <Card.Title className="fw-bold fs-3 mb-1">
+                              PHONE
+                            </Card.Title>
+                            <Card.Text className="text-truncate mb-1">
+                              {address.phoneNumber}
+                            </Card.Text>
+                          </>
+                        }
+                      />
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
             <Col>
               <CreateAddressCard />
             </Col>
           </Row>
           <Card className="mt-3">
             <Card.Header className="text-end">
-              <div className="fw-bold">ORDER STATUS</div>
+              <div className="fw-bold">ORDER DETAILS</div>
             </Card.Header>
             <Card.Body>
-              <Row>
-                <Col md={2}>
-                  <Card.Img
-                    style={{ width: "100px", height: "100px" }}
-                    variant="top"
-                    src="https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2F52%2F94%2FlongTshirt-1-1-90e40.jpg?fit=max&w=2160&q=90"
-                  />
-                </Col>
-                <Col md={7}>
-                  <Card.Title>PTC Basic Long Sleeve T-shirt</Card.Title>
-                  <Card.Text>Size: M</Card.Text>
-                </Col>
-                <Col md={3} className="text-end fs-4">
-                  <Card.Text> $100</Card.Text>
-                </Col>
-              </Row>
+              {products &&
+                products.map((product, index) => (
+                  <Row key={index}>
+                    <Col md={2}>
+                      <Card.Img
+                        style={{ width: "100px", height: "100px" }}
+                        variant="top"
+                        src={product.product.images[0].url}
+                      />
+                    </Col>
+                    <Col md={7}>
+                      <Card.Title>{product.product.name}</Card.Title>
+                      <Card.Text>Size: {product.size.toUpperCase()}</Card.Text>
+                    </Col>
+                    <Col md={3} className="text-end fs-4">
+                      <Card.Text>
+                        ₱
+                        {(
+                          product.product.price * product.quantity
+                        ).toLocaleString()}
+                      </Card.Text>
+                    </Col>
+                  </Row>
+                ))}
             </Card.Body>
             <Card.Footer>
               <div className="text-end">
                 <Card.Text className="fw-bold">
-                  Order Total: <span className="fs-4">$100</span>
+                  Order Total:{" "}
+                  <span className="fs-4">₱{total.toLocaleString()}</span>
                 </Card.Text>
               </div>
             </Card.Footer>

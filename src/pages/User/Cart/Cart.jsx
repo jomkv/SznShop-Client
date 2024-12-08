@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import "./Cart.css";
-import OrderSummary from "../../../components/OrderSummary/OrderSummary";
 import { useGetCartQuery } from "../../../libs/rtk/api/cartApiSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../../../components/Spinner/Spinner";
 import RemoveButton from "./RemoveButton";
@@ -14,6 +13,8 @@ const Cart = () => {
   const { data: products, isLoading, isError, isSuccess } = useGetCartQuery();
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
+
+  console.log(products);
 
   useEffect(() => {
     if (isError) {
@@ -65,7 +66,11 @@ const Cart = () => {
     {
       name: "QUANTITY",
       cell: (row) => (
-        <QuantityControl productId={row._id} quantity={row.quantity} />
+        <QuantityControl
+          productId={row._id}
+          quantity={row.quantity}
+          stocks={row.productId.stocks[row.size]}
+        />
       ),
     },
     {
@@ -103,7 +108,26 @@ const Cart = () => {
           </div>
         </Col>
         <Col md={4}>
-          <OrderSummary isCart total={total} />
+          <Card style={{ width: "100%" }} className="mt-4">
+            <Card.Body>
+              <Card.Header className="fw-bold text-center fs-5">
+                <Card.Title>ORDER SUMMARY</Card.Title>
+              </Card.Header>
+              <Card.Text>
+                <div className="d-flex justify-content-between mt-3">
+                  <span className="fs-5 fw-bold">ORDER TOTAL</span>
+                  <span>₱{total.toLocaleString()}</span>
+                </div>
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer className="text-center">
+              <Link to="/checkout/cart">
+                <Button className="w-100" variant="dark">
+                  Checkout
+                </Button>
+              </Link>
+            </Card.Footer>
+          </Card>
         </Col>
       </Row>
     </Container>
