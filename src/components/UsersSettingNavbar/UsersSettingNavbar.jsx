@@ -50,7 +50,10 @@ function UsersSettingsNavbar() {
           style={{ width: "300px", height: "150px" }}
         >
           <Card.Body className="d-flex align-items-center mb-3">
-            <i className="bi bi-house me-3" style={{ fontSize: "2.5rem" }}></i>
+            <i
+              className="bi bi-house me-3 mt-3"
+              style={{ fontSize: "2.5rem" }}
+            ></i>
             <div style={{ flex: 1 }}>
               <Card.Title className="fw-bold">ADDRESS</Card.Title>
               <Card.Text style={{ fontSize: "0.9rem" }}>
