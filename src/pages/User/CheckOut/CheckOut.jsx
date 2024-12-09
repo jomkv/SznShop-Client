@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import OrderSummary from "../../../components/OrderSummary/OrderSummary";
-import { Container, Row, Col, Card, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import CreateAddressCard from "../Settings/Address/CreateAddressCard";
 import {
   useLazyGetProductsCartCheckoutQuery,
@@ -10,13 +9,20 @@ import { useGetAddressesQuery } from "../../../libs/rtk/api/addressApiSlice";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./CheckOut.css";
+import Spinner from "../../../components/Spinner/Spinner";
 
 function CheckOut({ isCart }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { data: addresses, isError, isSuccess } = useGetAddressesQuery();
+  const {
+    data: addresses,
+    isError,
+    isSuccess,
+    isLoading: isAddressLoading,
+  } = useGetAddressesQuery();
   const [total, setTotal] = useState(0);
+  const [shippingFee, setShippingFee] = useState(0);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -54,7 +60,25 @@ function CheckOut({ isCart }) {
 
   useEffect(() => {
     setIsLoading(isCartLoading || isBuyNowLoading);
-  }, []);
+  }, [isCartLoading, isBuyNowLoading]);
+
+  useEffect(() => {
+    if (selectedAddress && addresses) {
+      const address = addresses.find(
+        (address) => address._id === selectedAddress
+      );
+
+      console.log(address);
+
+      if (!address) return;
+
+      if (address.province === "Cavite") {
+        setShippingFee(50);
+      } else {
+        setShippingFee(100);
+      }
+    }
+  }, [selectedAddress]);
 
   useEffect(() => {
     if (isError) {
@@ -83,6 +107,7 @@ function CheckOut({ isCart }) {
           <h1>CheckOut Process</h1>
           <Row>
             <div className="fs-3">Choose a Address</div>
+            {isAddressLoading && <Spinner />}
             {addresses &&
               addresses.map((address, index) => (
                 <Col key={index}>
@@ -139,6 +164,7 @@ function CheckOut({ isCart }) {
               <div className="fw-bold">ORDER DETAILS</div>
             </Card.Header>
             <Card.Body>
+              {isLoading && <Spinner />}
               {products &&
                 products.map((product, index) => (
                   <Row key={index}>
@@ -175,7 +201,33 @@ function CheckOut({ isCart }) {
           </Card>
         </Col>
         <Col md={4} className="mt-5">
-          <OrderSummary />
+          <Card style={{ width: "100%" }} className="mt-4">
+            <Card.Body>
+              <Card.Header className="fw-bold text-center fs-5">
+                <Card.Title>ORDER SUMMARY</Card.Title>
+              </Card.Header>
+              <Card.Text>
+                <div className="d-flex justify-content-between mt-3">
+                  <span>SUBTOTAL</span>
+                  <span>₱{total.toLocaleString()}</span>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <span>SHIPPING FEE</span>
+                  <span>₱{shippingFee}</span>
+                </div>
+
+                <div className="d-flex justify-content-between mt-5">
+                  <span className="fs-5 fw-bold">ORDER TOTAL</span>
+                  <span>₱{(total + shippingFee).toLocaleString()}</span>
+                </div>
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer className="text-center">
+              <Button className="w-100" variant="dark">
+                Checkout
+              </Button>
+            </Card.Footer>
+          </Card>
         </Col>
       </Row>
     </Container>
