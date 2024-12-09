@@ -79,6 +79,21 @@ function Product() {
       }
 
       setTotalStocks(total);
+
+      // Set the default size based on the available stocks
+      if (xs > 0) {
+        setSize("xs");
+      } else if (sm > 0) {
+        setSize("sm");
+      } else if (md > 0) {
+        setSize("md");
+      } else if (lg > 0) {
+        setSize("lg");
+      } else if (xl > 0) {
+        setSize("xl");
+      } else if (xxl > 0) {
+        setSize("xxl");
+      }
     }
   }, [product]);
 
@@ -158,7 +173,7 @@ function Product() {
                   }}
                   className="text-start"
                 >
-                  Size:
+                  {size ? `Size: ${size.toUpperCase()}` : "Select Size"}
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                   style={{ width: "100%", borderRadius: "20px" }}
