@@ -115,30 +115,36 @@ function Product() {
                   </Card>
                 </Col>
               </Row>
-              <Row className="mt-3">
-                <Col>
-                  <Card>
-                    <Card.Img
-                      src={
-                        product.images[2]?.url ||
-                        "https://via.placeholder.com/500"
-                      }
-                      className="fixed-size-img"
-                    />
-                  </Card>
-                </Col>
-                <Col>
-                  <Card>
-                    <Card.Img
-                      src={
-                        product.images[3]?.url ||
-                        "https://via.placeholder.com/500"
-                      }
-                      className="fixed-size-img"
-                    />
-                  </Card>
-                </Col>
-              </Row>
+              {product.images.length > 2 && (
+                <Row className="mt-3">
+                  {product.images[2] && (
+                    <Col>
+                      <Card>
+                        <Card.Img
+                          src={
+                            product.images[2]?.url ||
+                            "https://via.placeholder.com/500"
+                          }
+                          className="fixed-size-img"
+                        />
+                      </Card>
+                    </Col>
+                  )}
+                  {product.images[3] && (
+                    <Col>
+                      <Card>
+                        <Card.Img
+                          src={
+                            product.images[3]?.url ||
+                            "https://via.placeholder.com/500"
+                          }
+                          className="fixed-size-img"
+                        />
+                      </Card>
+                    </Col>
+                  )}
+                </Row>
+              )}
             </Col>
             <Col md={5}>
               <Dropdown>
