@@ -137,14 +137,7 @@ createRoot(document.getElementById("root")).render(
                   </Protected>
                 }
               />
-              <Route
-                path="category/:categoryName"
-                element={
-                  <Protected>
-                    <CategoryPage />
-                  </Protected>
-                }
-              />
+              <Route path="category/:categoryName" element={<CategoryPage />} />
             </Route>
             <Route
               path="/admin"
