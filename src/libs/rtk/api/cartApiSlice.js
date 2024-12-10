@@ -20,6 +20,7 @@ export const cartApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["Cart"],
+      tagTypes: ["Cart"],
       transformResponse: (response) => response.cartProducts,
     }),
     removeFromCart: builder.mutation({

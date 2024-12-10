@@ -10,6 +10,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./CheckOut.css";
 import Spinner from "../../../components/Spinner/Spinner";
+import { useCreateOrderMutation } from "../../../libs/rtk/api/orderApiSlice";
 
 function CheckOut({ isCart }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -26,6 +27,9 @@ function CheckOut({ isCart }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const [createOrder, { isLoading: isCreatingOrder }] =
+    useCreateOrderMutation();
+
   const { id } = useParams();
   const size = searchParams.get("size");
   const quantity = searchParams.get("quantity");
@@ -34,6 +38,26 @@ function CheckOut({ isCart }) {
     useLazyGetProductsCartCheckoutQuery();
   const [getProductBuyNow, { isLoading: isBuyNowLoading }] =
     useLazyGetProductBuyNowQuery();
+
+  const handleCreateOrder = async () => {
+    try {
+      await createOrder({
+        addressId: selectedAddress,
+        products: products.map((product) => ({
+          productId: product.product._id,
+          size: product.size,
+          quantity: product.quantity,
+        })),
+        isCart,
+      }).unwrap();
+
+      toast.success("Order created successfully");
+      navigate("/");
+    } catch (error) {
+      toast.warn("An error occurred, please try again later.");
+      navigate("/");
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -67,8 +91,6 @@ function CheckOut({ isCart }) {
       const address = addresses.find(
         (address) => address._id === selectedAddress
       );
-
-      console.log(address);
 
       if (!address) return;
 
@@ -223,8 +245,13 @@ function CheckOut({ isCart }) {
               </Card.Text>
             </Card.Body>
             <Card.Footer className="text-center">
-              <Button className="w-100" variant="dark">
-                Checkout
+              <Button
+                className="w-100"
+                variant="dark"
+                disabled={isCreatingOrder}
+                onClick={handleCreateOrder}
+              >
+                {isCreatingOrder ? <Spinner /> : "Checkout"}
               </Button>
             </Card.Footer>
           </Card>
