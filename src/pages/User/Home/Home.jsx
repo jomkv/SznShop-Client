@@ -78,7 +78,18 @@ function Home() {
       )}
       {isProductLoading && <Spinner large />}
       {isProductSuccess && (
-        <CategoryCarousel name="All Products" products={products} />
+        <CategoryCarousel
+          name={
+            <Link
+              to="/category/all-products"
+              className="text-decoration-none"
+              style={{ color: "black" }}
+            >
+              All Products
+            </Link>
+          }
+          products={products}
+        />
       )}
     </Container>
   );
