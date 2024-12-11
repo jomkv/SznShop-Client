@@ -24,7 +24,26 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       tagTypes: ["Order"],
       transformResponse: (res) => res.orders,
     }),
+    acceptOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `/order/${orderId}/accept`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Order"],
+    }),
+    rejectOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `/order/${orderId}/reject`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useCreateOrderMutation, useGetAllOrdersQuery } = orderApiSlice;
+export const {
+  useCreateOrderMutation,
+  useGetAllOrdersQuery,
+  useAcceptOrderMutation,
+  useRejectOrderMutation,
+} = orderApiSlice;

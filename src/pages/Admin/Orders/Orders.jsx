@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { Tabs, Tab, Container, Button, Dropdown } from "react-bootstrap";
+import { Tabs, Tab, Container } from "react-bootstrap";
 import { useGetAllOrdersQuery } from "../../../libs/rtk/api/orderApiSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { formatDate, getOrderTotal } from "../../../utils/helper";
 import Spinner from "../../../components/Spinner/Spinner";
+import ActionButtons from "./ActionButtons";
 
 function Orders() {
-  const commonColumns = [
+  const columns = [
     {
       name: "Customer Name",
       selector: (row) => `${row.address.firstName} ${row.address.lastName}`,
@@ -30,33 +31,8 @@ function Orders() {
       sortable: true,
     },
     {
-      name: "View",
-      cell: (row) => (
-        <Button variant="dark" size="sm" onClick={() => handleView(row.id)}>
-          <i className="bi bi-eye-fill"></i>
-        </Button>
-      ),
-    },
-  ];
-
-  const pendingColumns = [
-    ...commonColumns,
-    {
       name: "Actions",
-      cell: (row) =>
-        row.status === "Pending" && (
-          <Dropdown>
-            <Dropdown.Toggle variant="dark" size="sm"></Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleAccept(row.id)}>
-                <i className="bi bi-check"></i> Accept
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleCancel(row.id)}>
-                <i className="bi bi-x"></i> Cancel
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        ),
+      cell: (row) => <ActionButtons order={row} />,
     },
   ];
 
@@ -76,32 +52,10 @@ function Orders() {
     }
   }, [isError]);
 
-  console.log(orders);
-
   const [key, setKey] = useState("pending");
 
-  const handleView = (id) => {
-    // Implement view functionality
-    console.log(`View order ${id}`);
-  };
-
-  const handleAccept = (id) => {
-    // Implement accept functionality
-    console.log(`Accept order ${id}`);
-  };
-
-  const handleCancel = (id) => {
-    // Implement cancel functionality
-    console.log(`Cancel order ${id}`);
-  };
-
-  const getColumns = () => {
-    if (key === "pending") return pendingColumns;
-    return commonColumns;
-  };
-
   return (
-    <Container>
+    <Container fluid>
       <Tabs
         id="order-tabs"
         activeKey={key}
@@ -113,7 +67,7 @@ function Orders() {
           {isSuccess && (
             <DataTable
               title="Pending Orders"
-              columns={getColumns()}
+              columns={columns}
               data={orders}
               pagination
               customStyles={{
