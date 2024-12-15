@@ -27,7 +27,7 @@ function Orders() {
     },
     {
       name: "Total",
-      selector: (row) => `₱${getOrderTotal(row.products).toLocaleString()}`,
+      selector: (row) => `₱${getOrderTotal(row).toLocaleString()}`,
       sortable: true,
     },
     {
@@ -52,29 +52,22 @@ function Orders() {
     }
   }, [isError]);
 
-  const [key, setKey] = useState("pending");
+  const [key, setKey] = useState("all");
 
   return (
     <Container fluid>
-      <Tabs
-        id="order-tabs"
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-        className="mb-3"
-      >
-        <Tab eventKey="pending" title="Pending">
+      <Tabs id="order-tabs" activeKey={key} onSelect={(k) => setKey(k)}>
+        <Tab eventKey="all" title="All">
           {isLoading && <Spinner />}
           {isSuccess && (
             <DataTable
-              title="Pending Orders"
               columns={columns}
-              data={orders}
-              pagination
+              data={orders.all}
+              fixedHeaderScrollHeight="500px"
               customStyles={{
                 table: {
                   style: {
                     width: "100%", // Adjust the width as needed
-                    height: "500px", // Adjust the height as needed
                   },
                 },
                 headCells: {
@@ -92,87 +85,202 @@ function Orders() {
             />
           )}
         </Tab>
-        {/* <Tab eventKey="confirmed" title="Confirmed">
-          <DataTable
-            title="Confirmed Orders"
-            columns={getColumns()}
-            data={filteredData}
-            pagination
-            customStyles={{
-              table: {
-                style: {
-                  width: "100%", // Adjust the width as needed
-                  height: "500px", // Adjust the height as needed
+        <Tab eventKey="reviewing" title="Reviewing">
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.reviewing}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
                 },
-              },
-              headCells: {
-                style: {
-                  fontWeight: "bold",
-                  fontSize: "15px",
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
                 },
-              },
-              cells: {
-                style: {
-                  fontSize: "18px", // Adjust the font size as needed
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+          )}
         </Tab>
-        <Tab eventKey="cancelled" title="Cancelled/Return">
-          <DataTable
-            title="Cancelled/Return Orders"
-            columns={getColumns()}
-            data={filteredData}
-            pagination
-            customStyles={{
-              table: {
-                style: {
-                  width: "100%", // Adjust the width as needed
-                  height: "500px", // Adjust the height as needed
+        <Tab eventKey="shipping" title="Shipping">
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.shipping}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
                 },
-              },
-              headCells: {
-                style: {
-                  fontWeight: "bold",
-                  fontSize: "15px",
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
                 },
-              },
-              cells: {
-                style: {
-                  fontSize: "18px", // Adjust the font size as needed
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+          )}
         </Tab>
         <Tab eventKey="received" title="Received">
-          <DataTable
-            title="Received Orders"
-            columns={getColumns()}
-            data={filteredData}
-            pagination
-            customStyles={{
-              table: {
-                style: {
-                  width: "100%", // Adjust the width as needed
-                  height: "500px", // Adjust the height as needed
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.received}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
                 },
-              },
-              headCells: {
-                style: {
-                  fontWeight: "bold",
-                  fontSize: "15px",
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
                 },
-              },
-              cells: {
-                style: {
-                  fontSize: "18px", // Adjust the font size as needed
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
                 },
-              },
-            }}
-          />
-        </Tab> */}
+              }}
+            />
+          )}
+        </Tab>
+        <Tab eventKey="completed" title="Completed">
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.completed}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
+                },
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
+                },
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
+                },
+              }}
+            />
+          )}
+        </Tab>
+        <Tab eventKey="cancelled" title="Cancelled">
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.cancelled}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
+                },
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
+                },
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
+                },
+              }}
+            />
+          )}
+        </Tab>
+        <Tab eventKey="returned" title="Returned">
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.returned}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
+                },
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
+                },
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
+                },
+              }}
+            />
+          )}
+        </Tab>
+        <Tab eventKey="refunded" title="Refunded">
+          {isLoading && <Spinner />}
+          {isSuccess && (
+            <DataTable
+              columns={columns}
+              data={orders.refunded}
+              fixedHeaderScrollHeight="500px"
+              customStyles={{
+                table: {
+                  style: {
+                    width: "100%", // Adjust the width as needed
+                  },
+                },
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  },
+                },
+                cells: {
+                  style: {
+                    fontSize: "18px", // Adjust the font size as needed
+                  },
+                },
+              }}
+            />
+          )}
+        </Tab>
       </Tabs>
     </Container>
   );

@@ -22,7 +22,6 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Order"],
       tagTypes: ["Order"],
-      transformResponse: (res) => res.orders,
     }),
     acceptOrder: builder.mutation({
       query: (orderId) => ({

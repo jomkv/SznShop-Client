@@ -10,14 +10,12 @@ export function formatDate(dateString) {
   return formattedDate;
 }
 
-export function getOrderTotal(products) {
-  let total = 0;
+export function getOrderTotal(order) {
+  let total = order.shippingFee || 0;
 
-  products.forEach((prod) => {
+  order.products.forEach((prod) => {
     total += prod.price * prod.quantity;
   });
-
-  console.log(total);
 
   return total;
 }
