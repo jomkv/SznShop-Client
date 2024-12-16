@@ -13,7 +13,7 @@ export function formatDate(dateString) {
 export function getOrderTotal(order) {
   let total = order.shippingFee || 0;
 
-  order.products.forEach((prod) => {
+  order.orderProducts.forEach((prod) => {
     total += prod.price * prod.quantity;
   });
 
