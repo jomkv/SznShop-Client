@@ -2,10 +2,12 @@ import { Button } from "react-bootstrap";
 import AcceptModal from "./AcceptModal";
 import { useState } from "react";
 import RejectModal from "./RejectModal";
+import ReceiveModal from "./ReceiveModal";
 
 function ActionButtons({ order }) {
   const [showAccept, setShowAccept] = useState(false);
   const [showReject, setShowReject] = useState(false);
+  const [showReceive, setShowReceive] = useState(false);
 
   return (
     <>
@@ -27,6 +29,11 @@ function ActionButtons({ order }) {
             </Button>
           </>
         )}
+        {order.status === "SHIPPING" && (
+          <Button variant="dark" onClick={() => setShowReceive(true)}>
+            Receive
+          </Button>
+        )}
       </div>
       <AcceptModal
         show={showAccept}
@@ -36,6 +43,11 @@ function ActionButtons({ order }) {
       <RejectModal
         show={showReject}
         setShow={setShowReject}
+        orderId={order._id}
+      />
+      <ReceiveModal
+        show={showReceive}
+        setShow={setShowReceive}
         orderId={order._id}
       />
     </>

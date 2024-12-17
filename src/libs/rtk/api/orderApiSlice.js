@@ -43,6 +43,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    receiveOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `/order/${orderId}/received`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
@@ -52,4 +59,5 @@ export const {
   useAcceptOrderMutation,
   useRejectOrderMutation,
   useGetMyOrdersQuery,
+  useReceiveOrderMutation,
 } = orderApiSlice;
