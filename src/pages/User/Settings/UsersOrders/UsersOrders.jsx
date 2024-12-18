@@ -53,17 +53,17 @@ function UsersOrders() {
                   </Col>
                   <Col>
                     <Nav.Item>
-                      <Nav.Link eventKey="toShip">To Ship</Nav.Link>
+                      <Nav.Link eventKey="toShip">Shipping</Nav.Link>
                     </Nav.Item>
                   </Col>
                   <Col>
                     <Nav.Item>
-                      <Nav.Link eventKey="toReceive">To Receive</Nav.Link>
+                      <Nav.Link eventKey="toReceive">Received</Nav.Link>
                     </Nav.Item>
                   </Col>
                   <Col>
                     <Nav.Item>
-                      <Nav.Link eventKey="complete">Complete</Nav.Link>
+                      <Nav.Link eventKey="complete">Completed</Nav.Link>
                     </Nav.Item>
                   </Col>
                   <Col>
@@ -87,21 +87,24 @@ function UsersOrders() {
                       <Tab.Pane eventKey="InReview">
                         {renderOrdersTable(orders.reviewing)}
                       </Tab.Pane>
-                      {/* <Tab.Pane eventKey="toShip">
-                        {renderOrdersTable("To Ship")}
+                      <Tab.Pane eventKey="toShip">
+                        {renderOrdersTable(orders.shipping)}
                       </Tab.Pane>
                       <Tab.Pane eventKey="toReceive">
-                        {renderOrdersTable("To Receive")}
+                        {renderOrdersTable(orders.received)}
                       </Tab.Pane>
                       <Tab.Pane eventKey="complete">
-                        {renderOrdersTable("Complete")}
+                        {renderOrdersTable(orders.completed)}
                       </Tab.Pane>
                       <Tab.Pane eventKey="cancelled">
-                        {renderOrdersTable("Cancelled")}
+                        {renderOrdersTable(orders.cancelled)}
                       </Tab.Pane>
                       <Tab.Pane eventKey="returnRefund">
-                        {renderOrdersTable("Return/Refund")}
-                      </Tab.Pane> */}
+                        {renderOrdersTable([
+                          ...orders.returned,
+                          ...orders.refunded,
+                        ])}
+                      </Tab.Pane>
                     </>
                   )}
                 </Tab.Content>
