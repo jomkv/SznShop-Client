@@ -14,8 +14,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
 
-  console.log(products);
-
   useEffect(() => {
     if (isError) {
       navigate("/");
@@ -122,7 +120,11 @@ const Cart = () => {
             </Card.Body>
             <Card.Footer className="text-center">
               <Link to="/checkout/cart">
-                <Button className="w-100" variant="dark">
+                <Button
+                  className="w-100"
+                  variant="dark"
+                  disabled={products?.length <= 0}
+                >
                   Checkout
                 </Button>
               </Link>
