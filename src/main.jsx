@@ -122,7 +122,7 @@ createRoot(document.getElementById("root")).render(
                 }
               />
               <Route
-                path="orderhistory"
+                path="order/:id"
                 element={
                   <Protected>
                     <OrderHistory />

@@ -21,11 +21,15 @@ function UsersOrders() {
   const renderOrdersTable = (orders) => {
     return (
       <div>
-        <Link to="/OrderHistory" style={{ textDecoration: "none" }}>
-          {orders.map((order, index) => (
-            <OrderCard order={order} key={index} />
-          ))}
-        </Link>
+        {orders.map((order, index) => (
+          <Link
+            to={`/order/${order._id}`}
+            style={{ textDecoration: "none" }}
+            key={index}
+          >
+            <OrderCard order={order} />
+          </Link>
+        ))}
       </div>
     );
   };

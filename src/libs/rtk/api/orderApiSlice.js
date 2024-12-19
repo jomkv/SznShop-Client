@@ -50,6 +50,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Order"],
     }),
+    getOrder: builder.query({
+      query: (orderId) => ({
+        url: `/order/${orderId}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => response.order,
+    }),
   }),
 });
 
@@ -60,4 +67,5 @@ export const {
   useRejectOrderMutation,
   useGetMyOrdersQuery,
   useReceiveOrderMutation,
+  useGetOrderQuery,
 } = orderApiSlice;

@@ -10,8 +10,8 @@ export function formatDate(dateString) {
   return formattedDate;
 }
 
-export function getOrderTotal(order) {
-  let total = order.shippingFee || 0;
+export function getOrderTotal(order, excludeShipping) {
+  let total = excludeShipping ? 0 : order.shippingFee;
 
   order.orderProducts.forEach((prod) => {
     total += prod.price * prod.quantity;
