@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Tab, Nav, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import OrderCard from "../../../../components/OrderCard/OrderCard";
 import { useGetMyOrdersQuery } from "../../../../libs/rtk/api/orderApiSlice";
 import { toast } from "react-toastify";
@@ -22,13 +22,7 @@ function UsersOrders() {
     return (
       <div>
         {orders.map((order, index) => (
-          <Link
-            to={`/order/${order._id}`}
-            style={{ textDecoration: "none" }}
-            key={index}
-          >
-            <OrderCard order={order} />
-          </Link>
+          <OrderCard order={order} key={index} />
         ))}
       </div>
     );

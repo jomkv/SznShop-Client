@@ -42,6 +42,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         url: "/order",
         method: "GET",
       }),
+      providesTags: ["Order"],
+      tagTypes: ["Order"],
     }),
     receiveOrder: builder.mutation({
       query: (orderId) => ({
@@ -56,6 +58,14 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response) => response.order,
+      tagTypes: ["Order"],
+    }),
+    completeOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `/order/${orderId}/complete`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Order"],
     }),
   }),
 });
@@ -68,4 +78,5 @@ export const {
   useGetMyOrdersQuery,
   useReceiveOrderMutation,
   useGetOrderQuery,
+  useCompleteOrderMutation,
 } = orderApiSlice;
