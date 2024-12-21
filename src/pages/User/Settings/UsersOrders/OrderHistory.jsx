@@ -115,6 +115,11 @@ function OrderHistory() {
               <Col className="text-center">
                 <i className={`bi bi-star ${getIconColor(100)}`}></i>
                 <div className="fw-bold">Order Completed</div>
+                {order.timestamps?.completedAt && (
+                  <div className="small">
+                    {formatDate(order.timestamps.completedAt)}
+                  </div>
+                )}
               </Col>
             </Row>
           </Card.Body>
