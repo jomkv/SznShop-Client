@@ -1,18 +1,9 @@
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { getOrderTotal } from "../../utils/helper";
-import CompleteOrderModal from "../CompleteOrderModal/CompleteOrderModal";
-import { useState } from "react";
+import { Card, Col, Row } from "react-bootstrap";
+import { getOrderTotal } from "../../../../utils/helper";
 import { Link } from "react-router-dom";
+import ActionButtons from "./ActionButtons";
 
 function OrderCard({ order }) {
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
-  const [orderId, setOrderId] = useState(null);
-
-  const handleComplete = (orderId) => {
-    setOrderId(orderId);
-    setShowCompleteModal(true);
-  };
-
   return (
     <>
       <Card className="mt-3">
@@ -58,49 +49,10 @@ function OrderCard({ order }) {
             </Card.Text>
           </div>
           <div className="text-end">
-            {order.status === "COMPLETED" && (
-              <>
-                <Button
-                  style={{ width: "150px" }}
-                  variant="dark"
-                  className="me-2"
-                >
-                  Rate
-                </Button>
-                <Button variant="light" style={{ width: "150px" }}>
-                  Buy Again
-                </Button>
-              </>
-            )}
-            {order.status === "REVIEWING" && (
-              <>
-                <Button style={{ width: "150px" }} variant="dark">
-                  CANCEL
-                </Button>
-              </>
-            )}
-            {order.status === "RECEIVED" && (
-              <>
-                <Button
-                  style={{ width: "12rem" }}
-                  variant="dark"
-                  onClick={() => handleComplete(order._id)}
-                >
-                  COMPLETE ORDER
-                </Button>
-              </>
-            )}
+            <ActionButtons order={order} />
           </div>
         </Card.Footer>
       </Card>
-
-      {orderId && (
-        <CompleteOrderModal
-          orderId={orderId}
-          show={showCompleteModal}
-          setShow={setShowCompleteModal}
-        />
-      )}
     </>
   );
 }

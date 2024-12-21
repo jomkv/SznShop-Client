@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Tab, Nav, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import OrderCard from "../../../../components/OrderCard/OrderCard";
+import OrderCard from "./OrderCard";
 import { useGetMyOrdersQuery } from "../../../../libs/rtk/api/orderApiSlice";
 import { toast } from "react-toastify";
 import Spinner from "../../../../components/Spinner/Spinner";

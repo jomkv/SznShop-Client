@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../../../../components/Spinner/Spinner";
 import { formatDate, getOrderTotal } from "../../../../utils/helper";
+import ActionButtons from "./ActionButtons";
 
 function OrderHistory() {
   const [progress, setProgress] = useState(10);
@@ -140,23 +141,8 @@ function OrderHistory() {
                 </Card.Text>
               </Col>
               <Col>
-                <div className="text-end">
-                  <Button
-                    style={{ width: "150px" }}
-                    variant="dark"
-                    className="me-2"
-                  >
-                    Rate
-                  </Button>
-                </div>
-                <div className="text-end">
-                  <Button
-                    variant="light"
-                    style={{ width: "150px" }}
-                    className="me-2 mt-2"
-                  >
-                    Buy Again
-                  </Button>
+                <div className="d-flex flex-column align-items-end">
+                  <ActionButtons order={order} />
                 </div>
               </Col>
             </Row>

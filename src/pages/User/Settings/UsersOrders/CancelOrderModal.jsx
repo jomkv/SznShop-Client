@@ -1,15 +1,15 @@
 import { Button, Modal } from "react-bootstrap";
-import { useCompleteOrderMutation } from "../../libs/rtk/api/orderApiSlice";
+import { useCancelOrderMutation } from "../../../../libs/rtk/api/orderApiSlice";
 import { toast } from "react-toastify";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../../../../components/Spinner/Spinner";
 
-function CompleteOrderModal({ show, setShow, orderId }) {
-  const [completeOrder, { isLoading }] = useCompleteOrderMutation();
+function CancelOrderModal({ show, setShow, orderId }) {
+  const [cancelOrder, { isLoading }] = useCancelOrderMutation();
 
-  const handleComplete = async () => {
+  const handleCancel = async () => {
     try {
-      await completeOrder(orderId).unwrap();
-      toast.success("Order completed successfully.");
+      await cancelOrder(orderId).unwrap();
+      toast.success("Order cancelled.");
     } catch (error) {
       toast.warn("Something went wrong, please try again later.");
     }
@@ -27,16 +27,16 @@ function CompleteOrderModal({ show, setShow, orderId }) {
     >
       <Modal.Header closeButton />
       <Modal.Body className="fs-5">
-        Are you sure you want to complete this order?
+        Are you sure you want to cancel this order?
       </Modal.Body>
       <Modal.Footer>
         <Button
           disabled={isLoading}
-          onClick={handleComplete}
-          variant="dark"
+          onClick={handleCancel}
+          variant="danger"
           className="fw-semibold"
         >
-          {isLoading ? <Spinner /> : "Yes, complete"}
+          {isLoading ? <Spinner /> : "Yes, cancel"}
         </Button>
         <Button
           variant="secondary"
@@ -52,4 +52,4 @@ function CompleteOrderModal({ show, setShow, orderId }) {
   );
 }
 
-export default CompleteOrderModal;
+export default CancelOrderModal;
