@@ -3,16 +3,22 @@ import AcceptModal from "./AcceptModal";
 import { useState } from "react";
 import RejectModal from "./RejectModal";
 import ReceiveModal from "./ReceiveModal";
+import DetailsModal from "./DetailsModal";
 
 function ActionButtons({ order }) {
   const [showAccept, setShowAccept] = useState(false);
   const [showReject, setShowReject] = useState(false);
   const [showReceive, setShowReceive] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
     <>
       <div className="d-flex">
-        <Button variant="dark" className="me-2">
+        <Button
+          variant="dark"
+          className="me-2"
+          onClick={() => setShowDetails(true)}
+        >
           Details
         </Button>
         {order.status === "REVIEWING" && (
@@ -50,6 +56,7 @@ function ActionButtons({ order }) {
         setShow={setShowReceive}
         orderId={order._id}
       />
+      <DetailsModal order={order} show={showDetails} setShow={setShowDetails} />
     </>
   );
 }
