@@ -33,7 +33,9 @@ function OrderCard({ order }) {
                   <Card.Text>Size: {op.size.toUpperCase()}</Card.Text>
                 </Col>
                 <Col md={3} className="text-end fs-4">
-                  <Card.Text>₱{op.price.toLocaleString()}</Card.Text>
+                  <Card.Text>
+                    ₱{(op.price * op.quantity).toLocaleString()}
+                  </Card.Text>
                 </Col>
               </Row>
             ))}
