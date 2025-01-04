@@ -2,10 +2,12 @@ import { Button } from "react-bootstrap";
 import CompleteOrderModal from "./CompleteOrderModal";
 import { useState } from "react";
 import CancelOrderModal from "./CancelOrderModal";
+import RateModal from "./RateModal";
 
 function ActionButtons({ order }) {
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showRate, setShowRate] = useState(false);
   const [orderId, setOrderId] = useState(null);
 
   const handleComplete = (orderId) => {
@@ -22,7 +24,12 @@ function ActionButtons({ order }) {
     <>
       {order.status === "COMPLETED" && (
         <>
-          <Button style={{ width: "150px" }} variant="dark" className="me-2">
+          <Button
+            style={{ width: "150px" }}
+            variant="dark"
+            className="me-2"
+            onClick={() => setShowRate(true)}
+          >
             Rate
           </Button>
           <Button variant="light" style={{ width: "150px" }}>
@@ -66,6 +73,7 @@ function ActionButtons({ order }) {
           />
         </>
       )}
+      <RateModal show={showRate} setShow={setShowRate} order={order} />
     </>
   );
 }
