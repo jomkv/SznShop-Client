@@ -1,22 +1,62 @@
 import { Button, Container, Modal } from "react-bootstrap";
 import Spinner from "../../../../components/Spinner/Spinner";
 import RateRow from "./RateRow";
+import { useEffect, useState } from "react";
+import { useCreateRatingMutation } from "../../../../libs/rtk/api/ratingApiSlice";
+import { toast } from "react-toastify";
 
 function RateModal({ show, setShow, order }) {
-  const isLoading = false;
+  const [ratings, setRatings] = useState({});
+  const [isValid, setIsValid] = useState(false);
+  const [createRating, { isLoading }] = useCreateRatingMutation();
 
-  // const [completeOrder, { isLoading }] = useCompleteOrderMutation();
+  useEffect(() => {
+    const initialRatings = {};
 
-  // const handleComplete = async () => {
-  //   try {
-  //     await completeOrder(orderId).unwrap();
-  //     toast.success("Order completed successfully.");
-  //   } catch (error) {
-  //     toast.warn("Something went wrong, please try again later.");
-  //   }
+    order.orderProducts.forEach((op) => {
+      initialRatings[op._id] = {
+        stars: 0,
+        comment: "",
+      };
+    });
 
-  //   setShow(false);
-  // };
+    setRatings(initialRatings);
+  }, []);
+
+  const handleRateChange = (orderProductId, stars, comment) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [orderProductId]: { stars, comment },
+    }));
+  };
+
+  useEffect(() => {
+    let isCurrValid = true;
+
+    for (const orderProductId in ratings) {
+      if (Object.prototype.hasOwnProperty.call(ratings, orderProductId)) {
+        const { stars } = ratings[orderProductId];
+
+        if (stars <= 0) {
+          isCurrValid = false;
+        }
+      }
+    }
+
+    setIsValid(isCurrValid);
+  }, [ratings]);
+
+  const handleSubmit = async () => {
+    try {
+      await createRating({ orderId: order._id, ratings }).unwrap();
+      toast.success("Rating Submitted");
+    } catch (error) {
+      console.log(error);
+      toast.warn("Something went wrong, please try again later");
+    }
+
+    setShow(false);
+  };
 
   return (
     <Modal
@@ -34,7 +74,11 @@ function RateModal({ show, setShow, order }) {
       <Modal.Body className="fs-5">
         <Container>
           {order.orderProducts.map((op, index) => (
-            <RateRow orderProduct={op} key={index} />
+            <RateRow
+              orderProduct={op}
+              key={index}
+              onRateChange={handleRateChange}
+            />
           ))}
         </Container>
       </Modal.Body>
@@ -48,7 +92,12 @@ function RateModal({ show, setShow, order }) {
         >
           No
         </Button>
-        <Button variant="dark" className="fw-semibold">
+        <Button
+          variant="dark"
+          className="fw-semibold"
+          disabled={!isValid}
+          onClick={handleSubmit}
+        >
           {isLoading ? <Spinner /> : "Submit"}
         </Button>
       </Modal.Footer>

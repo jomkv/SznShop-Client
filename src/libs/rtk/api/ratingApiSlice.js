@@ -4,11 +4,14 @@ export const ratingApiSlice = apiSlice.injectEndpoints({
   tagTypes: ["Rating"],
   endpoints: (builder) => ({
     createRating: builder.mutation({
-      query: () => ({
-        url: "/rating",
+      query: ({ orderId, ratings }) => ({
+        url: `/rating/${orderId}`,
         method: "POST",
+        body: {
+          ratings,
+        },
       }),
-      invalidatesTags: ["Rating"],
+      invalidatesTags: ["Rating", "Order"],
     }),
   }),
 });
