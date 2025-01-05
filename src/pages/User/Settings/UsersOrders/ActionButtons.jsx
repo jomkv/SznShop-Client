@@ -24,14 +24,17 @@ function ActionButtons({ order }) {
     <>
       {order.status === "COMPLETED" && (
         <>
-          <Button
-            style={{ width: "150px" }}
-            variant="dark"
-            className="me-2"
-            onClick={() => setShowRate(true)}
-          >
-            Rate
-          </Button>
+          {!order.isRated && (
+            <Button
+              style={{ width: "150px" }}
+              variant="dark"
+              className="me-2"
+              onClick={() => setShowRate(true)}
+            >
+              Rate
+            </Button>
+          )}
+
           <Button variant="light" style={{ width: "150px" }}>
             Buy Again
           </Button>
