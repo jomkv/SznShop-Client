@@ -13,7 +13,16 @@ export const ratingApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Rating", "Order"],
     }),
+    getProductRatings: builder.query({
+      query: (productId) => ({
+        url: `/rating/${productId}`,
+        method: "GET",
+      }),
+      providesTags: ["Rating"],
+      tagTypes: ["Rating"],
+    }),
   }),
 });
 
-export const { useCreateRatingMutation } = ratingApiSlice;
+export const { useCreateRatingMutation, useGetProductRatingsQuery } =
+  ratingApiSlice;
