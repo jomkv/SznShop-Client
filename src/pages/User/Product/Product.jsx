@@ -16,6 +16,7 @@ import { useAddToCartMutation } from "../../../libs/rtk/api/cartApiSlice";
 import Spinner from "../../../components/Spinner/Spinner";
 import Cookies from "js-cookie";
 import SizeButton from "./SizeButton";
+import Ratings from "./Ratings";
 
 function Product() {
   const { id } = useParams();
@@ -322,110 +323,7 @@ function Product() {
           </Row>
           <Row className="mt-3">
             <Col>
-              <Card>
-                <Card.Header>
-                  <Card.Title className="fs-3 fw-bold">
-                    Product Rating
-                  </Card.Title>
-                </Card.Header>
-                <Card.Body>
-                  <Card>
-                    <Card.Body>
-                      <Row>
-                        <Col sm={2}>
-                          <Card.Title className=" fs-3 fw-bold">
-                            4.5 out of 5
-                          </Card.Title>
-                          <i className="bi bi-star fs-3"></i>
-                          <i className="bi bi-star fs-3"></i>
-                          <i className="bi bi-star fs-3"></i>
-                          <i className="bi bi-star fs-3"></i>
-                          <i className="bi bi-star fs-3"></i>
-                        </Col>
-                        <Col sm={10}>
-                          <Button
-                            variant="dark"
-                            className="me-2"
-                            style={{ width: "150px" }}
-                          >
-                            All
-                          </Button>
-                          <Button
-                            variant="light"
-                            className="me-2"
-                            style={{ width: "150px" }}
-                          >
-                            5 Stars
-                          </Button>
-                          <Button
-                            variant="light"
-                            className="me-2"
-                            style={{ width: "150px" }}
-                          >
-                            4 Stars
-                          </Button>
-                          <Button
-                            variant="light"
-                            className="me-2"
-                            style={{ width: "150px" }}
-                          >
-                            3 Stars
-                          </Button>
-                          <Button
-                            variant="light"
-                            className="me-2"
-                            style={{ width: "150px" }}
-                          >
-                            2 Stars
-                          </Button>
-                          <Button
-                            variant="light"
-                            className="me-2"
-                            style={{ width: "150px" }}
-                          >
-                            1 Star
-                          </Button>
-                          <Button
-                            variant="light"
-                            className="mt-2"
-                            style={{ width: "150px" }}
-                          >
-                            With Comments
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
-                  <Card className="mt-3">
-                    <Card.Body>
-                      <Row>
-                        <Col sm={1} className="text-center">
-                          <i className="bi bi-person fs-3"></i>
-                        </Col>
-                        <Col sm={11}>
-                          <Card.Title className="fw-bold">John Doe</Card.Title>
-                          {/* Name */}
-                          <div>
-                            <i className="bi bi-star"></i>
-                            <i className="bi bi-star"></i>
-                            <i className="bi bi-star"></i>
-                            <i className="bi bi-star"></i>
-                            <i className="bi bi-star"></i>
-                          </div>
-                          <Card.Text>01/01/2021</Card.Text> {/* Date */}
-                          <Card.Text>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Proin auctor, nisl in lacinia ultricies, velit
-                            nisl lacinia ligula, nec dictum libero sapien ac
-                            libero. Nullam nec ex nec nunc tristique volutpat.
-                          </Card.Text>
-                          {/* Comment */}
-                        </Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
-                </Card.Body>
-              </Card>
+              <Ratings productId={id} />
             </Col>
           </Row>
         </Container>
