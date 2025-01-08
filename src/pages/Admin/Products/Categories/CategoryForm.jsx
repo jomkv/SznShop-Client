@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, ToggleButton } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,6 +15,8 @@ const schema = z.object({
 
 function CategoryForm({ onSubmit, defaultValues, isLoading, products }) {
   const [productIds, setProductIds] = useState(defaultValues?.productIds || []);
+  const [search, setSearch] = useState("");
+  const [productsResult, setProductsResult] = useState(products.active);
 
   const form = useForm({
     defaultValues: {
@@ -42,6 +44,13 @@ function CategoryForm({ onSubmit, defaultValues, isLoading, products }) {
       }
     });
   };
+
+  useEffect(() => {
+    const result = products.active.filter((product) => {
+      return product.name.toLowerCase().match(search.toLocaleLowerCase());
+    });
+    setProductsResult(result);
+  }, [search]);
 
   const columns = [
     {
@@ -110,11 +119,22 @@ function CategoryForm({ onSubmit, defaultValues, isLoading, products }) {
         {products && (
           <DataTable
             columns={columns}
-            data={products.active}
+            data={productsResult}
             fixedHeader={true}
             fixedHeaderScrollHeight="55vh"
             highlightOnHover
             striped
+            subHeader
+            subHeaderAlign="right"
+            subHeaderComponent={
+              <Form.Control
+                type="text"
+                placeholder="Search product name"
+                value={search}
+                className="w-50"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            }
           />
         )}
       </Form.Group>

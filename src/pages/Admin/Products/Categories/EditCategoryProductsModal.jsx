@@ -1,5 +1,4 @@
-import { Button, Modal, ToggleButton } from "react-bootstrap";
-import DataTable from "react-data-table-component";
+import { Button, Modal } from "react-bootstrap";
 import {
   useGetCategoryProductsQuery,
   useEditCategoryProductsMutation,
