@@ -51,7 +51,6 @@ function RateModal({ show, setShow, order }) {
       await createRating({ orderId: order._id, ratings }).unwrap();
       toast.success("Rating Submitted");
     } catch (error) {
-      console.log(error);
       toast.warn("Something went wrong, please try again later");
     }
 
@@ -95,7 +94,7 @@ function RateModal({ show, setShow, order }) {
         <Button
           variant="dark"
           className="fw-semibold"
-          disabled={!isValid}
+          disabled={!isValid || isLoading}
           onClick={handleSubmit}
         >
           {isLoading ? <Spinner /> : "Submit"}

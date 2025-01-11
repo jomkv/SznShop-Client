@@ -1,6 +1,6 @@
 import { Card, Col, Row } from "react-bootstrap";
 import { getOrderTotal } from "../../utils/helper";
-import ActionButtons from "../../pages/Admin/Orders/ActionButtons";
+import ActionButtons from "../../pages/User/Settings/UsersOrders/ActionButtons";
 
 function OrderDetails({ order, showActions }) {
   return (
