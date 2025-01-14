@@ -6,33 +6,29 @@ import {
   Dropdown,
   Button,
   FormControl,
+  Modal,
 } from "react-bootstrap";
-import "./Product.css";
-import { useGetProductQuery } from "../../../libs/rtk/api/productApiSlice";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useGetProductQuery } from "../../../libs/rtk/api/productApiSlice";
 import { toast } from "react-toastify";
 import { useAddToCartMutation } from "../../../libs/rtk/api/cartApiSlice";
 import Spinner from "../../../components/Spinner/Spinner";
 import Cookies from "js-cookie";
 import SizeButton from "./SizeButton";
 import Ratings from "./Ratings";
+import "./Product.css";
 
 function Product() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const [totalStocks, setTotalStocks] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState(null);
   const isLoggedIn = Cookies.get("x-auth-cookie");
 
-  const {
-    data: product,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useGetProductQuery(id);
-
+  const { data: product, isLoading, isError, isSuccess } = useGetProductQuery(id);
   const [addToCart, { isLoading: isCartLoading }] = useAddToCartMutation();
 
   const handleAddToCart = async () => {
@@ -42,8 +38,7 @@ function Product() {
     }
 
     try {
-      const payload = { productId: id, quantity: quantity, size: size };
-
+      const payload = { productId: id, quantity, size };
       await addToCart(payload).unwrap();
       toast.success("Product added to cart");
     } catch (error) {
@@ -73,28 +68,16 @@ function Product() {
   useEffect(() => {
     if (product) {
       const { xs, sm, md, lg, xl, xxl } = product.stocks;
-      let total = xs + sm + md + lg + xl + xxl;
-
-      if (total < 0) {
-        total = 0;
-      }
-
+      const total = xs + sm + md + lg + xl + xxl > 0 ? xs + sm + md + lg + xl + xxl : 0;
       setTotalStocks(total);
 
-      // Set the default size based on the available stocks
-      if (xs > 0) {
-        setSize("xs");
-      } else if (sm > 0) {
-        setSize("sm");
-      } else if (md > 0) {
-        setSize("md");
-      } else if (lg > 0) {
-        setSize("lg");
-      } else if (xl > 0) {
-        setSize("xl");
-      } else if (xxl > 0) {
-        setSize("xxl");
-      }
+      // Set default size
+      if (xs > 0) setSize("xs");
+      else if (sm > 0) setSize("sm");
+      else if (md > 0) setSize("md");
+      else if (lg > 0) setSize("lg");
+      else if (xl > 0) setSize("xl");
+      else if (xxl > 0) setSize("xxl");
     }
   }, [product]);
 
@@ -105,16 +88,17 @@ function Product() {
         <Container>
           <div className="fs-1 fw-bold">{product.name}</div>
           <div>{product.description}</div>
+
+          
+
+          {/* Rest of the product UI */}
           <Row className="mt-3">
             <Col md={7}>
               <Row>
                 <Col>
                   <Card>
                     <Card.Img
-                      src={
-                        product.images[0]?.url ||
-                        "https://via.placeholder.com/500"
-                      }
+                      src={product.images[0]?.url || "https://via.placeholder.com/500"}
                       className="fixed-size-img"
                     />
                   </Card>
@@ -122,10 +106,7 @@ function Product() {
                 <Col>
                   <Card>
                     <Card.Img
-                      src={
-                        product.images[1]?.url ||
-                        "https://via.placeholder.com/500"
-                      }
+                      src={product.images[1]?.url || "https://via.placeholder.com/500"}
                       className="fixed-size-img"
                     />
                   </Card>
@@ -137,10 +118,7 @@ function Product() {
                     <Col>
                       <Card>
                         <Card.Img
-                          src={
-                            product.images[2]?.url ||
-                            "https://via.placeholder.com/500"
-                          }
+                          src={product.images[2]?.url || "https://via.placeholder.com/500"}
                           className="fixed-size-img"
                         />
                       </Card>
@@ -150,10 +128,7 @@ function Product() {
                     <Col>
                       <Card>
                         <Card.Img
-                          src={
-                            product.images[3]?.url ||
-                            "https://via.placeholder.com/500"
-                          }
+                          src={product.images[3]?.url || "https://via.placeholder.com/500"}
                           className="fixed-size-img"
                         />
                       </Card>
@@ -181,9 +156,7 @@ function Product() {
                   className="p-2"
                 >
                   <Container className="text-center">
-                    <Card.Text className="text-start mt-5">
-                      Select Sizes:
-                    </Card.Text>
+                    <Card.Text className="text-start mt-5">Select Sizes:</Card.Text>
                     <Row>
                       <Col>
                         <SizeButton
@@ -236,6 +209,38 @@ function Product() {
                         />
                       </Col>
                     </Row>
+                    {/* Size Chart Modal */}
+          <Button
+            variant="link"
+            className="text-decoration-none text-primary mb-3"
+            onClick={() => setShowModal(true)}
+          >
+            SIZE CHART &gt;
+          </Button>
+
+          <Modal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+            centered
+            size="lg"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Size Chart</Modal.Title>
+            </Modal.Header>
+            <img
+                src="/size-chart-2.png"
+                alt="Size Chart Image Here"
+                className="img-fluid"
+                style={{ borderRadius: "8px" }}
+              />
+
+
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setShowModal(false)}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
                   </Container>
                 </Dropdown.Menu>
               </Dropdown>
