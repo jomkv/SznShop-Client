@@ -10,6 +10,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       tagTypes: ["User"],
       providesTags: ["User"],
+      transformResponse: (response) => response.users,
     }),
     banUser: builder.mutation({
       query: (userId) => ({
