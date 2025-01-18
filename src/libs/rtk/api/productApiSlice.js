@@ -81,6 +81,10 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (response) => response.products,
     }),
+    getProductsByCategory: builder.query({
+      query: (categoryName) => `/product?categoryName=${categoryName}`,
+      transformResponse: (response) => response.products,
+    }),
   }),
 });
 
@@ -99,4 +103,5 @@ export const {
   useLazyGetProductsCartCheckoutQuery,
   useGetProductBuyNowQuery,
   useLazyGetProductBuyNowQuery,
+  useGetProductsByCategoryQuery,
 } = productApiSlice;
