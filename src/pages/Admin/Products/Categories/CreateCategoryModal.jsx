@@ -30,7 +30,7 @@ function CreateCategoryModal(props) {
   };
 
   return (
-    <Modal {...props} size="lg" centered>
+    <Modal {...props} size="lg" centered scrollable>
       <Modal.Header closeButton>
         <Modal.Title>Create Category</Modal.Title>
       </Modal.Header>

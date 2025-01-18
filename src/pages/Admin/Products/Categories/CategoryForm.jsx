@@ -11,6 +11,9 @@ const schema = z.object({
     .string()
     .min(3, "Category Name must be atleast 3 characters long")
     .max(255, "Category Name must not exceed 255 characters"),
+  description: z
+    .string()
+    .max(255, "Description must not exceed 255 characters"),
 });
 
 function CategoryForm({ onSubmit, defaultValues, isLoading, products }) {
@@ -21,6 +24,7 @@ function CategoryForm({ onSubmit, defaultValues, isLoading, products }) {
   const form = useForm({
     defaultValues: {
       name: defaultValues?.name || "",
+      description: defaultValues?.description || "",
     },
     resolver: zodResolver(schema),
   });
@@ -106,6 +110,19 @@ function CategoryForm({ onSubmit, defaultValues, isLoading, products }) {
         />
         <Form.Control.Feedback type="invalid">
           {errors.name?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Label className="fs-5 fw-medium">Description</Form.Label>
+        <Form.Control
+          className="fs-5"
+          as="textarea"
+          rows={3}
+          {...register("description")}
+          isInvalid={errors.description?.message ? true : false}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.description?.message}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="mb-3">
