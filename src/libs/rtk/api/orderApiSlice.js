@@ -74,6 +74,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Order"],
     }),
+    returnOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `order/${orderId}/return`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
@@ -87,4 +94,5 @@ export const {
   useGetOrderQuery,
   useCompleteOrderMutation,
   useCancelOrderMutation,
+  useReturnOrderMutation,
 } = orderApiSlice;

@@ -22,8 +22,6 @@ function Orders() {
     }
   }, [isError]);
 
-  console.log(orders);
-
   return (
     <Container fluid>
       <Tabs id="order-tabs" defaultActiveKey="all">

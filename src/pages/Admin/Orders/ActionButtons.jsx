@@ -4,12 +4,14 @@ import { useState } from "react";
 import RejectModal from "./RejectModal";
 import ReceiveModal from "./ReceiveModal";
 import DetailsModal from "./DetailsModal";
+import ReturnModal from "./ReturnModal";
 
 function ActionButtons({ order }) {
   const [showAccept, setShowAccept] = useState(false);
   const [showReject, setShowReject] = useState(false);
   const [showReceive, setShowReceive] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [showReturn, setShowReturn] = useState(false);
 
   return (
     <>
@@ -40,6 +42,11 @@ function ActionButtons({ order }) {
             Receive
           </Button>
         )}
+        {order.status === "RECEIVED" && (
+          <Button variant="dark" onClick={() => setShowReturn(true)}>
+            Return
+          </Button>
+        )}
       </div>
       <AcceptModal
         show={showAccept}
@@ -55,6 +62,11 @@ function ActionButtons({ order }) {
         show={showReceive}
         setShow={setShowReceive}
         orderId={order._id}
+      />
+      <ReturnModal
+        orderId={order._id}
+        show={showReturn}
+        setShow={setShowReturn}
       />
       <DetailsModal order={order} show={showDetails} setShow={setShowDetails} />
     </>
