@@ -9,9 +9,7 @@ import { formatDate } from "../../../utils/helper";
 function Ratings({ productId }) {
   const { data, isLoading, isError, isSuccess } =
     useGetProductRatingsQuery(productId);
-
   const navigate = useNavigate();
-
   const [ratings, setRatings] = useState([]);
   const [filter, setFilter] = useState("all");
 
@@ -26,7 +24,7 @@ function Ratings({ productId }) {
     if (isSuccess) {
       setRatings(data.ratings);
     }
-  }, [isSuccess]);
+  }, [isSuccess, data]);
 
   useEffect(() => {
     if (!isSuccess || !data) return;
@@ -37,32 +35,20 @@ function Ratings({ productId }) {
       case "all":
         updatedRatings = data.ratings;
         break;
-      case "1":
-        updatedRatings = data.ratings.filter((rating) => rating.stars === 1);
-        break;
-      case "2":
-        updatedRatings = data.ratings.filter((rating) => rating.stars === 2);
-        break;
-      case "3":
-        updatedRatings = data.ratings.filter((rating) => rating.stars === 3);
-        break;
-      case "4":
-        updatedRatings = data.ratings.filter((rating) => rating.stars === 4);
-        break;
-      case "5":
-        updatedRatings = data.ratings.filter((rating) => rating.stars === 5);
-        break;
       case "comments":
         updatedRatings = data.ratings.filter(
-          (rating) => rating.comment && rating.comment !== ""
+          (rating) => rating.comment && rating.comment.trim() !== ""
         );
         break;
       default:
+        updatedRatings = data.ratings.filter(
+          (rating) => rating.stars === Number(filter)
+        );
         break;
     }
 
     setRatings(updatedRatings);
-  }, [filter]);
+  }, [filter, isSuccess, data]);
 
   return (
     <>
@@ -73,11 +59,11 @@ function Ratings({ productId }) {
             <Card.Title className="fs-3 fw-bold">Product Rating</Card.Title>
           </Card.Header>
           <Card.Body>
-            <Card>
+            <Card className="mb-3">
               <Card.Body>
-                <Row>
-                  <Col sm={2}>
-                    <Card.Title className=" fs-3 fw-bold">
+                <Row className="align-items-center">
+                  <Col sm={3} md={2}>
+                    <Card.Title className="fs-3 fw-bold">
                       {data.average} out of 5
                     </Card.Title>
                     {[1, 2, 3, 4, 5].map((star, index) => (
@@ -89,98 +75,64 @@ function Ratings({ productId }) {
                       />
                     ))}
                   </Col>
-                  <Col sm={10}>
-                    <Button
-                      variant={filter === "all" ? `dark` : "light"}
-                      className="me-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("all")}
-                    >
-                      All
-                    </Button>
-                    <Button
-                      variant={filter === "5" ? `dark` : "light"}
-                      className="me-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("5")}
-                    >
-                      5 Stars
-                    </Button>
-                    <Button
-                      variant={filter === "4" ? `dark` : "light"}
-                      className="me-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("4")}
-                    >
-                      4 Stars
-                    </Button>
-                    <Button
-                      variant={filter === "3" ? `dark` : "light"}
-                      className="me-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("3")}
-                    >
-                      3 Stars
-                    </Button>
-                    <Button
-                      variant={filter === "2" ? `dark` : "light"}
-                      className="me-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("2")}
-                    >
-                      2 Stars
-                    </Button>
-                    <Button
-                      variant={filter === "1" ? `dark` : "light"}
-                      className="me-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("1")}
-                    >
-                      1 Star
-                    </Button>
-                    <Button
-                      variant={filter === "comments" ? `dark` : "light"}
-                      className="mt-2"
-                      style={{ width: "150px" }}
-                      onClick={() => setFilter("comments")}
-                    >
-                      With Comments
-                    </Button>
+                  <Col sm={9} md={10}>
+                    {["all", "5", "4", "3", "2", "1", "comments"].map(
+                      (value) => (
+                        <Button
+                          key={value}
+                          variant={filter === value ? "dark" : "light"}
+                          className="me-2 mb-2"
+                          onClick={() => setFilter(value)}
+                        >
+                          {value === "all"
+                            ? "All"
+                            : value === "comments"
+                            ? "With Comments"
+                            : `${value} Star${value > 1 ? "s" : ""}`}
+                        </Button>
+                      )
+                    )}
                   </Col>
                 </Row>
               </Card.Body>
             </Card>
-            <Card className="mt-3">
+            <Card>
               <Card.Body>
                 {ratings.map((rating, index) => (
-                  <Row key={index}>
-                    <Col sm={1} className="text-end">
+                  <Row key={index} className="mb-3">
+                    <Col xs={2} md={1} className="text-center">
                       <img
                         src={rating.userId.image}
+                        alt="User"
+                        className="rounded-circle"
                         style={{
                           height: "3rem",
                           width: "3rem",
+                          objectFit: "cover",
                         }}
                       />
                     </Col>
-                    <Col sm={11}>
+                    <Col xs={10} md={11}>
                       <Card.Title className="fw-bold">
                         {rating.userId.username}
                       </Card.Title>
                       <div>
-                        {[1, 2, 3, 4, 5].map((star, index) => (
+                        {[1, 2, 3, 4, 5].map((star, idx) => (
                           <i
                             className={`bi ${
                               star <= rating.stars ? "bi-star-fill" : "bi-star"
                             }`}
-                            key={index}
+                            key={idx}
                           />
                         ))}
                       </div>
-                      {/* Date */}
-                      <Card.Text>{formatDate(rating.createdAt)}</Card.Text>{" "}
-                      {/* Comment */}
-                      <Card.Text>{rating.comment}</Card.Text>
+                      <Card.Text className="text-muted mb-1">
+                        {formatDate(rating.createdAt)}
+                      </Card.Text>
+                      {rating.comment && (
+                        <Card.Text>{rating.comment}</Card.Text>
+                      )}
+                      <hr />
                     </Col>
                   </Row>
                 ))}
