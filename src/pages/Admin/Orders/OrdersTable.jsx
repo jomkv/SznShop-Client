@@ -43,12 +43,10 @@ function OrdersTable({ orders, isLoading, isSuccess }) {
     // })
   }, [search]);
 
-  console.log(orders);
-
   return (
     <>
       {isLoading && <Spinner />}
-      {isSuccess && (
+      {isSuccess && orders && (
         <DataTable
           columns={columns}
           data={ordersResult}
