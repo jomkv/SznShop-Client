@@ -109,7 +109,7 @@ function OrderHistory() {
                 <div className="fw-bold"> Order Received</div>
                 {order.timestamps?.receivedAt && (
                   <div className="small">
-                    {formatDate(order.timestamps.shippedAt)}
+                    {formatDate(order.timestamps.receivedAt)}
                   </div>
                 )}
               </Col>

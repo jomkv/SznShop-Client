@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { useEditStocksMutation } from "../../../libs/rtk/api/productApiSlice";
 import Spinner from "../../../components/Spinner/Spinner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StocksForm from "./StocksForm";
 import { toast } from "react-toastify";
 
@@ -9,6 +9,8 @@ function StocksButton({ stocks }) {
   const [editStocks, { isLoading }] = useEditStocksMutation();
   const [isEdit, setIsEdit] = useState(false);
   const [show, setShow] = useState(false);
+  const [totalStocks, setTotalStocks] = useState(null);
+  const [color, setColor] = useState(null);
 
   const hideModal = () => {
     setShow(false);
@@ -19,6 +21,29 @@ function StocksButton({ stocks }) {
     setIsEdit(false);
     setShow(true);
   };
+
+  useEffect(() => {
+    let total = 0;
+
+    if (stocks.xs > 0) total += stocks.xs;
+    if (stocks.sm > 0) total += stocks.sm;
+    if (stocks.md > 0) total += stocks.md;
+    if (stocks.lg > 0) total += stocks.lg;
+    if (stocks.xl > 0) total += stocks.xl;
+    if (stocks.xxl > 0) total += stocks.xxl;
+
+    setTotalStocks(total);
+  }, []);
+
+  useEffect(() => {
+    if (totalStocks < 20) {
+      setColor("#FF6961"); // red
+    } else if (totalStocks < 30) {
+      setColor("#ffd400"); // yellow
+    } else {
+      setColor("#77DD77");
+    }
+  }, [totalStocks, stocks]);
 
   const onSubmit = async (formData) => {
     try {
@@ -41,6 +66,15 @@ function StocksButton({ stocks }) {
       >
         <i className="bi bi-list-ul fs-5 fw-bold" />
       </Button>
+      {color && (
+        <i
+          className="bi bi-circle-fill ms-1"
+          style={{
+            color: color,
+          }}
+        />
+      )}
+
       <Modal
         centered
         scrollable
