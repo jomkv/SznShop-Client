@@ -129,14 +129,7 @@ createRoot(document.getElementById("root")).render(
                   </Protected>
                 }
               />
-              <Route
-                path="faq"
-                element={
-                  <Protected>
-                    <FAQ />
-                  </Protected>
-                }
-              />
+              <Route path="faq" element={<FAQ />} />
               <Route path="category/:categoryName" element={<CategoryPage />} />
             </Route>
             <Route
