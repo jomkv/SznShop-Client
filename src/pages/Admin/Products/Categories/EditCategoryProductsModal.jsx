@@ -64,7 +64,7 @@ function EditCategoryProductsModal({ category, ...props }) {
   };
 
   return (
-    <Modal {...props} centered size="lg">
+    <Modal {...props} centered size="lg" scrollable>
       <Modal.Header closeButton>{category.name} Products</Modal.Header>
       <Modal.Body className="fs-5">
         {(isLoading || isProductsLoading) && (
