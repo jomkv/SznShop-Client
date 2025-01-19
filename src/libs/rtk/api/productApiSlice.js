@@ -83,7 +83,6 @@ export const productApiSlice = apiSlice.injectEndpoints({
     }),
     getProductsByCategory: builder.query({
       query: (categoryName) => `/product?categoryName=${categoryName}`,
-      transformResponse: (response) => response.products,
     }),
   }),
 });
