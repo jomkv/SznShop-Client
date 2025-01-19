@@ -21,7 +21,7 @@ function CategoryCarousel({ name, products }) {
 
   return (
     <>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between ms-5 me-5">
         <h2 className="mt-5 fw-bold">{name}</h2>
         <div className="d-flex align-items-center justify-content-center">
           <Button variant="transparent" className="p-0" onClick={handlePrev}>
