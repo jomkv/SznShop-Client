@@ -23,7 +23,7 @@ const Navbar = () => {
         sticky="top"
         expand="md"
         bg="light"
-        className="mb-3 border-bottom border-black"
+        className="border-bottom border-black"
         style={{ "--bs-border-opacity": ".2" }}
       >
         <Container>
