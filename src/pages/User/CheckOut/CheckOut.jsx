@@ -65,6 +65,11 @@ function CheckOut({ isCart }) {
         ? await getProductsCart().unwrap()
         : await getProductBuyNow({ productId: id, size, quantity }).unwrap();
 
+      if (isCart && data.length <= 0) {
+        navigate("/");
+        return;
+      }
+
       let total = 0;
 
       data.forEach((product) => {

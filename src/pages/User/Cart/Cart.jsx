@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import "./Cart.css";
 import { useGetCartQuery } from "../../../libs/rtk/api/cartApiSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../../../components/Spinner/Spinner";
 import RemoveButton from "./RemoveButton";
@@ -32,6 +32,11 @@ const Cart = () => {
       setTotal(sum);
     }
   }, [products, isSuccess]);
+
+  const handleCheckout = () => {
+    navigate("/checkout/cart");
+    return;
+  };
 
   const columns = [
     {
@@ -119,15 +124,14 @@ const Cart = () => {
               </Card.Text>
             </Card.Body>
             <Card.Footer className="text-center">
-              <Link to="/checkout/cart">
-                <Button
-                  className="w-100"
-                  variant="dark"
-                  disabled={products?.length <= 0}
-                >
-                  Checkout
-                </Button>
-              </Link>
+              <Button
+                className="w-100"
+                variant="dark"
+                disabled={products?.length <= 0}
+                onClick={handleCheckout}
+              >
+                Checkout
+              </Button>
             </Card.Footer>
           </Card>
         </Col>
