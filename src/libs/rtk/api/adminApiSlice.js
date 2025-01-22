@@ -9,7 +9,29 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getHomeImages: builder.query({
+      query: () => ({
+        url: "/admin/home-images",
+        method: "GET",
+      }),
+      transformResponse: (response) => response.homeImages,
+      providesTags: ["Admin"],
+      tagTypes: ["Admin"],
+    }),
+    setHomeImages: builder.mutation({
+      query: (formData) => ({
+        url: "/admin/home-images",
+        method: "POST",
+        body: formData,
+        formData: true,
+      }),
+      invalidatesTags: ["Admin"],
+    }),
   }),
 });
 
-export const { useGetDashboardQuery } = adminApiSlice;
+export const {
+  useGetDashboardQuery,
+  useGetHomeImagesQuery,
+  useSetHomeImagesMutation,
+} = adminApiSlice;

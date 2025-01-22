@@ -13,7 +13,6 @@ function CreateProductModal(props) {
       await createProduct(formData).unwrap();
       toast.success("Product created successfully");
     } catch (error) {
-      console.log(error);
       toast.warn("An error has occurred while creating the product");
     }
   };
