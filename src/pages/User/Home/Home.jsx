@@ -52,31 +52,7 @@ function Home() {
                 objectFit: "cover",
               }}
             />
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "rgba(0, 0, 0, 0.3)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                color: "white",
-           
-                textAlign: "center",
-              }}
-            >
-              <h1>SZN</h1>
-              <p>WORLD'S FINEST</p>
-            </div>
+            
           </Carousel.Item>
 
           {/* Slide 2 */}
@@ -90,22 +66,7 @@ function Home() {
                 objectFit: "cover",
               }}
             />
-            <div
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                color: "black",
-                textAlign: "center",
-              }}
-            >
-              <h1>SZN 1</h1>
-              <p>SAILORMOON EDITION</p>
-            </div>
-            
-            
+           
           </Carousel.Item>
 
           {/* Slide 3 */}
@@ -132,30 +93,7 @@ function Home() {
                 objectFit: "cover",
               }}
             />
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "rgba(0, 0, 0, 0.3)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              <h1>SZN 2</h1>
-              <p>STEEZY</p>
-            </div>
+            
           </Carousel.Item>
 
           {/* Slide 5 */}
