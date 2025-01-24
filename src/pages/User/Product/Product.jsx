@@ -164,6 +164,18 @@ function Product() {
               )}
             </Col>
             <Col md={5}>
+              {totalStocks <= 0 && (
+                <p
+                  className="mt-3 mb-2 ms-2 fs-5"
+                  style={{
+                    color: "#e34a27",
+                  }}
+                >
+                  <i className="bi bi-emoji-frown-fill me-2" />
+                  Out of Stock
+                </p>
+              )}
+
               <Dropdown>
                 <Dropdown.Toggle
                   variant="dark"
