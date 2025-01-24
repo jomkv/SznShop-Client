@@ -42,6 +42,11 @@ function Product() {
       return;
     }
 
+    if (quantity > product.stocks[size]) {
+      toast.warn("Not enough stocks");
+      return;
+    }
+
     try {
       const payload = { productId: id, quantity, size };
       await addToCart(payload).unwrap();
