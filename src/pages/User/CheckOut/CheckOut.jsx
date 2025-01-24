@@ -40,6 +40,11 @@ function CheckOut({ isCart }) {
     useLazyGetProductBuyNowQuery();
 
   const handleCreateOrder = async () => {
+    if (addresses.length <= 0) {
+      toast.warn("Please add an address first.");
+      return;
+    }
+
     try {
       await createOrder({
         addressId: selectedAddress,
