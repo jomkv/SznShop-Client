@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProductFilter from "../../../components/ProductFilter/ProductFilter";
 import { Container, Row, Col } from "react-bootstrap";
 import { useGetProductsByCategoryQuery } from "../../../libs/rtk/api/productApiSlice";
@@ -9,6 +9,7 @@ import ProductCard from "../../../components/ProductCard/ProductCard"; // Import
 
 function CategoryPage() {
   const { categoryName } = useParams(); // Get category name from URL params
+  const navigate = useNavigate();
 
   const [category, setCategory] = useState(null);
   const [products, setProducts] = useState(null);
@@ -23,9 +24,8 @@ function CategoryPage() {
   // Handle errors
   useEffect(() => {
     if (isError) {
-      toast.warn(
-        "An error occurred while fetching products. Please try again later."
-      );
+      navigate("/");
+      toast.warn("Category not found.");
     }
   }, [isError]);
 
