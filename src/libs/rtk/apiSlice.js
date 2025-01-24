@@ -14,6 +14,7 @@ const apiSlice = createApi({
     "Address",
     "Order",
     "Rating",
+    "Admin",
   ],
   endpoints: (builder) => ({}),
 });

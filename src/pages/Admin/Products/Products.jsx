@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import "./Products.css";
 import ProductsTable from "./ProductsTable";
 import CreateProductModal from "./CreateProductModal";
 import CategoriesTable from "./Categories/CategoriesTable";
+import { useSearchParams } from "react-router-dom";
 
 function Products() {
   const [tab, setTab] = useState("active");
   const [showModal, setShowModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -16,6 +18,14 @@ function Products() {
   const handleHideModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    const action = searchParams.get("action");
+
+    if (action === "createProduct") {
+      setShowModal(true);
+    }
+  }, []);
 
   return (
     <div
