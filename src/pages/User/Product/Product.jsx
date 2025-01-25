@@ -109,7 +109,7 @@ function Product() {
           <Row className="mt-3">
             <Col md={7}>
               <Row>
-                <Col>
+                <Col xs={12} md={12} xl={6}>
                   <Card>
                     <Card.Img
                       src={
@@ -120,7 +120,7 @@ function Product() {
                     />
                   </Card>
                 </Col>
-                <Col>
+                <Col xs={12} md={12} xl={6}>
                   <Card>
                     <Card.Img
                       src={
@@ -133,9 +133,9 @@ function Product() {
                 </Col>
               </Row>
               {product.images.length > 2 && (
-                <Row className="mt-3">
+                <Row>
                   {product.images[2] && (
-                    <Col>
+                    <Col xs={12} md={12} xl={6}>
                       <Card>
                         <Card.Img
                           src={
@@ -148,7 +148,7 @@ function Product() {
                     </Col>
                   )}
                   {product.images[3] && (
-                    <Col>
+                    <Col xs={12} md={12} xl={6}>
                       <Card>
                         <Card.Img
                           src={
@@ -298,20 +298,24 @@ function Product() {
                 </Card.Header>
                 <Card.Body>
                   <Row>
-                    <Col sm={9}>
+                    <Col
+                      xs={12}
+                      sm={12}
+                      className="d-flex  justify-content-between"
+                    >
                       <Card.Text className="fs-5">PRICE:</Card.Text>
-                    </Col>
-                    <Col sm={3}>
                       <Card.Text className="fw-bold fs-4">
                         ₱{product.price.toLocaleString()}
                       </Card.Text>
                     </Col>
                   </Row>
                   <Row className="mt-3">
-                    <Col md={9}>
+                    <Col
+                      xs={12}
+                      sm={12}
+                      className="d-flex  justify-content-between"
+                    >
                       <Card.Text className="fs-5">QUANTITY:</Card.Text>
-                    </Col>
-                    <Col md={3}>
                       <FormControl
                         variant="light"
                         className="quantity-button"
@@ -336,7 +340,7 @@ function Product() {
                   )}
 
                   <Row className="mt-3 mb-3">
-                    <Col>
+                    <Col xs={12} sm={12} lg={6}>
                       <Button
                         variant="light"
                         className="w-100 mb-2"
@@ -353,7 +357,7 @@ function Product() {
                         )}
                       </Button>
                     </Col>
-                    <Col>
+                    <Col xs={12} sm={12} lg={6}>
                       <Button
                         variant="dark"
                         className="w-100"

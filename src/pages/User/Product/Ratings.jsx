@@ -62,7 +62,7 @@ function Ratings({ productId }) {
             <Card className="mb-3">
               <Card.Body>
                 <Row className="align-items-center">
-                  <Col sm={3} md={2}>
+                  <Col xs={5} sm={4} md={3}>
                     <Card.Title className="fs-3 fw-bold">
                       {data.average} out of 5
                     </Card.Title>
@@ -75,7 +75,7 @@ function Ratings({ productId }) {
                       />
                     ))}
                   </Col>
-                  <Col sm={9} md={10}>
+                  <Col xs={7} sm={8} md={9}>
                     {["all", "5", "4", "3", "2", "1", "comments"].map(
                       (value) => (
                         <Button
@@ -98,6 +98,11 @@ function Ratings({ productId }) {
             </Card>
             <Card>
               <Card.Body>
+                {ratings.length <= 0 && (
+                  <p className="text-center fs-5 fw-bold mb-0">
+                    No ratings to show
+                  </p>
+                )}
                 {ratings.map((rating, index) => (
                   <Row key={index} className="mb-3">
                     <Col xs={2} md={1} className="text-center">
