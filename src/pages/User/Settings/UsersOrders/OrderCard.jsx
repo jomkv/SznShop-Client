@@ -31,6 +31,7 @@ function OrderCard({ order }) {
                 <Col md={7}>
                   <Card.Title>{op.name}</Card.Title>
                   <Card.Text>Size: {op.size.toUpperCase()}</Card.Text>
+                  <Card.Text>Quantity: {op.quantity}</Card.Text>
                 </Col>
                 <Col md={3} className="text-end fs-4">
                   <Card.Text>
