@@ -79,7 +79,12 @@ function AdminApp() {
               />
             </nav>
             <main className="p-3 main">
-              <div className="container-fluid">
+              <div
+                className="container-fluid overflow-auto"
+                style={{
+                  maxHeight: "85vh",
+                }}
+              >
                 <Outlet />
               </div>
             </main>
