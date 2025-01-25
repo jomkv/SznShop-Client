@@ -68,41 +68,43 @@ function Home() {
           </Carousel>
         )}
       </div>
-      {isLoading && <Spinner large />}
-      {isSuccess && (
-        <>
-          {categoriesWithProducts.map((cwp, index) => (
-            <CategoryCarousel
-              key={index}
-              name={
-                <Link
-                  to={`/category/${cwp.category.name}`}
-                  className="text-decoration-none"
-                  style={{ color: "black" }}
-                >
-                  {cwp.category.name}
-                </Link>
-              }
-              products={cwp.products}
-            />
-          ))}
-        </>
-      )}
-      {isProductLoading && <Spinner large />}
-      {isProductSuccess && (
-        <CategoryCarousel
-          name={
-            <Link
-              to="/category/all-products"
-              className="text-decoration-none"
-              style={{ color: "black" }}
-            >
-              All Products
-            </Link>
-          }
-          products={products}
-        />
-      )}
+      <div className="ms-5 me-5">
+        {isLoading && <Spinner large />}
+        {isSuccess && (
+          <>
+            {categoriesWithProducts.map((cwp, index) => (
+              <CategoryCarousel
+                key={index}
+                name={
+                  <Link
+                    to={`/category/${cwp.category.name}`}
+                    className="text-decoration-none"
+                    style={{ color: "black" }}
+                  >
+                    {cwp.category.name}
+                  </Link>
+                }
+                products={cwp.products}
+              />
+            ))}
+          </>
+        )}
+        {isProductLoading && <Spinner large />}
+        {isProductSuccess && (
+          <CategoryCarousel
+            name={
+              <Link
+                to="/category/all-products"
+                className="text-decoration-none"
+                style={{ color: "black" }}
+              >
+                All Products
+              </Link>
+            }
+            products={products}
+          />
+        )}
+      </div>
     </Container>
   );
 }
