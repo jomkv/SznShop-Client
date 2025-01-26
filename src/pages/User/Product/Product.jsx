@@ -102,6 +102,13 @@ function Product() {
       {isLoading && <Spinner large />}
       {isSuccess && product && (
         <Container>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="outline-dark"
+            className=" mb-3 mt-3"
+          >
+            <i className="bi bi-chevron-left"></i> Back
+          </Button>
           <div className="fs-1 fw-bold">{product.name}</div>
           <div>{product.description}</div>
 

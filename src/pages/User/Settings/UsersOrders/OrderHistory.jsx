@@ -60,7 +60,7 @@ function OrderHistory() {
   }, [isSuccess, order]);
 
   return (
-    <Container>
+    <Container className="mt-3">
       {isLoading && <Spinner large />}
       {isSuccess && (
         <Card>
