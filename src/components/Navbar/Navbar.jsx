@@ -8,7 +8,12 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import "./Navbar.css";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useEffect, useState } from "react";
 import LogoutModal from "../LogoutModal/LogoutModal";
@@ -19,6 +24,7 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -31,6 +37,12 @@ const Navbar = () => {
   useEffect(() => {
     setSearch(searchParams.get("value"));
   }, [searchParams.get("value")]);
+
+  useEffect(() => {
+    if (location.pathname !== "/search") {
+      setSearch("");
+    }
+  }, [location.pathname]);
 
   return (
     <>
