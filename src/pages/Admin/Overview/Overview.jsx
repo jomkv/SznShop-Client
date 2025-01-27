@@ -126,7 +126,7 @@ function Overview() {
               <Card className="mb-4">
                 <Card.Body>
                   <Card.Title>New Customers</Card.Title>
-                  <Card.Text>50</Card.Text>
+                  <Card.Text>{data.newCustomers.toLocaleString()}</Card.Text>
                 </Card.Body>
               </Card>
             </Col>

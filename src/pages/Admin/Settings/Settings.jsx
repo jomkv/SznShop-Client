@@ -237,47 +237,45 @@ function Settings() {
                     </div>
                   </>
                 )}
-                {isSuccess &&
-                  homeImages &&
-                  images.map((image, index) => (
-                    <div
-                      key={index}
+                {images.map((image, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      height: "6rem",
+                      width: "6rem",
+                      position: "relative",
+                    }}
+                  >
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt={`Upload #${index}`}
+                      className="w-100 h-100 rounded-1"
                       style={{
-                        height: "6rem",
-                        width: "6rem",
-                        position: "relative",
+                        objectFit: "contain",
+                        backgroundColor: "gray",
                       }}
+                    />
+                    <span
+                      className="bg-danger"
+                      style={{
+                        position: "absolute",
+                        height: "1.5rem",
+                        width: "1.5rem",
+                        top: 0,
+                        right: 0,
+                        marginRight: "0.2rem",
+                        marginTop: "0.2rem",
+                        padding: "0.05rem 0.47rem",
+                        cursor: "pointer",
+                        borderRadius: "50%",
+                        color: "white",
+                      }}
+                      onClick={() => handleUploadDelete(index)}
                     >
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt={`Upload #${index}`}
-                        className="w-100 h-100 rounded-1"
-                        style={{
-                          objectFit: "contain",
-                          backgroundColor: "gray",
-                        }}
-                      />
-                      <span
-                        className="bg-danger"
-                        style={{
-                          position: "absolute",
-                          height: "1.5rem",
-                          width: "1.5rem",
-                          top: 0,
-                          right: 0,
-                          marginRight: "0.2rem",
-                          marginTop: "0.2rem",
-                          padding: "0.05rem 0.47rem",
-                          cursor: "pointer",
-                          borderRadius: "50%",
-                          color: "white",
-                        }}
-                        onClick={() => handleUploadDelete(index)}
-                      >
-                        &times;
-                      </span>
-                    </div>
-                  ))}
+                      &times;
+                    </span>
+                  </div>
+                ))}
               </div>
             </Form.Group>
             <Button

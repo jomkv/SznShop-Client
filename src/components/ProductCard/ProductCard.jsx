@@ -19,6 +19,13 @@ const ProductCard = ({ product }) => {
     navigate(`/product/${product._id}`);
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <Card className="w-100 prod-card">
       <Card.Img
@@ -38,7 +45,8 @@ const ProductCard = ({ product }) => {
           {product.name}
         </p>
         <p className="fs-6 ps-2 pe-2 clickable" onClick={handleRedirect}>
-          {product.description}
+          {truncateText(product.description, 70)}{" "}
+          {/* Adjust the maxLength as needed */}
         </p>
         <p className="fs-6 fw-semibold clickable" onClick={handleRedirect}>
           ₱{product.price.toLocaleString()}
