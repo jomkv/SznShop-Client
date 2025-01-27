@@ -84,8 +84,10 @@ function Product() {
   useEffect(() => {
     if (product) {
       const { xs, sm, md, lg, xl, xxl } = product.stocks;
-      const total =
-        xs + sm + md + lg + xl + xxl > 0 ? xs + sm + md + lg + xl + xxl : 0;
+      const total = [xs, sm, md, lg, xl, xxl]
+        .filter((stock) => stock > 0) // Filter out negative values
+        .reduce((sum, stock) => sum + stock, 0); // Sum the remaining values
+
       setTotalStocks(total);
 
       // Set default size
