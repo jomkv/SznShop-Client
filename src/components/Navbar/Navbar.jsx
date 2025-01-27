@@ -66,7 +66,8 @@ const Navbar = () => {
                 height="30"
                 className="d-inline-block align-top rounded-circle me-2"
               />
-              <span className="brand-name">SZN</span> {/* Brand name added here */}
+              <span className="brand-name">SZN</span>{" "}
+              {/* Brand name added here */}
             </Link>
           </BootstrapNavbar.Brand>
           <BootstrapNavbar.Toggle aria-controls="homeNav" />
@@ -87,7 +88,8 @@ const Navbar = () => {
                   height="30"
                   className="d-inline-block align-top rounded-circle me-2"
                 />
-                <span className="brand-name">SZN</span> {/* Brand name in the offcanvas */}
+                <span className="brand-name">SZN</span>{" "}
+                {/* Brand name in the offcanvas */}
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -101,7 +103,7 @@ const Navbar = () => {
                   {user ? (
                     <>
                       <NavDropdown.Item href="/settings">
-                        Profile
+                        Settings
                       </NavDropdown.Item>
                       <NavDropdown.Item
                         onClick={() => {

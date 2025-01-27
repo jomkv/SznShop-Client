@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useGetUsersQuery } from "../../../libs/rtk/api/userApiSlice";
@@ -23,26 +22,7 @@ const columns = [
     selector: (row) => row.email,
     sortable: true,
   },
-  {
-    name: "Actions",
-    cell: (row) => (
-      <Button
-        className="btn btn-danger btn-sm"
-        onClick={() => banCustomer(row.id)}
-      >
-        {row.isBanned ? "Unban" : "Ban"}
-      </Button>
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
 ];
-
-const banCustomer = (id) => {
-  // Implement the ban logic here
-  console.log(`Customer with id ${id} has been banned.`);
-};
 
 function Customers() {
   const { data: customers, isLoading, isError, isSuccess } = useGetUsersQuery();
