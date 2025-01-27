@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 const schema = z.object({
   name: z
@@ -22,7 +23,7 @@ const schema = z.object({
   images: z.any().optional(),
 });
 
-const ProductForm = ({ onSubmit, hideModal, defaultValues }) => {
+const ProductForm = ({ onSubmit, hideModal, defaultValues, isLoading, isSuccess }) => {
   const [isNoImage, setIsNoImage] = useState(true);
   const [images, setImages] = useState([]);
   const [isImageChange, setIsImageChange] = useState(false);
@@ -285,7 +286,40 @@ const ProductForm = ({ onSubmit, hideModal, defaultValues }) => {
           )}
 
           <div className="d-flex mt-2" style={{ columnGap: "10px" }}>
-            {images.map((image, index) => (
+          {isLoading && (
+                            <>
+                              <div
+                                style={{
+                                  height: "6rem",
+                                  width: "6rem",
+                                  position: "relative",
+                                }}
+                              >
+                                <Skeleton
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                  }}
+                                />
+                              </div>
+          
+                              <div
+                                style={{
+                                  height: "6rem",
+                                  width: "6rem",
+                                  position: "relative",
+                                }}
+                              >
+                                <Skeleton
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                  }}
+                                />
+                              </div>
+                            </>
+                          )}
+            {isSuccess && images.map((image, index) => (
               <div
                 key={index}
                 style={{

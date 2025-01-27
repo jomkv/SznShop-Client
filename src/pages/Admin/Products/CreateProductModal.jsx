@@ -33,6 +33,7 @@ function CreateProductModal(props) {
           onSubmit={handleSubmit}
           isLoading={false}
           hideModal={props.onHide}
+          isSuccess={true}
         />
       </Modal.Body>
       <Modal.Footer>

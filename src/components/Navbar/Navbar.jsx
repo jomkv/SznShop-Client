@@ -8,14 +8,26 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoutModal from "../LogoutModal/LogoutModal";
 
 const Navbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState("");
   const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    navigate(`/search?value=${search}`);
+  };
+
+  useEffect(() => {
+    setSearch(searchParams.get("value"));
+  }, [searchParams.get("value")]);
 
   return (
     <>
@@ -33,13 +45,12 @@ const Navbar = () => {
               to="/"
             >
               <img
-                src="szn-logo-3.jpg"
+                src="/szn-profilepic-2025.png"
                 alt="Store Logo"
                 width="30"
                 height="30"
                 className="d-inline-block align-top rounded-circle me-2"
               />
-              <span className="brand-text">SZN</span>
             </Link>
           </BootstrapNavbar.Brand>
           <BootstrapNavbar.Toggle aria-controls="homeNav" />
@@ -54,13 +65,12 @@ const Navbar = () => {
                 className="d-flex align-items-center"
               >
                 <img
-                  src="public/szn-logo-3.jpg"
+                  src="/szn-profilepic-2025.png"
                   alt="Store Logo"
                   width="30"
                   height="30"
                   className="d-inline-block align-top rounded-circle me-2"
                 />
-                <span className="brand-text">SZN</span>
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -101,14 +111,16 @@ const Navbar = () => {
                   </Nav.Item>
                 )}
               </Nav>
-              <Form className="d-flex">
+              <Form className="d-flex" onSubmit={handleSearch}>
                 <Form.Control
                   type="search"
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
-                <Button href="#search" variant="link">
+                <Button type="submit" variant="transparent">
                   <i className="bi bi-search fs-5 icon-black"></i>
                 </Button>
               </Form>

@@ -6,7 +6,7 @@ import { useEditProductMutation } from "../../../libs/rtk/api/productApiSlice";
 import { toast } from "react-toastify";
 
 function EditProductModal(props) {
-  const [editProduct, { isLoading }] = useEditProductMutation();
+  const [editProduct, { isLoading, isSuccess }] = useEditProductMutation();
 
   const handleSubmit = async (formData) => {
     try {
@@ -27,6 +27,8 @@ function EditProductModal(props) {
           onSubmit={handleSubmit}
           hideModal={props.onHide}
           defaultValues={props.product}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
         />
       </Modal.Body>
       <Modal.Footer>

@@ -11,6 +11,8 @@ import OrderHistory from "./Settings/UsersOrders/OrderHistory";
 import EditAddress from "./Settings/Address/EditAddress";
 import FAQ from "./FAQ/FAQ";
 import CategoryPage from "./CategoryPage/CategoryPage";
+import Search from "./Search/Search";
+
 export {
   Home,
   Product,
@@ -25,4 +27,5 @@ export {
   OrderHistory,
   FAQ,
   CategoryPage,
+  Search,
 };

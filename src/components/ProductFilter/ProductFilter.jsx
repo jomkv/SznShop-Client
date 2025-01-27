@@ -1,7 +1,62 @@
-import React from "react";
-import { Container, Accordion, Form, Button, Row, Col, InputGroup, FormControl } from "react-bootstrap";
+import {
+  Container,
+  Accordion,
+  Form,
+  Button,
+  Row,
+  Col,
+  FormControl,
+} from "react-bootstrap";
+import { useGetCategoriesQuery } from "../../libs/rtk/api/searchApiSlice";
+import { useState } from "react";
 
-function ProductFilter() {
+function ProductFilter({ applyFilter }) {
+  const { data: categories, isSuccess } = useGetCategoriesQuery();
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [selectedRating, setSelectedRating] = useState("");
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
+
+  const handleMinPriceChange = (event) => {
+    setMinPrice(event.target.value);
+  };
+
+  const handleMaxPriceChange = (event) => {
+    setMaxPrice(event.target.value);
+  };
+
+  const handleRatingChange = (event) => {
+    setSelectedRating(event.target.value);
+  };
+
+  const handleApply = () => {
+    applyFilter({
+      category: selectedCategory,
+      size: selectedSize,
+      minPrice,
+      maxPrice,
+      rating: selectedRating,
+    });
+  };
+
+  const handleClearAll = () => {
+    setSelectedCategory("");
+    setSelectedSize("");
+    setMinPrice("0");
+    setMaxPrice("1000");
+    setSelectedRating("");
+  };
+
   return (
     <Container className="p-4 border rounded bg-light">
       <h4 className="mb-4">Filters</h4>
@@ -11,8 +66,19 @@ function ProductFilter() {
         <Accordion.Item eventKey="0">
           <Accordion.Header>Categories</Accordion.Header>
           <Accordion.Body>
-            <Form.Check type="checkbox" label="Clothing" />
-            <Form.Check type="checkbox" label="Accessories" />
+            {categories &&
+              isSuccess &&
+              categories.map((category, index) => (
+                <Form.Check
+                  type="radio"
+                  label={category.name}
+                  value={category.name}
+                  key={index}
+                  checked={selectedCategory === category.name}
+                  onChange={handleCategoryChange}
+                  name="category"
+                />
+              ))}
           </Accordion.Body>
         </Accordion.Item>
 
@@ -20,12 +86,18 @@ function ProductFilter() {
         <Accordion.Item eventKey="1">
           <Accordion.Header>Size</Accordion.Header>
           <Accordion.Body>
-            <Form.Select aria-label="Select size">
+            <Form.Select
+              aria-label="Select size"
+              value={selectedSize}
+              onChange={handleSizeChange}
+            >
               <option value="">Select size</option>
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">Extra Large</option>
+              <option value="xs">Extra Small</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+              <option value="xl">Extra Large</option>
+              <option value="xxl">Extra Extra Large</option>
             </Form.Select>
           </Accordion.Body>
         </Accordion.Item>
@@ -36,17 +108,18 @@ function ProductFilter() {
           <Accordion.Body>
             <Form.Label>Price Range</Form.Label>
             <Row>
-              <Col>
-                <InputGroup>
-                  <InputGroup.Text>Min</InputGroup.Text>
-                  <FormControl type="number" placeholder="0" />
-                </InputGroup>
-              </Col>
-              <Col>
-                <InputGroup>
-                  <InputGroup.Text>Max</InputGroup.Text>
-                  <FormControl type="number" placeholder="1000" />
-                </InputGroup>
+              <Col className="d-flex">
+                <FormControl
+                  type="number"
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                />
+                <p className="ps-2 pe-2 fs-2 fw-light">-</p>
+                <FormControl
+                  type="number"
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                />
               </Col>
             </Row>
           </Accordion.Body>
@@ -56,19 +129,65 @@ function ProductFilter() {
         <Accordion.Item eventKey="3">
           <Accordion.Header>Ratings</Accordion.Header>
           <Accordion.Body>
-            <Form.Check type="checkbox" label="5 Stars" />
-            <Form.Check type="checkbox" label="4 Stars & Up" />
-            <Form.Check type="checkbox" label="3 Stars & Up" />
-            <Form.Check type="checkbox" label="2 Stars & Up" />
-            <Form.Check type="checkbox" label="1 Star & Up" />
+            <Form.Check
+              type="radio"
+              label="5 Stars"
+              value="5"
+              checked={selectedRating === "5"}
+              onChange={handleRatingChange}
+            />
+            <Form.Check
+              type="radio"
+              label="4 Stars & Up"
+              value="4"
+              checked={selectedRating === "4"}
+              onChange={handleRatingChange}
+            />
+            <Form.Check
+              type="radio"
+              label="3 Stars & Up"
+              value="3"
+              checked={selectedRating === "3"}
+              onChange={handleRatingChange}
+            />
+            <Form.Check
+              type="radio"
+              label="2 Stars & Up"
+              value="2"
+              checked={selectedRating === "2"}
+              onChange={handleRatingChange}
+            />
+            <Form.Check
+              type="radio"
+              label="1 Stars & Up"
+              value="1"
+              checked={selectedRating === "1"}
+              onChange={handleRatingChange}
+            />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
 
-      {/* Clear Filters Button */}
       <div className="text-center mt-4">
-        <Button variant="primary" className="w-100">
-          Clear All Filters
+        <Button
+          variant="dark"
+          className="w-100"
+          style={{
+            height: "50px",
+          }}
+          onClick={handleClearAll}
+        >
+          Clear All
+        </Button>
+        <Button
+          variant="dark"
+          className="w-100 mt-2"
+          style={{
+            height: "50px",
+          }}
+          onClick={handleApply}
+        >
+          Apply
         </Button>
       </div>
     </Container>
