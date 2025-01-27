@@ -1,14 +1,29 @@
-.glow {
-  box-shadow: 0 0 10px 2px rgb(4, 4, 4);
-  border: 1px solid rgba(8, 8, 8, 0.908);
-}
 .address-card {
-  max-width: 300px;
-  max-height: 300px;
-  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.text-truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+.address-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.address-card .text-wrap {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.address-card .glow {
+  border: 2px solid #0d6efd;
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.4);
+}
+
+.address-card .overflow-hidden {
+  max-height: 16rem;
+  overflow-y: auto;
 }

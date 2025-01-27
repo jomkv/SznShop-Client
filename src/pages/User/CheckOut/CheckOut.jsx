@@ -136,64 +136,81 @@ function CheckOut({ isCart }) {
     <Container>
       <Row>
         <Col md={8}>
-          <h1>CheckOut Process</h1>
-          <Row>
-            <div className="fs-3">Choose a Address</div>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="light"
+            className=" mt-3"
+          >
+            <i className="bi bi-chevron-left"></i> Back
+          </Button>
+          <div className="text-start fs-1 fw-bold">CheckOut Process</div>
+          <Row className="align-items-start">
+            <div className="fs-4 fw-bold mb-3">Choose a Address</div>
             {isAddressLoading && <Spinner />}
-            {addresses &&
-              addresses.map((address, index) => (
-                <Col key={index}>
+            <div className="d-flex flex-wrap gap-3">
+              {addresses &&
+                addresses.map((address, index) => (
                   <Card
-                    className={`address-card ${
-                      selectedAddress === "address1" ? "glow" : ""
+                    key={index}
+                    className={`address-card shadow-sm p-3 rounded-4 ${
+                      selectedAddress === address._id
+                        ? "border border-dark shadow-lg"
+                        : ""
                     }`}
+                    style={{
+                      height: "20rem",
+                      width: "15rem",
+                      overflow: "hidden",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      transition: "all 0.3s ease-in-out",
+                      wordWrap: "break-word",
+                    }}
                   >
-                    <Card.Body>
-                      <Form.Check
-                        type="radio"
-                        name="address"
-                        checked={selectedAddress === address._id}
-                        onChange={() => handleSelectAddress(address._id)}
-                        label={
-                          <>
-                            <Card.Title className="fw-bold fs-3 mb-1">
-                              {address.addressLabel}
-                            </Card.Title>
-                            <Card.Text className="text-truncate mb-1">
-                              {`${address.firstName} ${address.lastName}`}
-                            </Card.Text>
-                            <Card.Text className="text-truncate mb-1 text-wrap">
-                              {address.address}
-                            </Card.Text>
-                            <Card.Text className="text-truncate mb-1">
-                              {address.city}
-                            </Card.Text>
-                            <Card.Text className="text-truncate mb-1">
-                              {address.province}
-                            </Card.Text>
-                            <Card.Text className="text-truncate mb-1">
-                              {address.region}
-                            </Card.Text>
-                            <Card.Title className="fw-bold fs-3 mb-1">
-                              PHONE
-                            </Card.Title>
-                            <Card.Text className="text-truncate mb-1">
-                              {address.phoneNumber}
-                            </Card.Text>
-                          </>
-                        }
-                      />
+                    <Card.Body className="d-flex flex-column justify-content-between h-100">
+                      <div>
+                        <Form.Check
+                          type="radio"
+                          name="address"
+                          checked={selectedAddress === address._id}
+                          onChange={() => handleSelectAddress(address._id)}
+                          label={
+                            <>
+                              <Card.Title className="fw-bold fs-5 text-dark">
+                                {address.addressLabel}
+                              </Card.Title>
+                              <Card.Text className="mb-1 fw-semibold text-dark">
+                                {`${address.firstName} ${address.lastName}`}
+                              </Card.Text>
+                              <Card.Text className="mb-1 text-muted text-wrap">
+                                {address.address}
+                              </Card.Text>
+                              <Card.Text className="mb-1 text-muted">
+                                {address.city}
+                              </Card.Text>
+                              <Card.Text className="mb-1 text-muted">
+                                {address.province}
+                              </Card.Text>
+                              <Card.Text className="mb-1 text-muted">
+                                {address.region}
+                              </Card.Text>
+                              <Card.Text className="mb-1 text-muted fw-bold">
+                                Phone: {address.phoneNumber}
+                              </Card.Text>
+                            </>
+                          }
+                        />
+                      </div>
                     </Card.Body>
                   </Card>
-                </Col>
-              ))}
-            <Col>
+                ))}
               <CreateAddressCard />
-            </Col>
+            </div>
           </Row>
           <Card className="mt-3">
             <Card.Header className="text-end">
-              <div className="fw-bold">ORDER DETAILS</div>
+              <div className="text-start fw-bold">ORDER DETAILS</div>
             </Card.Header>
             <Card.Body>
               {isLoading && <Spinner />}
@@ -202,17 +219,26 @@ function CheckOut({ isCart }) {
                   <Row key={index}>
                     <Col md={2}>
                       <Card.Img
-                        style={{ width: "100px", height: "100px" }}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          borderRadius: "10px",
+                          border: "1px solid #ccc",
+                        }}
                         variant="top"
                         src={product.product.images[0].url}
+                        className="mb-2 mt-2"
                       />
                     </Col>
                     <Col md={7}>
-                      <Card.Title>{product.product.name}</Card.Title>
+                      <Card.Title className="fw-bold">
+                        {product.product.name}
+                      </Card.Title>
                       <Card.Text>Size: {product.size.toUpperCase()}</Card.Text>
+                      <Card.Text>Quantity: {product.quantity}</Card.Text>
                     </Col>
                     <Col md={3} className="text-end fs-4">
-                      <Card.Text>
+                      <Card.Text className="fw-bold">
                         ₱
                         {(
                           product.product.price * product.quantity
@@ -241,16 +267,18 @@ function CheckOut({ isCart }) {
               <Card.Text>
                 <div className="d-flex justify-content-between mt-3">
                   <span>SUBTOTAL</span>
-                  <span>₱{total.toLocaleString()}</span>
+                  <span className="fw-bold">₱{total.toLocaleString()}</span>
                 </div>
                 <div className="d-flex justify-content-between">
                   <span>SHIPPING FEE</span>
-                  <span>₱{shippingFee}</span>
+                  <span className="fw-bold">₱{shippingFee}</span>
                 </div>
 
                 <div className="d-flex justify-content-between mt-5">
                   <span className="fs-5 fw-bold">ORDER TOTAL</span>
-                  <span>₱{(total + shippingFee).toLocaleString()}</span>
+                  <span className="fw-bold">
+                    ₱{(total + shippingFee).toLocaleString()}
+                  </span>
                 </div>
               </Card.Text>
             </Card.Body>
