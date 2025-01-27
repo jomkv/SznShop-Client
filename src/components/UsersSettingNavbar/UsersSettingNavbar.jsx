@@ -16,33 +16,6 @@ function UsersSettingsNavbar() {
       <Row>
         <Col>
           <Link
-            to="/profile"
-            className="sidebar-link"
-            onClick={() => setSelectedTab("profile")}
-            style={{ margin: "0 10px" }}
-          >
-            <Card
-              className={`mb-2 ${selectedTab === "profile" ? "active" : ""}`}
-              style={{ width: "100%", maxwidth: "300px", height: "150px" }}
-            >
-              <Card.Body className="d-flex align-items-center">
-                <i
-                  className="bi bi-person-circle me-3"
-                  style={{ fontSize: "2.5rem" }}
-                ></i>
-                <div style={{ flex: 1 }}>
-                  <Card.Title className="fw-bold">PROFILE</Card.Title>
-                  <Card.Text style={{ fontSize: "0.9rem" }}>
-                    View and update your name, phone number, and other profile.
-                    details
-                  </Card.Text>
-                </div>
-              </Card.Body>
-            </Card>
-          </Link>
-        </Col>
-        <Col>
-          <Link
             to="/address"
             className="sidebar-link"
             onClick={() => setSelectedTab("address")}

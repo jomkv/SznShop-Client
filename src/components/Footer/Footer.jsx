@@ -37,7 +37,7 @@ function Footer() {
             >
               <li>
                 <a
-                  href="/home"
+                  href="/"
                   style={{
                     color: "black",
                     textDecoration: "none",
@@ -46,17 +46,7 @@ function Footer() {
                   Home
                 </a>
               </li>
-              <li>
-                <a
-                  href="/profile"
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                  }}
-                >
-                  Profile
-                </a>
-              </li>
+
               <li>
                 <a
                   href="/address"
@@ -70,7 +60,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/orders"
+                  href="/usersorders"
                   style={{
                     color: "black",
                     textDecoration: "none",

@@ -63,14 +63,6 @@ createRoot(document.getElementById("root")).render(
                   }
                 />
                 <Route
-                  path="profile"
-                  element={
-                    <Protected>
-                      <Profile />
-                    </Protected>
-                  }
-                />
-                <Route
                   path="address"
                   element={
                     <Protected>
