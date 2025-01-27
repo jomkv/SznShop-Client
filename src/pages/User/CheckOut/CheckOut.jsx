@@ -164,7 +164,6 @@ function CheckOut({ isCart }) {
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
-                      transition: "all 0.3s ease-in-out",
                       wordWrap: "break-word",
                     }}
                   >
