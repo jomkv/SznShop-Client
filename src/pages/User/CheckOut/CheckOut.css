@@ -8,11 +8,6 @@
   justify-content: space-between;
 }
 
-.address-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
 .address-card .text-wrap {
   white-space: normal;
   overflow-wrap: break-word;

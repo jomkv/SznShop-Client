@@ -158,13 +158,12 @@ function CheckOut({ isCart }) {
                         : ""
                     }`}
                     style={{
-                      height: "20rem",
+                      height: "22rem",
                       width: "15rem",
                       overflow: "hidden",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
-                      transition: "all 0.3s ease-in-out",
                       wordWrap: "break-word",
                     }}
                   >

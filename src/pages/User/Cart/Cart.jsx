@@ -45,7 +45,13 @@ const Cart = () => {
         <img
           src={row.productId.images[0].url}
           alt="product"
-          style={{ width: "100px", height: "100px" }}
+          style={{
+            width: "100px",
+            height: "100px",
+            borderRadius: "10px",
+            border: "1px solid #ccc",
+          }}
+          className="mb-2 mt-2"
         />
       ),
     },

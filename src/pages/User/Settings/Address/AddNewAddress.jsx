@@ -23,7 +23,7 @@ function AddNewAddress() {
         alignItems: "center",
       }}
     >
-      <Card style={{ width: "100%", maxWidth: "600px" }}>
+      <Card style={{ width: "100%", maxWidth: "600px" }} className="mt-3">
         <Card.Header>
           <div className="fw-bold fs-2">CREATE A NEW ADDRESS</div>
         </Card.Header>

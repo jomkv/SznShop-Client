@@ -11,7 +11,7 @@ function CreateAddressCard() {
           justifyContent: "center",
           alignItems: "center",
           padding: "10px",
-          height: "100%",
+          height: "22rem",
           width: "15rem",
           border: "1px solid rgba(0, 0, 0, 0.3)",
         }}
