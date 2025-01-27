@@ -361,10 +361,11 @@ function Product() {
               <div className="mt-3">
                 <h5 className="fw-bold">Product Details</h5>
                 <p>
-                  Category: SZN Male {">"} Shirt {">"} Plain
+                  <span className="fw-bold">Stock:</span> {totalStocks}
                 </p>
-                <p>Stock: {totalStocks}</p>
-                <p>Ships From: Imus, Cavite</p>
+                <p>
+                  <span className="fw-bold">Ships From:</span> Imus, Cavite
+                </p>
               </div>
             </Col>
           </Row>

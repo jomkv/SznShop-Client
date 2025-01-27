@@ -67,9 +67,6 @@ function Orders() {
           <Tab eventKey="returned" title="Returned">
             {renderTabContent(orders?.returned)}
           </Tab>
-          <Tab eventKey="refunded" title="Refunded">
-            {renderTabContent(orders?.refunded)}
-          </Tab>
         </Tabs>
       )}
     </Container>

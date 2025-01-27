@@ -95,7 +95,7 @@ function UsersOrders() {
                   </Col>
                   <Col>
                     <Nav.Item>
-                      <Nav.Link eventKey="returnRefund">Return/Refund</Nav.Link>
+                      <Nav.Link eventKey="returnRefund">Return</Nav.Link>
                     </Nav.Item>
                   </Col>
                 </Nav>
