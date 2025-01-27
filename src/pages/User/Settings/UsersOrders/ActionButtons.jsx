@@ -3,6 +3,7 @@ import CompleteOrderModal from "./CompleteOrderModal";
 import { useState } from "react";
 import CancelOrderModal from "./CancelOrderModal";
 import RateModal from "./RateModal";
+import { Link } from "react-router-dom";
 
 function ActionButtons({ order }) {
   const [showCompleteModal, setShowCompleteModal] = useState(false);
@@ -35,9 +36,11 @@ function ActionButtons({ order }) {
             </Button>
           )}
 
-          <Button variant="dark" style={{ width: "150px" }}>
-            Buy Again
-          </Button>
+          <Link to={`/product/${order.orderProducts[0].productId._id}`}>
+            <Button variant="dark" style={{ width: "150px" }}>
+              Buy Again
+            </Button>
+          </Link>
         </>
       )}
       {order.status === "REVIEWING" && (
