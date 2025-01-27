@@ -56,7 +56,7 @@ const Navbar = () => {
         <Container>
           <BootstrapNavbar.Brand>
             <Link
-              className="d-fle justify-content-center align-items-center text-decoration-none text-black"
+              className="d-flex justify-content-center align-items-center text-decoration-none text-black"
               to="/"
             >
               <img
@@ -66,6 +66,7 @@ const Navbar = () => {
                 height="30"
                 className="d-inline-block align-top rounded-circle me-2"
               />
+              <span className="brand-name">SZN</span> {/* Brand name added here */}
             </Link>
           </BootstrapNavbar.Brand>
           <BootstrapNavbar.Toggle aria-controls="homeNav" />
@@ -86,6 +87,7 @@ const Navbar = () => {
                   height="30"
                   className="d-inline-block align-top rounded-circle me-2"
                 />
+                <span className="brand-name">SZN</span> {/* Brand name in the offcanvas */}
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
