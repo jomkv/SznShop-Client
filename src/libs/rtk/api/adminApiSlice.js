@@ -9,6 +9,12 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getOverview: builder.query({
+      query: () => ({
+        url: "/admin/overview",
+        method: "GET",
+      }),
+    }),
     getHomeImages: builder.query({
       query: () => ({
         url: "/admin/home-images",
@@ -34,4 +40,5 @@ export const {
   useGetDashboardQuery,
   useGetHomeImagesQuery,
   useSetHomeImagesMutation,
+  useGetOverviewQuery,
 } = adminApiSlice;
