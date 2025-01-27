@@ -5,23 +5,21 @@ import { formatDate, getOrderTotal } from "../../../utils/helper";
 import ActionButtons from "./ActionButtons";
 
 function OrdersTable({ orders, isLoading, isSuccess }) {
-  const [ordersResult, setOrdersResult] = useState(orders);
+  const [filteredOrders, setFilteredOrders] = useState(orders);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const result = orders.filter((order) => {
-      const searchLower = search.toLowerCase();
-      return (
-        order._id.toLowerCase().includes(searchLower) ||
-        `${order.address.firstName} ${order.address.lastName}`
-          .toLowerCase()
-          .includes(searchLower) ||
-        formatDate(order.createdAt).toLowerCase().includes(searchLower) ||
-        order.status.toLowerCase().includes(searchLower) ||
-        getOrderTotal(order).toString().toLowerCase().includes(searchLower)
-      );
-    });
-    setOrdersResult(result);
+    const searchLower = search.toLowerCase();
+    const result = orders.filter((order) =>
+      [
+        order._id,
+        `${order.address.firstName} ${order.address.lastName}`,
+        formatDate(order.createdAt),
+        order.status,
+        getOrderTotal(order).toString(),
+      ].some((field) => field.toLowerCase().includes(searchLower))
+    );
+    setFilteredOrders(result);
   }, [search, orders]);
 
   const columns = [
@@ -29,11 +27,13 @@ function OrdersTable({ orders, isLoading, isSuccess }) {
       name: "Order ID",
       selector: (row) => row._id,
       sortable: true,
+      wrap: true,
     },
     {
       name: "Customer Name",
       selector: (row) => `${row.address.firstName} ${row.address.lastName}`,
       sortable: true,
+      wrap: true,
     },
     {
       name: "Order Date",
@@ -53,50 +53,59 @@ function OrdersTable({ orders, isLoading, isSuccess }) {
     {
       name: "Actions",
       cell: (row) => <ActionButtons order={row} />,
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+      width: "180px",
     },
   ];
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {isSuccess && orders && (
+      {isLoading && <Spinner animation="border" />}
+      {isSuccess && orders.length > 0 && (
         <>
           <div className="d-flex w-100 align-items-center mt-2 mb-2">
-            <p className="fs-5 mb-0 me-1">Search:</p>
+            <p className="fs-5 mb-0 me-2 fw-semibold">Search:</p>
             <Form.Control
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              style={{
-                width: "15rem",
-              }}
+              style={{ width: "15rem" }}
             />
           </div>
 
-          <Col sm={6}></Col>
-          <DataTable
-            columns={columns}
-            data={ordersResult}
-            fixedHeaderScrollHeight="500px"
-            customStyles={{
-              table: {
-                style: {
-                  width: "100%", // Adjust the width as needed
+          <Col sm={12}>
+            <DataTable
+              columns={columns}
+              data={filteredOrders}
+              fixedHeader
+              fixedHeaderScrollHeight="500px"
+              responsive
+              customStyles={{
+                headCells: {
+                  style: {
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                    backgroundColor: "#f8f9fa",
+                    textAlign: "center",
+                  },
                 },
-              },
-              headCells: {
-                style: {
-                  fontWeight: "bold",
-                  fontSize: "15px",
+                cells: {
+                  style: {
+                    fontSize: "14px",
+                    textAlign: "center",
+                    whiteSpace: "nowrap",
+                  },
                 },
-              },
-              cells: {
-                style: {
-                  fontSize: "18px", // Adjust the font size as needed
+                rows: {
+                  style: {
+                    minHeight: "70px",
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+          </Col>
         </>
       )}
     </>

@@ -17,8 +17,9 @@ function ActionButtons({ order }) {
     <>
       <div className="d-flex">
         <Button
+          size="sm"
           variant="dark"
-          className="me-2"
+          className="fw-semibold px-2 py-1 me-2"
           onClick={() => setShowDetails(true)}
         >
           Details
@@ -26,24 +27,40 @@ function ActionButtons({ order }) {
         {order.status === "REVIEWING" && (
           <>
             <Button
+              size="sm "
               variant="dark"
-              className="me-2"
+              className="fw-semibold px-2 py-1 me-2"
               onClick={() => setShowAccept(true)}
             >
               Accept
             </Button>
-            <Button variant="dark" onClick={() => setShowReject(true)}>
+            <Button
+              size="sm"
+              variant="dark"
+              className="fw-semibold px-2 py-1"
+              onClick={() => setShowReject(true)}
+            >
               Reject
             </Button>
           </>
         )}
         {order.status === "SHIPPING" && (
-          <Button variant="dark" onClick={() => setShowReceive(true)}>
+          <Button
+            size="sm"
+            className="fw-semibold px-2 py-1"
+            variant="dark"
+            onClick={() => setShowReceive(true)}
+          >
             Receive
           </Button>
         )}
         {order.status === "RECEIVED" && (
-          <Button variant="dark" onClick={() => setShowReturn(true)}>
+          <Button
+            size="sm"
+            className="fw-semibold px-2 py-1 "
+            variant="dark"
+            onClick={() => setShowReturn(true)}
+          >
             Return
           </Button>
         )}

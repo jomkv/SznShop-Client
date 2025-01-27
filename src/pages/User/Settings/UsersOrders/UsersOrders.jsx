@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Tab, Nav, Card } from "react-bootstrap";
+import { Container, Row, Col, Tab, Nav, Card, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import OrderCard from "./OrderCard";
 import { useGetMyOrdersQuery } from "../../../../libs/rtk/api/orderApiSlice";
@@ -19,6 +19,13 @@ function UsersOrders() {
   }, [isError, navigate]);
 
   const renderOrdersTable = (orders) => {
+    if (!orders || orders.length === 0) {
+      return (
+        <Alert variant="dark" className="text-center">
+          No orders available for this status.
+        </Alert>
+      );
+    }
     return (
       <div>
         {orders.map((order, index) => (

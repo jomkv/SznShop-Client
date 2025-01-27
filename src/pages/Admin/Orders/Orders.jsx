@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Tabs, Tab, Container } from "react-bootstrap";
+import { Tabs, Tab, Container, Alert } from "react-bootstrap";
 import { useGetAllOrdersQuery } from "../../../libs/rtk/api/orderApiSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,66 +23,52 @@ function Orders() {
     }
   }, [isError]);
 
+  const renderTabContent = (tabOrders) => {
+    if (tabOrders && tabOrders.length === 0) {
+      return (
+        <Alert variant="dark" className="text-center">
+          No orders available for this status.
+        </Alert>
+      );
+    } else {
+      return (
+        <OrdersTable
+          orders={tabOrders}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+        />
+      );
+    }
+  };
+
   return (
     <Container fluid>
       {isLoading && <Spinner large />}
       {isSuccess && orders && (
         <Tabs id="order-tabs" defaultActiveKey="all">
           <Tab eventKey="all" title="All">
-            <OrdersTable
-              orders={orders?.all}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.all)}
           </Tab>
           <Tab eventKey="reviewing" title="Reviewing">
-            <OrdersTable
-              orders={orders?.reviewing}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.reviewing)}
           </Tab>
           <Tab eventKey="shipping" title="Shipping">
-            <OrdersTable
-              orders={orders?.shipping}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.shipping)}
           </Tab>
           <Tab eventKey="received" title="Received">
-            <OrdersTable
-              orders={orders?.received}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.received)}
           </Tab>
           <Tab eventKey="completed" title="Completed">
-            <OrdersTable
-              orders={orders?.completed}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.completed)}
           </Tab>
           <Tab eventKey="cancelled" title="Cancelled">
-            <OrdersTable
-              orders={orders?.cancelled}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.cancelled)}
           </Tab>
           <Tab eventKey="returned" title="Returned">
-            <OrdersTable
-              orders={orders?.returned}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.returned)}
           </Tab>
           <Tab eventKey="refunded" title="Refunded">
-            <OrdersTable
-              orders={orders?.refunded}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-            />
+            {renderTabContent(orders?.refunded)}
           </Tab>
         </Tabs>
       )}
