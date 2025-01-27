@@ -22,6 +22,9 @@ const Navbar = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
+    if (search === "") {
+      return;
+    }
     navigate(`/search?value=${search}`);
   };
 
