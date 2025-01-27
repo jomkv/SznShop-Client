@@ -34,7 +34,7 @@ function Login() {
     <div style={{ height: "100vh", width: "100vw", backgroundColor: "black" }}>
       <div className="w-100 h-100 d-flex justify-content-evenly align-items-center ">
         <Link to="/" className="d-none d-md-block w-100">
-          <img className="w-100" alt="logo" src="/logo_with_quote.png" />
+          <img className="w-100" alt="logo" src="/login-banner.png" />
         </Link>
         <div className="w-100 d-flex justify-content-center">
           <Card
