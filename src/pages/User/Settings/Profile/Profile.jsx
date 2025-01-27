@@ -10,8 +10,8 @@ function Profile() {
         <Card.Header className="d-flex align-items-center bg-light p-3 rounded-3">
           <Button
             onClick={() => navigate(-1)}
-            variant="outline-secondary"
-            className="p-2 me-2"
+            variant="link"
+            className="p-2 me-2 text-dark"
           >
             <i className="bi bi-chevron-left"></i>
           </Button>
