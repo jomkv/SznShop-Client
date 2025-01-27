@@ -105,13 +105,16 @@ function Settings() {
       const cloudImages = await Promise.all(
         homeImages.map((image) => getImageFile(image.url))
       );
+
       setImages(cloudImages);
     }
   };
 
   useEffect(() => {
-    populateImages();
-  }, []);
+    if (homeImages) {
+      populateImages();
+    }
+  }, [homeImages]);
 
   const onFileSelect = (event) => {
     const files = event.target.files;
