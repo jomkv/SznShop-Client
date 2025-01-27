@@ -18,6 +18,7 @@ function ProductFilter({ applyFilter }) {
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [selectedRating, setSelectedRating] = useState("");
+  const [inStockOnly, setInStockOnly] = useState(false);
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -39,6 +40,10 @@ function ProductFilter({ applyFilter }) {
     setSelectedRating(event.target.value);
   };
 
+  const handleInStockChange = (event) => {
+    setInStockOnly(event.target.checked);
+  };
+
   const handleApply = () => {
     applyFilter({
       category: selectedCategory,
@@ -46,6 +51,7 @@ function ProductFilter({ applyFilter }) {
       minPrice,
       maxPrice,
       rating: selectedRating,
+      inStock: inStockOnly,
     });
   };
 
@@ -163,6 +169,19 @@ function ProductFilter({ applyFilter }) {
               value="1"
               checked={selectedRating === "1"}
               onChange={handleRatingChange}
+            />
+          </Accordion.Body>
+        </Accordion.Item>
+
+        {/* In Stock Filter */}
+        <Accordion.Item eventKey="4">
+          <Accordion.Header>Availability</Accordion.Header>
+          <Accordion.Body>
+            <Form.Check
+              type="checkbox"
+              label="In Stock Only"
+              checked={inStockOnly}
+              onChange={handleInStockChange}
             />
           </Accordion.Body>
         </Accordion.Item>

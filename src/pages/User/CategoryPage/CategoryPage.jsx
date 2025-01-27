@@ -44,9 +44,6 @@ function CategoryPage() {
           <div className="fs-2 fw-bold">{category.name}</div>
           <p>{category.description}</p>
           <Row className="mt-3">
-            <Col lg={2} md={3} sm={3}>
-              <ProductFilter />
-            </Col>
             <Col>
               {isError && (
                 <div>Something went wrong, please try again later.</div>
