@@ -1,4 +1,4 @@
-import { Button, Card, CardHeader, Modal } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import OrderDetails from "../../../components/OrderDetails/OrderDetails";
 import { formatDate } from "../../../utils/helper";
 
@@ -6,38 +6,35 @@ function DetailsModal({ order, show, setShow }) {
   return (
     <Modal
       show={show}
-      size="xl"
+      size="lg"
       centered
-      onHide={() => {
-        setShow(false);
-      }}
+      onHide={() => setShow(false)}
       scrollable
     >
       <Modal.Header closeButton>
-        <Modal.Title>Order Details</Modal.Title>
+        <Modal.Title className="fw-semibold">Order Details</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="fs-5">
-        <Card>
-          <CardHeader>
-            <p className="fw-bold mb-0">Details</p>
-            <p className="mb-0">Customer Email: {order.userId.email}</p>
-            <p className="mb-0">
-              Customer Full Name:{" "}
+
+      <Modal.Body className="p-4">
+        <Card className="border-0">
+          <Card.Body>
+            <div className="mb-3">
+              <strong>Customer Email:</strong> {order.userId.email}
+            </div>
+            <div className="mb-3">
+              <strong>Customer Name:</strong>{" "}
               {`${order.address.firstName} ${order.address.lastName}`}
-            </p>
-            <p className="mb-0">Order made at: {formatDate(order.createdAt)}</p>
-          </CardHeader>
-          <OrderDetails order={order} showActions={false} />
+            </div>
+            <div className="mb-3">
+              <strong>Order Date:</strong> {formatDate(order.createdAt)}
+            </div>
+            <OrderDetails order={order} showActions={false} />
+          </Card.Body>
         </Card>
       </Modal.Body>
+
       <Modal.Footer>
-        <Button
-          variant="dark"
-          className="fw-semibold"
-          onClick={() => {
-            setShow(false);
-          }}
-        >
+        <Button variant="outline-dark" onClick={() => setShow(false)}>
           Close
         </Button>
       </Modal.Footer>

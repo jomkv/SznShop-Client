@@ -74,7 +74,9 @@ function OrderHistory() {
                 </Link>
               </Col>
               <Col>
-                <Card.Text className="text-end">{order.status}</Card.Text>
+                <Card.Text className="text-end fw-bold fs-4">
+                  {order.status}
+                </Card.Text>
               </Col>
             </Row>
           </Card.Header>
