@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Tab, Nav, Card, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Tab,
+  Nav,
+  Card,
+  Alert,
+  Button,
+} from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import OrderCard from "./OrderCard";
 import { useGetMyOrdersQuery } from "../../../../libs/rtk/api/orderApiSlice";
 import { toast } from "react-toastify";
@@ -41,7 +50,15 @@ function UsersOrders() {
         <Col md={10}>
           <Card>
             <Card.Header>
-              <Card.Title className="fw-bold fs-3">Order History</Card.Title>
+              <Card.Title className="fw-bold fs-3">
+                {" "}
+                <Link to="/settings">
+                  <Button variant="link" className="me-2 text-dark">
+                    <i className="bi bi-chevron-left"></i>
+                  </Button>
+                </Link>
+                Order History
+              </Card.Title>
             </Card.Header>
             <Card.Body>
               <Tab.Container activeKey={key} onSelect={(k) => setKey(k)}>
@@ -78,7 +95,7 @@ function UsersOrders() {
                   </Col>
                   <Col>
                     <Nav.Item>
-                      <Nav.Link eventKey="returnRefund">Return/Refund</Nav.Link>
+                      <Nav.Link eventKey="returnRefund">Return</Nav.Link>
                     </Nav.Item>
                   </Col>
                 </Nav>

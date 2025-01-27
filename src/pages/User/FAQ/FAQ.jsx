@@ -15,7 +15,9 @@ function FAQ() {
           marginBottom: "2rem",
         }}
       >
-        <h1 style={{ fontSize: "2.5rem", fontWeight: "bold", lineHeight: "1.3" }}>
+        <h1
+          style={{ fontSize: "2.5rem", fontWeight: "bold", lineHeight: "1.3" }}
+        >
           How Can We Help You Today?
         </h1>
         <p style={{ fontSize: "1rem", marginTop: "1rem" }}>
@@ -32,15 +34,18 @@ function FAQ() {
             <ul>
               <li>
                 <strong>How do I create an account?</strong> <br />
-                You can create an account using your Google account or any other email.
+                You can create an account using your Google account or any other
+                email.
               </li>
               <li>
                 <strong>Is there a password recovery option?</strong> <br />
-                No, there is no "forgot password" feature. Please keep your credentials secure.
+                No, there is no "forgot password" feature. Please keep your
+                credentials secure.
               </li>
               <li>
                 <strong>Can I update my account details?</strong> <br />
-                Yes, you can update your profile details such as name and email address.
+                Yes, you can update your profile details such as name and email
+                address.
               </li>
             </ul>
           </Accordion.Body>
@@ -53,11 +58,14 @@ function FAQ() {
             <ul>
               <li>
                 <strong>Can I modify my order?</strong> <br />
-                You can modify your order as long as it hasn’t been accepted for processing.
+                You can modify your order as long as it hasn’t been accepted for
+                processing.
               </li>
               <li>
-                <strong>What happens if my order arrives damaged?</strong> <br />
-                If the order is damaged, simply do not accept it from the courier.
+                <strong>What happens if my order arrives damaged?</strong>{" "}
+                <br />
+                If the order is damaged, simply do not accept it from the
+                courier.
               </li>
             </ul>
           </Accordion.Body>
@@ -95,12 +103,13 @@ function FAQ() {
 
         {/* Return and Exchange Section */}
         <Accordion.Item eventKey="4">
-          <Accordion.Header>Return and Exchange</Accordion.Header>
+          <Accordion.Header>Return</Accordion.Header>
           <Accordion.Body>
             <ul>
               <li>
                 <strong>How can I return an item?</strong> <br />
-                Upon delivery, inspect the item. If you need to return it, hand it back to the courier or rider immediately.
+                Upon delivery, inspect the item. If you need to return it, hand
+                it back to the courier or rider immediately.
               </li>
             </ul>
           </Accordion.Body>

@@ -3,6 +3,7 @@ import { getOrderTotal } from "../../utils/helper";
 import ActionButtons from "../../pages/User/Settings/UsersOrders/ActionButtons";
 
 function OrderDetails({ order, showActions }) {
+  console.log(order);
   return (
     <Card className="shadow-sm rounded-4 overflow-hidden">
       <Card.Footer className="bg-light">
@@ -18,7 +19,15 @@ function OrderDetails({ order, showActions }) {
               <Card.Text className="small mb-1">
                 {order.address.phoneNumber}
               </Card.Text>
-              <Card.Text className="small">{order.address.address}</Card.Text>
+              <Card.Text className="small">
+                {order.address.address} {order.address.municipality},
+                {order.address.province}
+              </Card.Text>
+              <Card.Text className="small">
+                {" "}
+                {order.address.postalCode}
+                <Card.Text className="small">{order.address.region}</Card.Text>
+              </Card.Text>
             </Card.Text>
           </Col>
           {showActions && (
