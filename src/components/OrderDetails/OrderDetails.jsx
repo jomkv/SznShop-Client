@@ -39,7 +39,9 @@ function OrderDetails({ order, showActions }) {
               />
             </Col>
             <Col xs={8} md={7}>
-              <Card.Title className="mb-1 text-truncate">{op.name}</Card.Title>
+              <Card.Title className="mb-1 text-truncate fw-bold">
+                {op.name}
+              </Card.Title>
               <Card.Text className="small">
                 Size: {op.size.toUpperCase()}
               </Card.Text>

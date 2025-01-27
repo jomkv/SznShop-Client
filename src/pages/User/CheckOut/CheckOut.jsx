@@ -158,7 +158,7 @@ function CheckOut({ isCart }) {
                         : ""
                     }`}
                     style={{
-                      height: "20rem",
+                      height: "22rem",
                       width: "15rem",
                       overflow: "hidden",
                       display: "flex",

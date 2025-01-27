@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import { Link } from "react-router-dom";
 import { useSetDefaultMutation } from "../../../../libs/rtk/api/addressApiSlice";
@@ -21,54 +21,81 @@ function AddressCard({ address }) {
 
   return (
     <>
-      <div
+      <Card
         style={{
-          padding: "10px",
-          minHeight: "15rem",
-          border: "1px solid rgba(0, 0, 0, 0.3)",
+          padding: "15px",
+          height: "22rem",
+          width: "100%",
+          border: "1px solid rgba(0, 0, 0, 0.2)",
+          borderRadius: "10px",
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
         }}
-        className="w-100 d-flex flex-column"
+        className="d-flex flex-column justify-content-between"
       >
-        {address.isDefault && <p>DEFAULT</p>}
-        <p className="fw-bolder fs-4">{address.addressLabel}</p>
-        <p className="fw-semibold fs-5 mb-0">{`${address.firstName} ${address.lastName}`}</p>
-        <p className="mb-0 text-wrap">{address.address}</p>
-        <p className="mb-0">
-          {address.municipality}, {address.postalCode}
-        </p>
-        <p className="mb-0">{address.province}</p>
-        <p className="mb-0">{address.region}</p>
-        <br />
-        <p className="mb-0">PHONE</p>
-        <p>+63 {address.phoneNumber}</p>
-        <div className="d-flex justify-content-between">
-          <Link to={`/edit-address/${address._id}`}>
-            <Button variant="dark" className="fw-semibold text-decoration-none">
+        <Card.Body className="d-flex flex-column">
+          <div className="mb-2">
+            {address.isDefault && (
+              <Card.Text className="fw-bold text-secondary">DEFAULT</Card.Text>
+            )}
+          </div>
+
+          <Card.Title className="fw-bold fs-5 mb-1 text-truncate">
+            {address.addressLabel}
+          </Card.Title>
+          <Card.Text className="fw-semibold mb-1 text-truncate">
+            {`${address.firstName} ${address.lastName}`}
+          </Card.Text>
+          <Card.Text className="text-muted mb-1 text-wrap">
+            {address.address}
+          </Card.Text>
+          <Card.Text className="text-muted mb-1">
+            {address.municipality}, {address.postalCode}
+          </Card.Text>
+          <Card.Text className="text-muted mb-1">{address.province}</Card.Text>
+          <Card.Text className="text-muted mb-1">{address.region}</Card.Text>
+          <Card.Text className="mb-1 text-muted">
+            <span className="fw-bold">Phone:</span> +63 {address.phoneNumber}
+          </Card.Text>
+        </Card.Body>
+
+        <div className="d-flex gap-2 mt-auto">
+          <Link to={`/edit-address/${address._id}`} className="flex-fill">
+            <Button
+              variant="dark"
+              className="fw-semibold w-100 py-2"
+              style={{ fontSize: "0.85rem", borderRadius: "5px" }}
+            >
               Edit
             </Button>
           </Link>
+
           {!address.isDefault && (
             <Button
               disabled={isLoading}
               variant="dark"
-              className="fw-semibold"
+              className="fw-semibold flex-fill py-2"
+              style={{ fontSize: "0.85rem", borderRadius: "5px" }}
               onClick={handleSetDefault}
             >
-              {isLoading ? <Spinner /> : "Set as default"}
+              {isLoading ? (
+                <Spinner size="sm" animation="border" />
+              ) : (
+                "Set Default"
+              )}
             </Button>
           )}
 
           <Button
             variant="dark"
-            className="fw-semibold"
-            onClick={() => {
-              setShowDeleteModal(true);
-            }}
+            className="fw-semibold flex-fill py-2"
+            style={{ fontSize: "0.85rem", borderRadius: "5px" }}
+            onClick={() => setShowDeleteModal(true)}
           >
             Delete
           </Button>
         </div>
-      </div>
+      </Card>
+
       <DeleteConfirmModal
         show={showDeleteModal}
         setShow={setShowDeleteModal}
