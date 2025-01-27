@@ -35,7 +35,7 @@ function ActionButtons({ order }) {
             </Button>
           )}
 
-          <Button variant="light" style={{ width: "150px" }}>
+          <Button variant="dark" style={{ width: "150px" }}>
             Buy Again
           </Button>
         </>

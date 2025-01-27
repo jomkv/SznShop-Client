@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Tab, Nav, Card } from "react-bootstrap";
+import { Container, Row, Col, Tab, Nav, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import OrderCard from "./OrderCard";
 import { useGetMyOrdersQuery } from "../../../../libs/rtk/api/orderApiSlice";
@@ -34,7 +34,7 @@ function UsersOrders() {
         <Col md={10}>
           <Card>
             <Card.Header>
-              <h4>Order History</h4>
+              <Card.Title className="fw-bold fs-3">Order History</Card.Title>
             </Card.Header>
             <Card.Body>
               <Tab.Container activeKey={key} onSelect={(k) => setKey(k)}>
