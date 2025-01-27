@@ -7,6 +7,7 @@ import {
   Button,
   FormControl,
   Modal,
+  Carousel,
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -104,8 +105,8 @@ function Product() {
         <Container>
           <Button
             onClick={() => navigate(-1)}
-            variant="outline-dark"
-            className=" mb-3 mt-3"
+            variant="light"
+            className=" mt-3"
           >
             <i className="bi bi-chevron-left"></i> Back
           </Button>
@@ -114,61 +115,39 @@ function Product() {
 
           {/* Rest of the product UI */}
           <Row className="mt-3">
-            <Col md={7}>
-              <Row>
-                <Col xs={12} md={12} xl={6}>
-                  <Card>
-                    <Card.Img
-                      src={
-                        product.images[0]?.url ||
-                        "https://via.placeholder.com/500"
-                      }
-                      className="fixed-size-img"
-                    />
-                  </Card>
-                </Col>
-                <Col xs={12} md={12} xl={6}>
-                  <Card>
-                    <Card.Img
-                      src={
-                        product.images[1]?.url ||
-                        "https://via.placeholder.com/500"
-                      }
-                      className="fixed-size-img"
-                    />
-                  </Card>
-                </Col>
-              </Row>
-              {product.images.length > 2 && (
+            <Col xs={12} md={7}>
+              <div className="d-md-none">
+                <Carousel
+                  className="d-md-none mb-3"
+                  style={{ maxWidth: "500px", margin: "0 auto" }}
+                >
+                  {product.images.map((img, index) => (
+                    <Carousel.Item key={index}>
+                      <img
+                        className="d-block w-100"
+                        src={img?.url || "https://via.placeholder.com/500"}
+                        style={{ height: "400px", objectFit: "cover" }}
+                        alt={`Slide ${index}`}
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              </div>
+
+              <div className="d-none d-md-block">
                 <Row>
-                  {product.images[2] && (
-                    <Col xs={12} md={12} xl={6}>
+                  {product.images.map((img, index) => (
+                    <Col key={index} md={6} className="mb-3">
                       <Card>
                         <Card.Img
-                          src={
-                            product.images[2]?.url ||
-                            "https://via.placeholder.com/500"
-                          }
+                          src={img?.url || "https://via.placeholder.com/500"}
                           className="fixed-size-img"
                         />
                       </Card>
                     </Col>
-                  )}
-                  {product.images[3] && (
-                    <Col xs={12} md={12} xl={6}>
-                      <Card>
-                        <Card.Img
-                          src={
-                            product.images[3]?.url ||
-                            "https://via.placeholder.com/500"
-                          }
-                          className="fixed-size-img"
-                        />
-                      </Card>
-                    </Col>
-                  )}
+                  ))}
                 </Row>
-              )}
+              </div>
             </Col>
             <Col md={5}>
               {totalStocks <= 0 && (
