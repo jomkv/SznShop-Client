@@ -52,8 +52,8 @@ function ProductFilter({ applyFilter }) {
   const handleClearAll = () => {
     setSelectedCategory("");
     setSelectedSize("");
-    setMinPrice("0");
-    setMaxPrice("1000");
+    setMinPrice(null);
+    setMaxPrice(null);
     setSelectedRating("");
   };
 
