@@ -31,6 +31,7 @@
 
 ###### Manage Orders
 ![Orders Table](https://github.com/user-attachments/assets/759e3893-d715-4fe0-8be4-28d9b6d149d6)
+![Rate Order Form](https://github.com/user-attachments/assets/674a04d4-14e3-4c5b-bd09-1b39b8cf83b1)
 ![Order Page](https://github.com/user-attachments/assets/35f2b89d-8b33-4f5a-bb8a-71cb9238d70d)
 
 ###### FAQ
