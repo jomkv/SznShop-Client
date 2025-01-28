@@ -75,7 +75,7 @@ function CheckOut({ isCart }) {
         return;
       }
 
-      const filteredProducts = data.filter((product) => product.active);
+      const filteredProducts = data.filter((cp) => cp.product.active);
 
       let total = 0;
 
