@@ -75,13 +75,15 @@ function CheckOut({ isCart }) {
         return;
       }
 
+      const filteredProducts = data.filter((product) => product.active);
+
       let total = 0;
 
-      data.forEach((product) => {
+      filteredProducts.forEach((product) => {
         total += product.product.price * product.quantity;
       });
 
-      setProducts(data);
+      setProducts(filteredProducts);
       setTotal(total);
     } catch (error) {
       navigate("/");

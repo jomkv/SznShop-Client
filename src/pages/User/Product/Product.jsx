@@ -152,7 +152,7 @@ function Product() {
               </div>
             </Col>
             <Col md={5}>
-              {totalStocks <= 0 && (
+              {product.active && totalStocks <= 0 && (
                 <p
                   className="mt-3 mb-2 ms-2 fs-5"
                   style={{
@@ -161,6 +161,18 @@ function Product() {
                 >
                   <i className="bi bi-emoji-frown-fill me-2" />
                   Out of Stock
+                </p>
+              )}
+
+              {!product.active && (
+                <p
+                  className="mt-3 mb-2 ms-2 fs-5"
+                  style={{
+                    color: "#e34a27",
+                  }}
+                >
+                  <i className="bi bi-emoji-frown-fill me-2" />
+                  Product not available
                 </p>
               )}
 
@@ -174,6 +186,7 @@ function Product() {
                     height: "50px",
                   }}
                   className="text-start"
+                  disabled={!product.active}
                 >
                   {size ? `Size: ${size.toUpperCase()}` : "Select Size"}
                 </Dropdown.Toggle>
@@ -333,7 +346,7 @@ function Product() {
                         variant="light"
                         className="w-100 mb-2"
                         style={{ height: "50px" }}
-                        disabled={isCartLoading || !size}
+                        disabled={isCartLoading || !size || !product.active}
                         onClick={handleAddToCart}
                       >
                         {isCartLoading ? (
@@ -351,7 +364,7 @@ function Product() {
                         className="w-100"
                         style={{ height: "50px" }}
                         onClick={handleBuyNow}
-                        disabled={!size}
+                        disabled={!size || !product.active}
                       >
                         Buy Now
                       </Button>
