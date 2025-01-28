@@ -12,7 +12,7 @@
 ![Login](https://github.com/user-attachments/assets/c44a7df7-ef11-4553-964c-5e8565c4bfb9)
 
 ###### Home
-![Home](https://github.com/user-attachments/assets/1c084c7e-68fd-4299-9697-4943103fb8ea)
+![Home](https://github.com/user-attachments/assets/a145f361-49bf-49a0-aa6c-1071233861c5)
 ![Home 2](https://github.com/user-attachments/assets/47750c6f-5c7c-4aec-a96a-6d0f36c44dad)
 ![Home 3](https://github.com/user-attachments/assets/c239c0df-763b-4ff1-9976-59f8eaf1834d)
 
@@ -35,3 +35,24 @@
 
 ###### FAQ
 ![FAQ](https://github.com/user-attachments/assets/f61bcb9f-973d-4f69-924a-8520df8d91d2)
+
+## Admin Side Pages
+
+###### Dashboard
+![Dashboard](https://github.com/user-attachments/assets/36d2d937-94ae-47d2-9054-4cd08e6b0cbe)
+
+###### Products
+![Product Table](https://github.com/user-attachments/assets/229e4ee0-c3d2-4729-b3d8-2244a172d8b7)
+![Product Form](https://github.com/user-attachments/assets/2c2989ea-166f-484a-b6f6-d03c0121c9dc)
+![Category Table](https://github.com/user-attachments/assets/3d2b7044-e5ac-48af-9152-be3f72bdfdf5)
+![Category Form](https://github.com/user-attachments/assets/fe1cb8c8-44bb-4b33-ae1f-284bb9aafd6c)
+
+###### Orders
+![Orders Table](https://github.com/user-attachments/assets/bf4b3040-ba56-4c4d-86df-3822370392ff)
+
+###### Overview
+![Overview 1](https://github.com/user-attachments/assets/47c125a6-cf2e-4d08-a960-9180d30eb8ed)
+![Overview 2](https://github.com/user-attachments/assets/7468b357-7485-4aef-9a0d-9e0000509a94)
+
+###### Settings
+![Setting](https://github.com/user-attachments/assets/4bd858bd-df87-42a3-9637-091fa2e310c4)
